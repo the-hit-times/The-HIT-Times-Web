@@ -5,6 +5,7 @@ import { Nunito_Sans } from "next/font/google";
 import Link from "next/link";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
+import { useState } from "react";
 
 const nunitoSans = Nunito_Sans({ subsets: ["latin"] });
 
@@ -59,6 +60,7 @@ const SignOut = (session: Session) => {
 // Don't modify this component
 export const AdminHeader = () => {
   const { data: session } = useSession();
+  const [showDropdown, setShowDropdown] = useState(false);
   return (
     <header>
       <nav className="grid grid-flow-col py-5">
@@ -70,7 +72,7 @@ export const AdminHeader = () => {
             height={50}
           />
         </Link>
-        <ul className="flex flex-row gap-8 justify-end">
+        <ul className="md:flex flex-row gap-8 justify-end hidden">
           {links.map((link) => (
             <li key={link.href}>
               <Link
@@ -87,7 +89,44 @@ export const AdminHeader = () => {
           {session && UserProfile(session)}
           {session && SignOut(session)}
         </ul>
+        <div className="md:hidden flex justify-end">
+          <button
+            onClick={() => setShowDropdown(!showDropdown)}
+            className="text-zinc-800 text-2xl"
+          >
+            &#9776;
+          </button>
+        </div>
       </nav>
+      {showDropdown && (
+        <div className="md:hidden absolute top-0 left-0 bg-white w-full h-full flex flex-col">
+          <button
+            onClick={() => setShowDropdown(!showDropdown)}
+            className="text-zinc-800 text-2xl justify-end w-fit"
+          >
+            back
+          </button>
+          <ul className="flex flex-col gap-4 py-4 px-2">
+            {links.map((link) => (
+              <li key={link.href}>
+                <Link
+                  className={
+                    nunitoSans.className +
+                    " text-zinc-800 text-base font-semibold hover:underline"
+                  }
+                  onClick={() => setShowDropdown(false)}
+                  href={link.href}
+                >
+                  {link.title}
+                </Link>
+              </li>
+            ))}
+            <hr />
+            {session && UserProfile(session)}
+            {session && SignOut(session)}
+          </ul>
+        </div>
+      )}
     </header>
   );
 };
