@@ -62,12 +62,14 @@ export const AdminHeader = () => {
   return (
     <header>
       <nav className="grid grid-flow-col py-5">
-        <Image
-          src="/header/hit_logo_black.png"
-          alt="The HIT Times"
-          width={200}
-          height={50}
-        />
+        <Link href={"/admin-portal"}>
+          <Image
+            src="/header/hit_logo_black.png"
+            alt="The HIT Times"
+            width={200}
+            height={50}
+          />
+        </Link>
         <ul className="flex flex-row gap-8 justify-end">
           {links.map((link) => (
             <li key={link.href}>

@@ -1,10 +1,9 @@
 "use client";
 const clientId = "67d26cd8e568fc7";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { ImgurClient } from "imgur";
-import { Editor } from "@tinymce/tinymce-react";
-import { Editor as TinyMCEEditor } from "tinymce";
+
 import { sendPostNotification } from "@/lib/sendPostNotification";
 
 import { IBM_Plex_Serif } from "next/font/google";
@@ -15,43 +14,15 @@ const ibmPlexSerif = IBM_Plex_Serif({
 });
 
 const CreatePostPage = () => {
-  const editorRef = useRef<TinyMCEEditor | null>(null);
-
   const handleOnSubmit = (event: any) => {
     event.preventDefault();
 
     try {
       const title = event.target.title.value;
-      const description = event.target.description.value;
       const link = event.target.imgurl.value;
-      const dropdown = event.target.dropdown.value;
-      const body = editorRef?.current?.getContent({ format: "text" });
-      const htmlBody = editorRef?.current?.getContent();
+      const body = event.target.body.value;
 
-      const data = { title, description, body, link, dropdown, htmlBody };
-
-      console.log(data);
-
-      fetch("/api/v1/posts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
-        .then((response) => {
-          if (response.ok) {
-            response.json().then((data) => {
-              console.log(data);
-              sendPostNotification(title, description, link, data.postId);
-            });
-          } else {
-            console.error("Error creating post:", response.statusText);
-          }
-        })
-        .catch((error) => {
-          console.error("Error creating post:", error);
-        });
+      sendPostNotification(title, body, link);
     } catch (error) {
       console.error("Error creating post:", error);
     }
@@ -107,7 +78,7 @@ const CreatePostPage = () => {
           ibmPlexSerif.className + " text-zinc-800 text-5xl font-semibold py-8"
         }
       >
-        Create a Post
+        Notify
       </h1>
       <form
         className="grid grid-flow-row gap-2 my-2"
@@ -117,53 +88,41 @@ const CreatePostPage = () => {
         onReset={handleOnReset}
       >
         <label
-          className="block text-sm font-medium leading-6 text-gray-900"
           htmlFor="title"
+          className="block text-sm font-medium leading-6 text-gray-900"
         >
           Title
         </label>
         <input
-          className="
-        outline outline-transparent
-        px-3
-        block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
           type="text"
           id="title"
           name="title"
-          placeholder="Tile"
-        />
-
-        <label
-          className="block text-sm font-medium leading-6 text-gray-900"
-          htmlFor="description"
-        >
-          Description
-        </label>
-        <textarea
-          id="description"
-          name="description"
+          placeholder="Title"
           className="
           outline outline-transparent
           px-3
           block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-          placeholder="Description"
-        ></textarea>
+        />
 
-        <label htmlFor="link">Image Link</label>
+        <label
+          className="block text-sm font-medium leading-6 text-gray-900"
+          htmlFor="link"
+        >
+          Image Link
+        </label>
         <input
           required
           placeholder="Link"
           type="text"
           id="link"
           name="imgurl"
+          value={imageLink}
           className="
           outline outline-transparent
           px-3
           block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-          value={imageLink}
           onChange={(e) => setImageLink(e.target.value)}
         />
-
         <div>
           <input
             type="file"
@@ -182,48 +141,21 @@ const CreatePostPage = () => {
 
         <label
           className="block text-sm font-medium leading-6 text-gray-900"
-          htmlFor="category"
-        >
-          Category
-        </label>
-        <select
-          className="
-        outline outline-transparent
-        px-3
-        block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-          id="dropdown"
-          name="dropdown"
-          aria-label="Default select example"
-        >
-          <option value="00">Monday Hues</option>
-          <option value="01">Campus Raid</option>
-          <option value="02">Thursday Article</option>
-          <option value="03">Funny Friday</option>
-          <option value="04">Viral Corner</option>
-          <option value="05">Word Worth Millions</option>
-          <option value="06">College Heracles</option>
-          <option value="07">Nanotips</option>
-          <option value="08">Vernacular</option>
-          <option value="09">Gazette</option>
-          <option value="10">Reportopolis</option>
-        </select>
-
-        <label
-          className="block text-sm font-medium leading-6 text-gray-900"
           htmlFor="body"
         >
           Body
         </label>
-        <Editor
-          onInit={(evt, editor) => (editorRef.current = editor)}
-          apiKey="w6q7m6bspz8sqsc3xf8ogte5se9rmnjz0x84aruqxnvb5jek"
-          init={{
-            plugins: "link",
-            default_link_target: "_blank",
-          }}
-          initialValue=""
-        />
-
+        <textarea
+          id="body"
+          name="body"
+          placeholder="Message"
+          rows={5}
+          className="
+          outline outline-transparent
+          px-3
+          block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          defaultValue={""}
+        ></textarea>
         <div className="flex flex-row justify-end gap-4">
           <button
             type="reset"
@@ -235,7 +167,7 @@ const CreatePostPage = () => {
             className="rounded-full bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
             type="submit"
           >
-            Create
+            Notify
           </button>
         </div>
       </form>
