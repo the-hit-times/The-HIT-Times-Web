@@ -21,10 +21,16 @@ export default function RootLayout({
       <html lang="en">
         <body className={inter.className + " bg-body"}>
           {
-            // TODO: Add a header component here 
+            // TODO: Add a header component here
           }
-          <Header />
-          <div className="max-w-screen-2.5xl 2.5xl:mx-auto mx-4">{children}</div>
+          <div className="bg-white">
+            <div className="max-w-screen-2.5xl 2.5xl:mx-auto mx-4">
+              <Header />
+            </div>
+          </div>
+          <div className="max-w-screen-2.5xl 2.5xl:mx-auto mx-4">
+            {children}
+          </div>
           {
             // TODO: Add a footer component here
           }
