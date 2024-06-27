@@ -4,26 +4,38 @@ const clientId = "67d26cd8e568fc7";
 import { useRef, useState } from "react";
 import { ImgurClient } from "imgur";
 import { Editor } from "@tinymce/tinymce-react";
-import { Editor as TinyMCEEditor } from 'tinymce';
-
+import { Editor as TinyMCEEditor } from "tinymce";
 
 const CreatePostPage = () => {
-
   const editorRef = useRef<TinyMCEEditor | null>(null);
 
   const handleOnSubmit = (event: any) => {
     event.preventDefault();
     const title = event.target.title.value;
     const description = event.target.description.value;
-    const imgurl = event.target.imgurl.value;
+    const link = event.target.imgurl.value;
     const dropdown = event.target.dropdown.value;
-    const body = editorRef?.current?.getContent();
-    console.log(title, description, imgurl, dropdown, body);
+    const body = editorRef?.current?.getContent({ format: "text" });
+    const htmlBody = editorRef?.current?.getContent();
+
+    const data = { title, description, body, link, dropdown, htmlBody };
+
+    console.log(data);
+
+    fetch("/api/v1/posts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }).then((response) => {
+      console.log(response);
+    });
   };
 
   const handleOnReset = () => {
     setImageLink("");
-  }
+  };
 
   const [fileN, setFile] = useState();
   const [imageLink, setImageLink] = useState("");
@@ -67,7 +79,11 @@ const CreatePostPage = () => {
   return (
     <div>
       <h1>Create Post</h1>
-      <form className="grid grid-flow-row  gap-2 my-4" onSubmit={handleOnSubmit} onReset={handleOnReset}>
+      <form
+        className="grid grid-flow-row  gap-2 my-4"
+        onSubmit={handleOnSubmit}
+        onReset={handleOnReset}
+      >
         <label htmlFor="title">Title</label>
         <input type="text" id="title" name="title" placeholder="Tile" />
 
