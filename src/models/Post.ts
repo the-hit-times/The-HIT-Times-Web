@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 export interface Posts extends mongoose.Document {
+  _id: string;
   title: string;
   description: string;
   body: string;

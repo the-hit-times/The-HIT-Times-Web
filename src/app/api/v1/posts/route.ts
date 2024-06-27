@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
       .sort({ createdAt: -1 })
       .skip(page * limit)
       .limit(limit);
-    return Response.json({ post });
+    return Response.json( [...post]);
   } catch (error: any) {
     const myBlob = {
       success: false,
