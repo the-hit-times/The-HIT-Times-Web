@@ -1,10 +1,30 @@
 "use client";
 const clientId = "67d26cd8e568fc7";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { ImgurClient } from "imgur";
+import { Editor } from "@tinymce/tinymce-react";
+import { Editor as TinyMCEEditor } from 'tinymce';
+
 
 const CreatePostPage = () => {
+
+  const editorRef = useRef<TinyMCEEditor | null>(null);
+
+  const handleOnSubmit = (event: any) => {
+    event.preventDefault();
+    const title = event.target.title.value;
+    const description = event.target.description.value;
+    const imgurl = event.target.imgurl.value;
+    const dropdown = event.target.dropdown.value;
+    const body = editorRef?.current?.getContent();
+    console.log(title, description, imgurl, dropdown, body);
+  };
+
+  const handleOnReset = () => {
+    setImageLink("");
+  }
+
   const [fileN, setFile] = useState();
   const [imageLink, setImageLink] = useState("");
   const onFileChange = (event: any) => {
@@ -47,7 +67,7 @@ const CreatePostPage = () => {
   return (
     <div>
       <h1>Create Post</h1>
-      <form className="grid grid-flow-row grid-cols-2 gap-2 my-4">
+      <form className="grid grid-flow-row  gap-2 my-4" onSubmit={handleOnSubmit} onReset={handleOnReset}>
         <label htmlFor="title">Title</label>
         <input type="text" id="title" name="title" placeholder="Tile" />
 
@@ -100,13 +120,15 @@ const CreatePostPage = () => {
         </select>
 
         <label htmlFor="body">Body</label>
-        <textarea
-          id="mytextarea"
-          name="body"
-          rows={10}
-          cols={5}
-          placeholder="Body"
-        ></textarea>
+        <Editor
+          onInit={(evt, editor) => (editorRef.current = editor)}
+          apiKey="w6q7m6bspz8sqsc3xf8ogte5se9rmnjz0x84aruqxnvb5jek"
+          init={{
+            plugins: "link",
+            default_link_target: "_blank",
+          }}
+          initialValue=""
+        />
 
         <button type="reset" className="bg-yellow-300 rounded-2xl">
           Clear
