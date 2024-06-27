@@ -28,9 +28,41 @@ const CreatePostPage = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    }).then((response) => {
-      console.log(response);
-    });
+    })
+      .then((response) => {
+        if (response.ok) {
+          response.json().then((data) => {
+            console.log(data);
+            sendPostNotification(title, description, link, data.postId);
+          });
+        } else {
+          console.error("Error creating post:", response.statusText);
+        }
+      })
+      .catch((error) => {
+        console.error("Error creating post:", error);
+      });
+  };
+
+  const sendPostNotification = (
+    title: string,
+    body: string,
+    imageUrl: string,
+    postId: string
+  ) => {
+    fetch("/api/v1/sendnotification", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ title, body, imageURL: imageUrl, postId }),
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.error("Error sending notification:", error);
+      });
   };
 
   const handleOnReset = () => {
@@ -80,7 +112,9 @@ const CreatePostPage = () => {
     <div>
       <h1>Create Post</h1>
       <form
-        className="grid grid-flow-row  gap-2 my-4"
+        className="grid grid-flow-row gap-2 my-2"
+        action="/api/v1/posts"
+        method="POST"
         onSubmit={handleOnSubmit}
         onReset={handleOnReset}
       >
