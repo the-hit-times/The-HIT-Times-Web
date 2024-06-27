@@ -1,39 +1,47 @@
 "use client";
+const clientId = "67d26cd8e568fc7";
 
 import { useState } from "react";
+import { ImgurClient } from "imgur";
 
 const CreatePostPage = () => {
-  const [file, setFile] = useState();
+  const [fileN, setFile] = useState();
+  const [imageLink, setImageLink] = useState("");
   const onFileChange = (event: any) => {
-    // Updating the state
-    setFile({ file: event.target.files[0] });
+    setFile(event.target.files[0]);
   };
 
   const onFileUpload = async () => {
-    // Client ID
-    const clientId = "67d26cd8e568fc7",
-      auth = "Client-ID " + clientId;
+    if (!fileN) {
+      return;
+    }
+    const client = new ImgurClient({ clientId });
+    const reader = new FileReader();
 
-    // Creating an object of formData
-    const formData = new FormData();
-
-    // Adding our image to formData
-    formData.append("file", file);
-
-    // Making the post request
-    await fetch("https://api.imgur.com/3/image/", {
-      // API Endpoint
-      method: "POST", // HTTP Method
-      body: formData, // Data to be sent
-      headers: {
-        // Setting header
-        Authorization: auth,
-        Accept: "application/json",
-      },
-    })
-      // Handling success
-      .then((res) => alert("image uploaded") && console.log(res))
-      .catch((err) => alert("Failed") && console.log(err));
+    reader.onloadend = async () => {
+      if (typeof reader.result !== "string") {
+        console.error("Invalid file type");
+        return;
+      }
+      const imageData = reader.result.split(",")[1]; // Get base64 part of the Data URL
+      try {
+        const response = await client.upload({
+          image: imageData,
+          type: "base64",
+        });
+        if (response.success) {
+          setImageLink(response.data.link);
+        } else {
+          console.error("Image upload failed:", response.data);
+        }
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
+    };
+    reader.onerror = (error) => {
+      console.error("Error reading file:", error);
+    };
+    reader.readAsDataURL(fileN);
   };
 
   return (
@@ -49,6 +57,17 @@ const CreatePostPage = () => {
           name="description"
           placeholder="Description"
         ></textarea>
+
+        <label htmlFor="link">Image Link</label>
+        <input
+          required
+          placeholder="Link"
+          type="text"
+          id="link"
+          name="imgurl"
+          value={imageLink}
+          onChange={(e) => setImageLink(e.target.value)}
+        />
 
         <input
           type="file"
