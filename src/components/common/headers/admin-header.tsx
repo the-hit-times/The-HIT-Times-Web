@@ -100,7 +100,7 @@ export const AdminHeader = () => {
         </div>
       </nav>
       {showDropdown && (
-        <div className="md:hidden absolute top-0 left-0 bg-white w-screen h-screen z-50">
+        <div className="md:hidden fixed insert-0 top-0 left-0 bg-white w-screen h-screen z-50">
           <button
             onClick={() => setShowDropdown(!showDropdown)}
             className="m-1"
