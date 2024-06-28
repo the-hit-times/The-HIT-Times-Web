@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import { useState } from "react";
+import { ArrowLeftIcon, Bars3Icon } from "@heroicons/react/24/solid";
 
 const nunitoSans = Nunito_Sans({ subsets: ["latin"] });
 
@@ -94,17 +95,17 @@ export const AdminHeader = () => {
             onClick={() => setShowDropdown(!showDropdown)}
             className="text-zinc-800 text-2xl"
           >
-            &#9776;
+            <Bars3Icon className="size-8 hover:rounded-full hover:bg-gray-100 p-1" />
           </button>
         </div>
       </nav>
       {showDropdown && (
-        <div className="md:hidden absolute top-0 left-0 bg-white w-full h-full flex flex-col">
+        <div className="md:hidden absolute top-0 left-0 bg-white w-screen h-screen z-50">
           <button
             onClick={() => setShowDropdown(!showDropdown)}
-            className="text-zinc-800 text-2xl justify-end w-fit"
+            className="m-1"
           >
-            back
+            <ArrowLeftIcon className="size-8 hover:rounded-full hover:bg-gray-100 p-1" />
           </button>
           <ul className="flex flex-col gap-4 py-4 px-2">
             {links.map((link) => (
