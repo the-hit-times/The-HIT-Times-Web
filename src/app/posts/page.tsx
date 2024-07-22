@@ -20,14 +20,14 @@ const PostsPage = async () => {
     const posts: Posts[] = await res.json();
 
   return (
-    <>
-        <section className="pb-20 pt-6">
+    <div className="max-w-screen-2.5xl 2.5xl:mx-auto mx-4">
+        <section className="pb-20 pt-6 pl-2 pr-2">
                 <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
                     <ul className="lg:col-span-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                         {posts.map(post => <Link href={'posts/'+post._id} key={post._id}>
                             <div className="group relative">
 
-                                <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+                                <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75">
                                     <img
                                         src={post.link}
                                         alt="image"
@@ -45,7 +45,7 @@ const PostsPage = async () => {
                     </ul>
                 </div>
             </section>
-    </>
+    </div>
   )
 }
 
