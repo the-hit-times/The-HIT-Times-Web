@@ -25,7 +25,7 @@ const PostInfoPage = async ({ params }: { params: { postId: string } }) => {
     return (
         <div className="flex flex-col items-center justify-between min-h-screen">
             <div className="absolute -z-10 w-full h-40 bg-indigo-950 sm:h-44 md:h-48 lg:h-52"></div>
-            <main className="max-w-screen-2.5xl 2.5xl:mx-auto mx-4 py-8 px-6 sm:px-12 md:px-20 lg:px-32 lg:py-12">
+            <main className="mx-4 py-8 px-4 sm:px-10 md:px-20 lg:px-32 lg:py-12">
                 <h1 className="bg-transparent font-mono text-2xl text-center text-white sm:text-4xl pb-2">
                     {postinfo[0].description}
                 </h1>

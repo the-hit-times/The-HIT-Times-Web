@@ -28,7 +28,7 @@ export default function RootLayout({
               <Header />
             </div>
           </div>
-          <div className="max-w-screen">
+          <div className="max-w-screen-2.5xl 2.5xl:mx-auto mx-4">
             {children}
           </div>
           {
