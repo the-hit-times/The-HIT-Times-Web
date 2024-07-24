@@ -36,7 +36,8 @@ const PostInfoPage = async ({ params }: { params: { postId: string } }) => {
                                 src={postinfo[0]?.link}
                                 alt="image"
                                 width={1200}
-                                height={400} />
+                                height={675}
+                                className="max-h-[65vh]" />
                         }
                         <div className="px-4 py-5 sm:px-6 text-3xl font-bold">
                             <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
