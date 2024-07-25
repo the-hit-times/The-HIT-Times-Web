@@ -7,10 +7,6 @@ import { set } from "mongoose";
 
 // Function to fetch mock articles
 const fetchArticles = async (): Promise<Section[]> => {
-  const res = await fetch("https://tht-admin.onrender.com/api/posts", {
-    next: { revalidate: 60 },
-  });
-  const posts: Posts[] = await res.json();
   const dropdownsToSections: { [key: string]: string } = {
     "00": "Monday Hues",
     "01": "Campus Raid",
@@ -25,26 +21,24 @@ const fetchArticles = async (): Promise<Section[]> => {
     "10": "Reportopolis",
   };
 
-  const filteredPosts: Posts[] = posts.map((post: Posts) => {
-    // check if link is a valid url
-    if (post.link.startsWith("http")) {
-      return post;
-    } else {
-      return {
-        ...post,
-        link: "https://placehold.co/600x400.png",
-      } as Posts;
-    }
-  });
+  // fetch articles from the API for each dropdown
+  const dropdowns = Object.keys(dropdownsToSections);
+  const sections = await Promise.all(
+    dropdowns.map(async (dropdown) => {
+      const response = await fetch(`/api/v1/posts?dropdown=${dropdown}&limit=3`);
+      const articles: Posts[] = await response.json();
 
-  const sections: Section[] = Object.keys(dropdownsToSections).map((key) => {
-    return {
-      heading: dropdownsToSections[key],
-      articles: filteredPosts
-        .filter((post) => post.dropdown === key)
-        .slice(0, 3),
-    };
-  });
+      // filter articles with no link or invalid link
+      const validArticles = articles.filter(
+        (article) => article.link && article.link.startsWith("http")
+      );
+
+      return {
+        heading: dropdownsToSections[dropdown],
+        articles: validArticles,
+      };
+    })
+  );
 
   console.log(sections);
 

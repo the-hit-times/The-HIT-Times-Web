@@ -9,13 +9,19 @@ export async function GET(request: NextRequest) {
   await dbConnect();
   try {
     const { searchParams } = new URL(request.url);
-    const limit = Number(searchParams.get("limit"));
+    const limit = Number(searchParams.get("limit")); 
+    const dropdown = searchParams.get("dropdown");
     const page =
       Number(searchParams.get("page")) - 1 <= 0
         ? 0
         : Number(searchParams.get("page")) - 1;
 
-    const post = await Post.find()
+    const query: { [key: string]: string } = {};
+    if (dropdown) {
+      query["dropdown"] = dropdown;
+    }
+        
+    const post = await Post.find(query)
       .sort({ createdAt: -1 })
       .skip(page * limit)
       .limit(limit);
