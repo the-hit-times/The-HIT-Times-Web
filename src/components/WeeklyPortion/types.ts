@@ -1,16 +1,8 @@
 // types.ts
 
-export interface Article {
-  title: string;
-  description: string;
-  image: string;
-}
+import { Posts } from "@/models/Post";
 
 export interface Section {
   heading: string;
-  articles: Article[];
-}
-
-export interface DaySections {
-  [day: string]: Section[];
+  articles: Posts[];
 }
