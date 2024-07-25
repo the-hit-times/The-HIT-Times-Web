@@ -20,21 +20,7 @@ const config: Config = {
       }, 
       screens: {
         "2.5xl": "1366px",
-      }
-    },
-  },
-  plugins: [require("@tailwindcss/typography")],
-};
-export default config;
-
-module.exports = {
-  content: [
-    './pages/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './src/**/*.{js,ts,jsx,tsx}',
-  ],
-  theme: {
-    extend: {
+      }, 
       colors: {
         articleText: 'var(--article-text-color)',
         articleBg: 'var(--article-bg-color)',
@@ -46,5 +32,6 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };
+export default config;
