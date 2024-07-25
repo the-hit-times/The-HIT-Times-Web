@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { Poppins, IBM_Plex_Serif, Nunito_Sans } from "next/font/google";
 import { Posts } from "@/models/Post";
+import Link from "next/link";
 
 // Define the props for the ArticleSection component
 interface ArticleSectionProps {
@@ -43,6 +44,7 @@ const ArticleSection: React.FC<ArticleSectionProps> = ({
         className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 section-content`}
       >
         {articles.map((article, idx) => (
+          <Link href={"/posts/" + article._id}>
           <div key={idx} className="article-container">
             <Image
               src={article.link}
@@ -58,6 +60,7 @@ const ArticleSection: React.FC<ArticleSectionProps> = ({
               {article.description}
             </p>
           </div>
+          </Link>
         ))}
       </div>
     </div>

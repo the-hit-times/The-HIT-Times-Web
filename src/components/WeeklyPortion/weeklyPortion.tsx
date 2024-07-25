@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import ArticleSection from "./ArticleSection"; // Ensure this import path is correct
 import { Posts } from "@/models/Post";
 import { Section } from "./types";
-import { set } from "mongoose";
 
 // Function to fetch mock articles
 const fetchArticles = async (): Promise<Section[]> => {

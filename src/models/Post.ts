@@ -13,6 +13,7 @@ export interface Posts extends mongoose.Document {
 
 const PostSchema = new mongoose.Schema<Posts>(
   {
+    _id: { type: String, required: true },
     title: { type: String, required: true },
     description: { type: String, required: true },
     body: { type: String, required: true },
