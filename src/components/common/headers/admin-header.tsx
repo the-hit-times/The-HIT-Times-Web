@@ -25,7 +25,7 @@ const links = [
   },
 ];
 
-const UserProfile = (session: Session) => {
+export const UserProfile = (session: Session) => {
   return (
     <li
       className={
@@ -37,7 +37,7 @@ const UserProfile = (session: Session) => {
   );
 };
 
-const SignOut = (session: Session) => {
+export const SignOut = (session: Session) => {
   if (session) {
     return (
       <li
