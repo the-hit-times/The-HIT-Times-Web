@@ -1,0 +1,44 @@
+/* Button styles */
+.button-default {
+  background-color: #ffffff; /* White background */
+  color: red; /* Red text */
+  border: 1px solid white; /* Red border */
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.button-default:hover {
+  background-color: #f0f0f0; /* Slightly darker white on hover */
+}
+
+.button-default:active {
+  background-color: #e0e0e0; /* Even darker white on active */
+}
+
+/* Define styles for article sections */
+.article-section {
+  background-color: #ffffff; /* White background */
+  margin-bottom: 20px;
+}
+
+.section-header {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.section-content {
+  padding: 15px;
+}
+
+/* Styles for article containers to be plain */
+.article-container {
+  background-color: transparent; /* No background color */
+  padding: 10px;
+  border: none; /* Remove border */
+}

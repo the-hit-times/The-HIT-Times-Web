@@ -19,9 +19,9 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@public/*" : ["./public/*"]
+      "@public/*": ["./public/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/WeeklyPortion/weeklyPortion.tsx"],
   "exclude": ["node_modules"]
 }

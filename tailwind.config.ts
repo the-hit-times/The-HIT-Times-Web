@@ -26,3 +26,25 @@ const config: Config = {
   plugins: [require("@tailwindcss/typography")],
 };
 export default config;
+
+module.exports = {
+  content: [
+    './pages/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}',
+    './src/**/*.{js,ts,jsx,tsx}',
+  ],
+  theme: {
+    extend: {
+      colors: {
+        articleText: 'var(--article-text-color)',
+        articleBg: 'var(--article-bg-color)',
+        buttonText: 'var(--button-text-color)',
+        buttonBg: 'var(--button-bg-color)',
+        randomArticleBg: 'var(--random-article-bg-color)',
+        randomArticleText: 'var(--random-article-text-color)',
+        randomArticleDescription: 'var(--random-article-description-color)',
+      },
+    },
+  },
+  plugins: [],
+};
