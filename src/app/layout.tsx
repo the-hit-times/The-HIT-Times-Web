@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import SessionWrapper from "@/components/session-wrapper";
 import Header from "@/components/common/header";
+import Footer from "@/components/common/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,21 +21,22 @@ export default function RootLayout({
     <SessionWrapper>
       <html lang="en">
         <body className={inter.className + " bg-body"}>
-          {
-            // TODO: Add a header component here
-          }
           <div className="bg-white">
             <div className="max-w-screen-2.5xl 2.5xl:mx-auto mx-4">
               <Header />
             </div>
           </div>
+
           <div className="max-w-screen-2.5xl 2.5xl:mx-auto mx-4">
             {children}
           </div>
-          {
-            // TODO: Add a footer component here
-          }
-          <footer className="bg-black">Footer</footer>
+
+          <div className="bg-black">
+            <div className="max-w-screen-2.5xl 2.5xl:mx-auto mx-4 py-10">
+              <Footer/>
+            </div>
+          </div>
+          
         </body>
       </html>
     </SessionWrapper>
