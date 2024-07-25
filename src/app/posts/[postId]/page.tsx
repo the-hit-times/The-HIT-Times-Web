@@ -1,4 +1,4 @@
-
+import MainPostIcons from "@/components/post-components/mainPostIcons";
 import RealtedPostIcons from "@/components/post-components/realtedPostIcons";
 import Image from "next/image";
 import Link from "next/link";
@@ -29,16 +29,21 @@ const PostInfoPage = async ({ params }: { params: { postId: string } }) => {
                 <h1 className="bg-transparent font-mono text-2xl text-center text-white sm:text-4xl pb-2">
                     {postinfo[0].description}
                 </h1>
-                <div className="bg-white shadow overflow-hidden">
+                <div className="bg-white shadow overflow-hidden lg:mx-16">
+                    {
+                        <Image
+                            src={postinfo[0]?.link}
+                            alt="image"
+                            width={1200}
+                            height={675}
+                            className="max-h-[65vh]" />
+                    }
+                </div>
+                <div className="lg:flex lg:items-center">
                     <div className="">
-                        {
-                            <Image
-                                src={postinfo[0]?.link}
-                                alt="image"
-                                width={1200}
-                                height={675}
-                                className="max-h-[65vh]" />
-                        }
+                        <MainPostIcons />
+                    </div>
+                    <div className="">
                         <div className="px-4 py-5 sm:px-6 text-3xl font-bold">
                             <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
                                 {postinfo[0].title}
@@ -48,11 +53,8 @@ const PostInfoPage = async ({ params }: { params: { postId: string } }) => {
                             <p className="text-sm text-gray-500">{postinfo[0].body}</p>
                         </div>
                     </div>
-                    <div className="sticky top-full">
-                        <hr />
-                        <RealtedPostIcons />
-                    </div>
                 </div>
+
                 <div className="mt-8">
                     <h3 className="text-sm underline font-medium leading-6 text-red-600">Related posts</h3>
                 </div>
