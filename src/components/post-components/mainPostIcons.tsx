@@ -12,7 +12,7 @@ const MainPostIcons = () => {
   }
 
   return (
-    <div className="flex lg:flex-col gap-8">
+    <div className="flex flex-col gap-8 w-fit h-fit">
       <button onClick={onLikeButtonClick}>
         {hasLiked ? (
           <HeartIconSolid width={24} className="text-red-500" />
