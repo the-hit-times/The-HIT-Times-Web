@@ -2,6 +2,8 @@
 import { Posts } from "@/models/Post";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { TrashIcon } from "@heroicons/react/24/solid";
+import { Types } from "mongoose";
 
 export default function PostsPage() {
   const PAGE_LIMIT = 10;
@@ -56,16 +58,37 @@ export default function PostsPage() {
     };
   }, [page]);
 
+  const handleDeletePost = async (_id: Types.ObjectId) => {
+    const response = await fetch(`/api/v1/posts?_id=${_id}`, {
+      method: "DELETE",
+    });
+
+    if (response.ok) {
+      const updatedPosts = posts.filter((post) => post._id !== _id);
+      setPosts(updatedPosts);
+    }
+  };
+
   return (
     <div>
       <h1>Posts Page</h1>
 
-      <div className="grid grid-flow-row md:grid-cols-2 gap-2">
+      <div className="grid grid-flow-row md:grid-cols-3 gap-2">
         {posts.map((post) => (
-          <div key={post._id} className="p-2 bg-white rounded-md">
+          <div key={post._id.toString()} className="p-2 bg-white rounded-md">
             <Image src={post.link} alt={post.title} width={200} height={200} />
             <h2 className="font-bold text-lg">{post.title}</h2>
             <p className="text-sm text-gray-800">{post.description}</p>
+            <div>
+              <span className="text-sm text-gray-500">
+                {new Date(post.createdAt).toLocaleDateString()}
+              </span>
+            </div>
+            <div>
+              <button onClick={() => handleDeletePost(post._id)}>
+                <TrashIcon className="h-5 w-5 text-red-500" />
+              </button>
+            </div>
           </div>
         ))}
       </div>
