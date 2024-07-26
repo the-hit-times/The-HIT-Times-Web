@@ -80,12 +80,12 @@ const PostInfoPage = ({ params }: { params: { postId: string } }) => {
   return (
     <div>
       <main>
-        <div>
-          <div className="absolute left-0 -z-10 w-full h-2/3  lg:h-1/2 bg-indigo-950"></div>
+        <div className="before:absolute before:bg-indigo-950 before:w-full before:h-1/3 before:-z-10 before:left-0">
+          {/* <div className="absolute top-0 left-0 right-0 -z-10 w-full h-2/3  lg:h-1/2 bg-indigo-950"></div> */}
           <h1
             className={
               ibmPlexSerif.className +
-              " text-2xl text-center text-white sm:text-4xl font-semibold py-8"
+              " text-2xl text-center text-white sm:text-4xl font-semibold py-8 w-fit mx-auto"
             }
           >
             {postinfo.title}
