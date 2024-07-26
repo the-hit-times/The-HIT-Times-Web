@@ -20,39 +20,7 @@ export default function CreateTeamPage() {
     // redirect to page not found if code is not valid
     notFound();
   }
-
   const teamName = getTeamName(code) ?? "Team Not Found";
-  const emptyTeamData: Teams = {
-    _id: "",
-    team_code: code,
-    dept_name: teamName,
-    football: {
-      team_name: "",
-      team_logo: "",
-      players: [] as Player[],
-    },
-    cricket: {
-      team_name: "",
-      team_logo: "",
-      players: [] as Player[],
-    },
-  };
-  const [teamData, setTeamData] = useState<Teams>(emptyTeamData);
-  const getTeamData = async (code: string) => {
-    const res = await fetch(`/api/v1/team/${code}`);
-    const data = await res.json();
-    if (res.ok) {
-      if (data.code === "success") {
-        setTeamData(data.data);
-      }
-    } else {
-      setTeamData(emptyTeamData);
-    }
-  };
-
-  useEffect(() => {
-    getTeamData(code);
-  }, [code]);
 
   return (
     <div>
@@ -64,7 +32,7 @@ export default function CreateTeamPage() {
         Manage Team {teamName}
       </h1>
       <div className="my-2">
-        <TeamForm teamData={teamData} />
+        <TeamForm teamCode={code} deptName={teamName} />
       </div>
     </div>
   );
