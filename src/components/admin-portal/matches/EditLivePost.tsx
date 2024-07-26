@@ -132,12 +132,11 @@ const EditLivePostForm: React.FC<EditLivePostFormProps> = ({ matchId }) => {
 
   const createTimeline = () => {
     const msgHtml = editorRef.current?.getContent();
-    const msgBody = editorRef.current?.getContent({ format: "text" });
     const timelineDate = (
       document.getElementById("timeline_date") as HTMLInputElement
     ).value;
 
-    if (msgBody?.trim().length === 0) {
+    if (msgHtml?.trim().length === 0) {
       alert("Timeline message cannot be empty");
       editorRef.current?.setContent("");
       return;
@@ -283,18 +282,12 @@ const EditLivePostForm: React.FC<EditLivePostFormProps> = ({ matchId }) => {
             onChange={handleChange}
           />
 
-          <select
+          <input
             id="matchStatus"
             className="form-select mb-2"
             value={matchData.match_status}
             onChange={handleChange}
-          >
-            <option value="NOT_STARTED">Not started</option>
-            <option value="FIRST_HALF">First half</option>
-            <option value="HALF_TIME">Half time</option>
-            <option value="SECOND_HALF">Second half</option>
-            <option value="FULL_TIME">Full time</option>
-          </select>
+          ></input>
 
           <select
             id="match_type"
@@ -306,7 +299,7 @@ const EditLivePostForm: React.FC<EditLivePostFormProps> = ({ matchId }) => {
             <option value="cricket">Cricket</option>
           </select>
 
-          {showPenalty && (
+          {matchData.match_type === "football" && (
             <>
               <label htmlFor="penalty" className="text-white block mb-2">
                 Show Penalty
@@ -320,7 +313,7 @@ const EditLivePostForm: React.FC<EditLivePostFormProps> = ({ matchId }) => {
             </>
           )}
 
-          {showPenalty && (
+          {matchData.match_type === "football" && showPenalty && (
             <div className="flex gap-4">
               <input
                 type="text"
@@ -359,7 +352,6 @@ const EditLivePostForm: React.FC<EditLivePostFormProps> = ({ matchId }) => {
                 plugins: "link",
                 default_link_target: "_blank",
               }}
-    
             />
           </div>
 
