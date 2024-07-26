@@ -24,7 +24,10 @@ export interface Teams  {
 
 const TeamSchema = new mongoose.Schema<Teams>(
   {
-    _id: { type: String, required: true },
+    _id: {
+      type: String,
+      auto: true,
+    },
     team_code: {
       type: String,
       required: true,

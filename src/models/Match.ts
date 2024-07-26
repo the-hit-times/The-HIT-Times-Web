@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 export interface MatchPosts {
-  _id: string;
+  _id: mongoose.Schema.Types.ObjectId | string;
   firebase_match_id: string;
   team1: {
     team_code: string;
@@ -28,7 +28,10 @@ export interface MatchPosts {
 
 const MatchPostSchema = new mongoose.Schema<MatchPosts>(
   {
-    _id: { type: String, required: true },
+    _id: {
+      type: mongoose.Schema.Types.ObjectId,
+      auto: true,
+    },
     firebase_match_id: {
       type: String,
       required: true,

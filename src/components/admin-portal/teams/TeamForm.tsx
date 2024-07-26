@@ -235,6 +235,16 @@ export default function TeamForm({ teamCode, deptName }: TeamProps) {
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const res = await fetch(`/api/v1/team/${teamCode}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(team),
+        });
+    const data = await res.json();
+    console.log(data);
     console.log(team);
   };
 

@@ -17,6 +17,12 @@ export async function GET(request: NextRequest) {
 
     const query: { [key: string]: string } = {};
     const keys = Object.keys(Post.schema.paths);
+
+    if ("_id" in keys) {
+      const post = await Post.findById(searchParams.get("_id"));
+      return Response.json(post);
+    }
+
     keys.forEach((key) => {
       const value = searchParams.get(key);
       if (value) {

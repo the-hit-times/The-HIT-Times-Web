@@ -15,7 +15,7 @@ export interface Posts  {
 
 const PostSchema = new mongoose.Schema<Posts>(
   {
-    _id: { type: String, required: true },
+    _id: { type: String, required: true, auto: true },
     title: { type: String, required: true },
     description: { type: String, required: true },
     body: { type: String, required: true },
