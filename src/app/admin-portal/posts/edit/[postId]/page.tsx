@@ -8,7 +8,9 @@ const ibmPlexSerif = IBM_Plex_Serif({
   weight: ["100", "200", "300", "400", "500", "600", "700"],
 });
 
-const CreatePostPage = () => {
+const EditPost = (
+  { params }: { params: { postId: string } }
+) => {
   return (
     <div>
       <h1
@@ -16,11 +18,11 @@ const CreatePostPage = () => {
           ibmPlexSerif.className + " text-zinc-800 text-5xl font-semibold py-8"
         }
       >
-        Create a Post
+        Edit Post
       </h1>
-      <PostForm />
+      <PostForm postId={params.postId}/>
     </div>
   );
 };
 
-export default CreatePostPage;
+export default EditPost;

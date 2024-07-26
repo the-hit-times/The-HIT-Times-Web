@@ -60,7 +60,7 @@ export default function PostsPage() {
   }, [page]);
 
   const handleDeletePost = async (_id: Types.ObjectId) => {
-    const response = await fetch(`/api/v1/posts?_id=${_id}`, {
+    const response = await fetch(`/api/v1/post/${_id}`, {
       method: "DELETE",
     });
 
@@ -89,7 +89,7 @@ export default function PostsPage() {
             <div className="flex flex-row justify-between p-2">
               <button>
                 <Link
-                  href={`/admin-portal/posts/${post._id}`}
+                  href={`/admin-portal/posts/edit/${post._id}`}
                   className="flex flex-row items-center gap-2 text-blue-800 hover:bg-slate-100 p-1 rounded-md"
                 >
                   <PencilIcon className="h-5 w-5" />

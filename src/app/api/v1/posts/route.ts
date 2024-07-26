@@ -79,30 +79,3 @@ export async function POST(request: NextRequest) {
     return Response.json(myBlob, myOptions);
   }
 }
-
-export async function DELETE(request: NextRequest) {
-  await dbConnect();
-  try {
-    const { searchParams } = new URL(request.url);
-
-    const postId = searchParams.get("_id");
-    if (!postId) {
-      throw new Error("Invalid postId");
-    }
-
-    const post = await Post.findByIdAndDelete(postId);
-
-    if (!post) {
-      throw new Error("Post not found");
-    }
-
-    return Response.json({ success: true });
-  } catch (error: any) {
-    const myBlob = {
-      success: false,
-      msg: error.message,
-    };
-    const myOptions = { status: 400 };
-    return Response.json(myBlob, myOptions);
-  }
-}
