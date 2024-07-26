@@ -16,6 +16,11 @@ const ibmPlexSerif = IBM_Plex_Serif({
 
 const CreatePostPage = () => {
   const editorRef = useRef<TinyMCEEditor | null>(null);
+  const [message, setMessage] = useState({
+    error: false,
+    success: false,
+    message: "",
+  });
 
   const handleOnSubmit = (event: any) => {
     event.preventDefault();
@@ -42,17 +47,36 @@ const CreatePostPage = () => {
         .then((response) => {
           if (response.ok) {
             response.json().then((data) => {
-              console.log(data);
+              setMessage({
+                error: false,
+                success: true,
+                message: "Post created successfully",
+              });
               sendPostNotification(title, description, link, data.postId);
             });
           } else {
+            setMessage({
+              error: true,
+              success: false,
+              message: "Error creating post: " + response.statusText,
+            });
             console.error("Error creating post:", response.statusText);
           }
         })
-        .catch((error) => {
+        .catch((error: Error) => {
+          setMessage({
+            error: true,
+            success: false,
+            message: "Error creating post: " + error.message,
+          });
           console.error("Error creating post:", error);
         });
-    } catch (error) {
+    } catch (error: any) {
+      setMessage({
+        error: true,
+        success: false,
+        message: "Error creating post: " + error.message,
+      });
       console.error("Error creating post:", error);
     }
   };
@@ -109,6 +133,19 @@ const CreatePostPage = () => {
       >
         Create a Post
       </h1>
+
+      {message.error && (
+        <div className="bg-red-100 text-red-700 px-4 py-3 rounded-lg relative">
+          {message.message}
+        </div>
+      )}
+
+      {message.success && (
+        <div className="bg-green-100 text-green-700 px-4 py-3 rounded-lg relative">
+          {message.message}
+        </div>
+      )}
+
       <form
         className="grid grid-flow-row gap-2 my-2"
         action="/api/v1/posts"
