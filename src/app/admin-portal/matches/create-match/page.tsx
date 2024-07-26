@@ -1,3 +1,4 @@
+import CreateLivePostForm from "@/components/admin-portal/matches/CreateLivePost";
 import { IBM_Plex_Serif } from "next/font/google";
 
 const ibmPlexSerif = IBM_Plex_Serif({
@@ -13,8 +14,9 @@ export default function CreateLivePost() {
           ibmPlexSerif.className + " text-zinc-800 text-5xl font-semibold py-8"
         }
       >
-        Manage Live Match
+        Create a Live Match
       </h1>
+      <CreateLivePostForm />
     </div>
   );
 }
