@@ -8,6 +8,7 @@ import { Posts } from "@/models/Post";
 import { useEffect, useState } from "react";
 import parse from "html-react-parser";
 import { IBM_Plex_Serif, Nunito_Sans, Poppins } from "next/font/google";
+import { notFound } from "next/navigation";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -26,11 +27,16 @@ const nunitoSans = Nunito_Sans({
 const PostInfoPage = ({ params }: { params: { postId: string } }) => {
   const [postinfo, setPostinfo] = useState<Posts>();
   const [relatedPosts, setRelatedPosts] = useState<Posts[]>();
+  const [loading, setLoading] = useState(true);
 
   const loadPost = async () => {
     const res = await fetch(`/api/v1/posts?_id=${params.postId}`);
     const data = await res.json();
     setPostinfo(data[0]);
+    setLoading(false);
+    if (data.length  !== 1) {
+      return;
+    }
     loadRelatedPosts(data[0].dropdown);
   };
 
@@ -72,10 +78,15 @@ const PostInfoPage = ({ params }: { params: { postId: string } }) => {
   useEffect(() => {
     loadPost();
   }, []);
-
-  if (!postinfo) {
+  
+  if (loading) {
     return <div>Loading...</div>;
   }
+
+  if (!postinfo) {
+    notFound();
+  }
+  
 
   return (
     <div>
@@ -125,10 +136,10 @@ const PostInfoPage = ({ params }: { params: { postId: string } }) => {
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 my-4">
             {relatedPosts?.map((post) => (
               <div
-                key={post._id}
+                key={post._id.toString()}
                 className="bg-white shadow overflow-hidden sm:rounded-lg"
               >
-                <Link href={post._id}>
+                <Link href={post._id.toString()}>
                   <div className="">
                     <div className="overflow-hidden rounded-md ">
                       <Image

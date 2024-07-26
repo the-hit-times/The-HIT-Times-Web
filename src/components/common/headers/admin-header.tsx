@@ -16,6 +16,10 @@ const links = [
     href: "/admin-portal/posts/create-post",
   },
   {
+    title: "Teams",
+    href: "/admin-portal/teams",
+  },
+  {
     title: "Posts",
     href: "/admin-portal/posts",
   },

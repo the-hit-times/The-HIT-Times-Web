@@ -26,14 +26,35 @@ const emptyPlayer: Player = {
   player_image: "",
 };
 
+function formatImageSrc(src: string): string {
+  // Check if the src is empty or not a string
+  if (!src || typeof src !== "string") {
+    return "/no-image.png"; // Return a default image or an empty string
+  }
+
+  // Check if the src starts with a leading slash or is an absolute URL
+  if (
+    src.startsWith("/") ||
+    src.startsWith("http://") ||
+    src.startsWith("https://")
+  ) {
+    return src;
+  }
+
+  // Prepend a leading slash to relative URLs
+  return `/${src}`;
+}
+
 const extractImageUrl = (url: string): string => {
   const googleDriveMatch = url.match(
     /https:\/\/drive\.google\.com\/(?:file\/d\/|open\?id=)([^\/&]+)/
   );
 
-  return googleDriveMatch
+  const extractedUrl = googleDriveMatch
     ? `https://drive.google.com/uc?export=view&id=${googleDriveMatch[1]}`
     : url;
+
+  return formatImageSrc(extractedUrl);
 };
 
 const PlayerForm = ({
@@ -139,7 +160,9 @@ const TeamFormSection = ({ team, setTeam, teamType }: TeamFormProps) => {
 
   return (
     <div>
-      <h2 className={"text-2xl font-bold my-2"}>{teamType.charAt(0).toUpperCase() + teamType.slice(1)}</h2>
+      <h2 className={"text-2xl font-bold my-2"}>
+        {teamType.charAt(0).toUpperCase() + teamType.slice(1)}
+      </h2>
       <div className="flex flex-row gap-2">
         <Image
           src={extractImageUrl(teamData.team_logo ?? "")}
@@ -156,11 +179,13 @@ const TeamFormSection = ({ team, setTeam, teamType }: TeamFormProps) => {
         block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
           placeholder="Team Name"
           value={teamData.team_name}
+          required
           onChange={(e) => setTeamData("team_name", e.target.value)}
         />
         <input
           type="url"
           placeholder="Team Logo"
+          required
           className="
         outline outline-transparent
         px-3
@@ -203,8 +228,8 @@ const TeamFormSection = ({ team, setTeam, teamType }: TeamFormProps) => {
 
 export default function TeamForm({ teamCode, deptName }: TeamProps) {
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null); // Error state
   const emptyTeamData: Teams = {
-    _id: "",
     team_code: teamCode,
     dept_name: deptName,
     football: {
@@ -236,16 +261,25 @@ export default function TeamForm({ teamCode, deptName }: TeamProps) {
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const res = await fetch(`/api/v1/team/${teamCode}`, {
+    try {
+      const res = await fetch(`/api/v1/team/${teamCode}`, {
         method: "PUT",
         headers: {
-            "Content-Type": "application/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(team),
-        });
-    const data = await res.json();
-    console.log(data);
-    console.log(team);
+      });
+      const data = await res.json();
+      console.log(data);
+      console.log(team);
+
+      if (!res.ok) {
+        throw new Error(data.msg || "Failed to save team data");
+      }
+      setError(null); // Clear any previous error
+    } catch (err: any) {
+      setError(err.message);
+    }
   };
 
   if (loading) {
@@ -254,6 +288,7 @@ export default function TeamForm({ teamCode, deptName }: TeamProps) {
 
   return (
     <div>
+      {error && <div className="text-red-500 mb-4">{error}</div>}
       <form onSubmit={handleSave} className="grid grid-flow-row gap-4">
         <TeamFormSection team={team} setTeam={setTeam} teamType="football" />
         <TeamFormSection team={team} setTeam={setTeam} teamType="cricket" />

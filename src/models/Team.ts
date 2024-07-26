@@ -7,7 +7,6 @@ export interface Player {
 }
 
 export interface Teams  {
-  _id: string;
   team_code: string;
   dept_name: string;
   football: {
@@ -24,10 +23,6 @@ export interface Teams  {
 
 const TeamSchema = new mongoose.Schema<Teams>(
   {
-    _id: {
-      type: String,
-      auto: true,
-    },
     team_code: {
       type: String,
       required: true,

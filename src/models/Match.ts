@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 export interface MatchPosts {
-  _id: mongoose.Schema.Types.ObjectId | string;
+  _id: mongoose.Schema.Types.ObjectId;
   firebase_match_id: string;
   team1: {
     team_code: string;

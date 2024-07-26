@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 export interface Alumni {
-  _id: mongoose.Schema.Types.ObjectId | string;
+  _id: mongoose.Schema.Types.ObjectId;
   name: string;
   position: string;
   quote: string;

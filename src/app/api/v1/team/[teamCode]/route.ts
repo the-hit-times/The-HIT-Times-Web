@@ -67,7 +67,6 @@ export async function PUT(
     );
     if (team === null) {
       team = await Team.create({ ...data, team_code: params.teamCode });
-
     }
     const myBlob = {
       code: "success",
