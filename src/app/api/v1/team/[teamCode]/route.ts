@@ -1,40 +1,30 @@
 import dbConnect from "@/lib/dbConnect";
-import Post from "@/models/Post";
+import Team from "@/models/Team";
 import { getToken } from "next-auth/jwt";
 import { NextRequest } from "next/server";
 
 export const dynamic = "force-dynamic"; // defaults to force-static
 
-export async function GET(request: NextRequest) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { teamCode: string } }
+) {
   await dbConnect();
   try {
-    const { searchParams } = new URL(request.url);
-    const limit = Number(searchParams.get("limit"));
-    const page =
-      Number(searchParams.get("page")) - 1 <= 0
-        ? 0
-        : Number(searchParams.get("page")) - 1;
+    const team = await Team.findOne({ team_code: params.teamCode });
 
-    const query: { [key: string]: string } = {};
-    const keys = Object.keys(Post.schema.paths);
-
-    if ("_id" in keys) {
-      const post = await Post.findById(searchParams.get("_id"));
-      return Response.json(post);
+    if (team === null) {
+      return Response.json(
+        { success: false, msg: "Team not found" },
+        { status: 404 }
+      );
     }
-
-    keys.forEach((key) => {
-      const value = searchParams.get(key);
-      if (value) {
-        query[key] = value;
-      }
-    });
-
-    const post = await Post.find(query)
-      .sort({ createdAt: -1 })
-      .skip(page * limit)
-      .limit(limit);
-    return Response.json([...post]);
+    const myBlob = {
+      code: "success",
+      data: team,
+    };
+    const myOptions = { status: 200 };
+    return Response.json(myBlob, myOptions);
   } catch (error: any) {
     const myBlob = {
       success: false,
@@ -45,7 +35,10 @@ export async function GET(request: NextRequest) {
   }
 }
 
-export async function POST(request: NextRequest) {
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: { teamCode: string } }
+) {
   const token = await getToken({
     req: request,
     secret: process.env.NEXTAUTH_SECRET,
@@ -63,10 +56,22 @@ export async function POST(request: NextRequest) {
 
     const data = await request.json();
 
-    const post = await Post.create(data);
+    // delete _id from data
+
+    delete data._id;
+    
+    let team = await Team.findOneAndUpdate(
+      { team_code: params.teamCode },
+      data,
+      { new: true }
+    );
+    if (team === null) {
+      team = await Team.create({ ...data, team_code: params.teamCode });
+
+    }
     const myBlob = {
-      success: true,
-      postId: post._id,
+      code: "success",
+      data: team,
     };
     const myOptions = { status: 200 };
     return Response.json(myBlob, myOptions);

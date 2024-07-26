@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
-export interface Alumni extends mongoose.Document {
+export interface Alumni {
+  _id: mongoose.Schema.Types.ObjectId | string;
   name: string;
   position: string;
   quote: string;
@@ -11,6 +12,10 @@ export interface Alumni extends mongoose.Document {
 
 const AlumnusSchema = new mongoose.Schema<Alumni>(
   {
+    _id: {
+      type: mongoose.Schema.Types.ObjectId,
+      auto: true,
+    },
     name: { type: String, required: true },
     position: { type: String, required: true },
     quote: { type: String, required: true },
@@ -18,7 +23,7 @@ const AlumnusSchema = new mongoose.Schema<Alumni>(
     session_start: { type: Number, required: true },
     session_end: { type: Number, required: true },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 export default mongoose.models.Alumnus ||
