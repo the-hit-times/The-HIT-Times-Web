@@ -1,6 +1,7 @@
 import { Player, Teams } from "@/models/Team";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { TrashIcon } from "@heroicons/react/24/outline";
 
 type TeamProps = {
   teamCode: string;
@@ -26,53 +27,63 @@ const emptyPlayer: Player = {
 };
 
 const extractImageUrl = (url: string): string => {
-    const googleDriveMatch = url.match(
-      /https:\/\/drive\.google\.com\/(?:file\/d\/|open\?id=)([^\/&]+)/
-    );
-  
-    return googleDriveMatch
-      ? `https://drive.google.com/uc?export=view&id=${googleDriveMatch[1]}`
-      : url;
-  };
+  const googleDriveMatch = url.match(
+    /https:\/\/drive\.google\.com\/(?:file\/d\/|open\?id=)([^\/&]+)/
+  );
+
+  return googleDriveMatch
+    ? `https://drive.google.com/uc?export=view&id=${googleDriveMatch[1]}`
+    : url;
+};
 
 const PlayerForm = ({
   player,
   handleChange,
   handleDelete,
 }: PlayerFormProps) => (
-  <div style={{ display: "flex", alignItems: "center" }}>
-    <div style={{ marginRight: "10px" }}>
+  <div className="flex flex-row gap-2 my-1">
+    <div>
       <Image
         src={extractImageUrl(player.player_image)}
         alt={player.player_name}
         width={50}
         height={50}
-        style={{ objectFit: "cover" }}
+        className="rounded-full aspect-square object-cover"
       />
     </div>
-    <div>
-      <input
-        type="text"
-        placeholder="Player Name"
-        value={player.player_name}
-        onChange={(e) => handleChange("player_name", e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Player Position"
-        value={player.player_description}
-        onChange={(e) => handleChange("player_description", e.target.value)}
-      />
-      <input
-        type="url"
-        placeholder="Player Image"
-        value={player.player_image}
-        onChange={(e) => handleChange("player_image", e.target.value)}
-      />
-      <button type="button" onClick={handleDelete}>
-        Delete
-      </button>
-    </div>
+    <input
+      type="text"
+      placeholder="Player Name"
+      className="
+        outline outline-transparent
+        px-3
+        block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+      value={player.player_name}
+      onChange={(e) => handleChange("player_name", e.target.value)}
+    />
+    <input
+      type="text"
+      className="
+        outline outline-transparent
+        px-3
+        block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+      placeholder="Player Position"
+      value={player.player_description}
+      onChange={(e) => handleChange("player_description", e.target.value)}
+    />
+    <input
+      type="url"
+      className="
+        outline outline-transparent
+        px-3
+        block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+      placeholder="Player Image"
+      value={player.player_image}
+      onChange={(e) => handleChange("player_image", e.target.value)}
+    />
+    <button type="button" onClick={handleDelete}>
+      <TrashIcon width={24} className="text-red-700" />
+    </button>
   </div>
 );
 
@@ -128,20 +139,37 @@ const TeamFormSection = ({ team, setTeam, teamType }: TeamFormProps) => {
 
   return (
     <div>
-      <h1>{teamType.charAt(0).toUpperCase() + teamType.slice(1)}</h1>
-      <input
-        type="text"
-        placeholder="Team Name"
-        value={teamData.team_name}
-        onChange={(e) => setTeamData("team_name", e.target.value)}
-      />
-      <input
-        type="url"
-        placeholder="Team Logo"
-        value={teamData.team_logo}
-        onChange={(e) => setTeamData("team_logo", e.target.value)}
-      />
-      <h1>Players</h1>
+      <h2 className={"text-2xl font-bold my-2"}>{teamType.charAt(0).toUpperCase() + teamType.slice(1)}</h2>
+      <div className="flex flex-row gap-2">
+        <Image
+          src={extractImageUrl(teamData.team_logo ?? "")}
+          alt={teamData.team_name}
+          width={50}
+          height={50}
+          className="rounded-full aspect-square object-cover"
+        />
+        <input
+          type="text"
+          className="
+        outline outline-transparent
+        px-3
+        block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          placeholder="Team Name"
+          value={teamData.team_name}
+          onChange={(e) => setTeamData("team_name", e.target.value)}
+        />
+        <input
+          type="url"
+          placeholder="Team Logo"
+          className="
+        outline outline-transparent
+        px-3
+        block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          value={teamData.team_logo}
+          onChange={(e) => setTeamData("team_logo", e.target.value)}
+        />
+      </div>
+      <h3 className="font-semibold my-4">Players</h3>
       {teamData.players.map((player, index) => (
         <div key={index}>
           <PlayerForm
@@ -161,7 +189,11 @@ const TeamFormSection = ({ team, setTeam, teamType }: TeamFormProps) => {
           }
           handleDelete={() => setNewPlayer({ ...emptyPlayer })}
         />
-        <button type="button" onClick={handleAddPlayer}>
+        <button
+          className="rounded-full bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+          type="button"
+          onClick={handleAddPlayer}
+        >
           Add Player
         </button>
       </div>
@@ -212,10 +244,15 @@ export default function TeamForm({ teamCode, deptName }: TeamProps) {
 
   return (
     <div>
-      <form onSubmit={handleSave}>
+      <form onSubmit={handleSave} className="grid grid-flow-row gap-4">
         <TeamFormSection team={team} setTeam={setTeam} teamType="football" />
         <TeamFormSection team={team} setTeam={setTeam} teamType="cricket" />
-        <button type="submit">Save</button>
+        <button
+          className="rounded-full bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+          type="submit"
+        >
+          Save
+        </button>
       </form>
     </div>
   );
