@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export interface Posts extends mongoose.Document {
+export interface Posts  {
   _id: string;
   title: string;
   description: string;

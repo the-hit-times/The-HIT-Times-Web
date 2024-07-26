@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export interface Alumni extends mongoose.Document {
+export interface Alumni {
   name: string;
   position: string;
   quote: string;

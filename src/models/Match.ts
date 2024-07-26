@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export interface MatchPosts extends mongoose.Document {
+export interface MatchPosts {
   _id: string;
   firebase_match_id: string;
   team1: {

@@ -1,30 +1,24 @@
 import mongoose from "mongoose";
 
-export interface Teams extends mongoose.Document {
+export interface Player {
+  player_name: string;
+  player_description: string;
+  player_image: string;
+}
+
+export interface Teams  {
   _id: string;
   team_code: string;
   dept_name: string;
   football: {
     team_name: string;
     team_logo: string;
-    players: [
-      {
-        player_name: string;
-        player_description: string;
-        player_image: string;
-      }
-    ];
+    players: Player[];
   };
   cricket: {
     team_name: string;
     team_logo: string;
-    players: [
-      {
-        player_name: string;
-        player_description: string;
-        player_image: string;
-      }
-    ];
+    players: Player[];
   };
 }
 
