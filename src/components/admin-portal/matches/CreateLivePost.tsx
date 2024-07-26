@@ -1,9 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { codeToTeamName, getAllTeamsCode } from "@/lib/codeToTeamName";
 
 const CreateLivePostForm = () => {
+  const router = useRouter();
   const [team1Code, setTeam1Code] = useState("100");
   const [team1Score, setTeam1Score] = useState("");
   const [team2Code, setTeam2Code] = useState("101");
@@ -34,48 +36,48 @@ const CreateLivePostForm = () => {
 
     console.log(data);
 
-    // const res = await fetch("/api/live/create", {
-    //   method: "POST",
-    //   redirect: "follow",
-    //   body: JSON.stringify(data),
-    //   headers: {
-    //     "Content-type": "application/json; charset=UTF-8",
-    //   },
-    // });
+    const res = await fetch("/api/v1/live/create", {
+      method: "POST",
+      redirect: "follow",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
 
-    // if (res.ok) {
-    //   const result = await res.json();
+    if (res.ok) {
+      const result = await res.json();
 
-    //   if (result.msg === 'success') {
-    //     if (!sendNotification) {
-    //       window.location = `/pages/live/edit/${result.matchId}`;
-    //       return;
-    //     }
+      if (result.msg === 'success') {
+        if (!sendNotification) {
+          router.push(`/admin-portal/matches/edit/${result.matchId}`);
+          return;
+        }
 
-    //     const notifyRes = await fetch("/api/live/notification/send", {
-    //       method: "POST",
-    //       redirect: "follow",
-    //       body: JSON.stringify({
-    //         ...data,
-    //         id: result.matchId,
-    //         timeline_message: matchStatus,
-    //       }),
-    //       headers: {
-    //         "Content-type": "application/json; charset=UTF-8",
-    //       },
-    //     });
+        const notifyRes = await fetch("/api/v1/live/notification/send", {
+          method: "POST",
+          redirect: "follow",
+          body: JSON.stringify({
+            ...data,
+            id: result.matchId,
+            timeline_message: matchStatus,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        });
 
-    //     const notifyResult = await notifyRes.json();
+        const notifyResult = await notifyRes.json();
 
-    //     if (notifyResult.msg === 'success') {
-    //       window.location = `/pages/live/edit/${result.matchId}`;
-    //     } else {
-    //       alert("Failed to send a live match notification: " + notifyResult.msg);
-    //     }
-    //   } else {
-    //     alert("Failed to create a live match: " + result.msg);
-    //   }
-    // }
+        if (notifyResult.msg === 'success') {
+          router.push(`/admin-portal/matches/edit/${result.matchId}`);
+        } else {
+          alert("Failed to send a live match notification: " + notifyResult.msg);
+        }
+      } else {
+        alert("Failed to create a live match: " + result.msg);
+      }
+    }
   };
 
   const handleTeamChange =

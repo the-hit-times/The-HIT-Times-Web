@@ -99,4 +99,4 @@ const MatchPostSchema = new mongoose.Schema<MatchPosts>(
 );
 
 export default mongoose.models.MatchPosts ||
-  mongoose.model<MatchPosts>("matchposts", MatchPostSchema);
+  mongoose.model<MatchPosts>("MatchPosts", MatchPostSchema);

@@ -95,7 +95,7 @@ export default function PostsPage({
 
       <div className="grid grid-flow-row md:grid-cols-3 gap-8">
         {posts.map((post) => (
-          <Article key={post._id} article={post} />
+          <Article key={post._id.toString()} article={post} />
         ))}
       </div>
 
