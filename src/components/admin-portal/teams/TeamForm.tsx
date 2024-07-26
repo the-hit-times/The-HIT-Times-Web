@@ -26,13 +26,14 @@ const emptyPlayer: Player = {
 };
 
 const extractImageUrl = (url: string): string => {
-  const googleDriveMatch = url.match(
-    /https:\/\/drive\.google\.com\/file\/d\/(.+?)\/view/
-  );
-  return googleDriveMatch
-    ? `https://drive.google.com/uc?export=view&id=${googleDriveMatch[1]}`
-    : url;
-};
+    const googleDriveMatch = url.match(
+      /https:\/\/drive\.google\.com\/(?:file\/d\/|open\?id=)([^\/&]+)/
+    );
+  
+    return googleDriveMatch
+      ? `https://drive.google.com/uc?export=view&id=${googleDriveMatch[1]}`
+      : url;
+  };
 
 const PlayerForm = ({
   player,

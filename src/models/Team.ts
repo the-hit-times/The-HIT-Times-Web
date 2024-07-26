@@ -28,6 +28,7 @@ const TeamSchema = new mongoose.Schema<Teams>(
     team_code: {
       type: String,
       required: true,
+      unique: true,
     },
     dept_name: {
       type: String,
