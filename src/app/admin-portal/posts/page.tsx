@@ -2,8 +2,9 @@
 import { Posts } from "@/models/Post";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { TrashIcon } from "@heroicons/react/24/solid";
+import { PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { Types } from "mongoose";
+import Link from "next/link";
 
 export default function PostsPage() {
   const PAGE_LIMIT = 10;
@@ -84,9 +85,22 @@ export default function PostsPage() {
                 {new Date(post.createdAt).toLocaleDateString()}
               </span>
             </div>
-            <div>
-              <button onClick={() => handleDeletePost(post._id)}>
-                <TrashIcon className="h-5 w-5 text-red-500" />
+            <hr />
+            <div className="flex flex-row justify-between p-2">
+              <button>
+                <Link
+                  href={`/admin-portal/posts/${post._id}`}
+                  className="flex flex-row items-center gap-2 text-blue-800 hover:bg-slate-100 p-1 rounded-md"
+                >
+                  <PencilIcon className="h-5 w-5" />
+                  Edit
+                </Link>
+              </button>
+              <button
+                onClick={() => handleDeletePost(post._id)}
+                className="hover:bg-red-50 p-1 rounded-sm"
+              >
+                <TrashIcon className="h-5 w-5 text-red-500 " />
               </button>
             </div>
           </div>
