@@ -1,11 +1,11 @@
 "use client";
-const clientId = "67d26cd8e568fc7";
-
 import { useEffect, useRef, useState } from "react";
 import { ImgurClient } from "imgur";
 import { Editor } from "@tinymce/tinymce-react";
 import { Editor as TinyMCEEditor } from "tinymce";
 import { sendPostNotification } from "@/lib/sendPostNotification";
+
+const clientId = "67d26cd8e568fc7";
 
 interface PostFormProps {
   postId?: string;
@@ -19,20 +19,33 @@ const PostForm = ({ postId }: PostFormProps) => {
     message: "",
   });
 
+  const [postDetails, setPostDetails] = useState({
+    title: "",
+    description: "",
+    link: "",
+    dropdown: "",
+  });
+
   const loadPost = async (postId: string) => {
     try {
-      const response = await fetch(`/api/v1/posts?_id=${postId}`);
+      const response = await fetch(`/api/v1/post/${postId}`);
       if (response.ok) {
         const data = await response.json();
-
-        editorRef.current?.setContent(data.data[0].htmlBody);
+        const postData = data.data;
+        editorRef.current?.setContent(postData.htmlBody);
+        setPostDetails({
+          title: postData.title,
+          description: postData.description,
+          link: postData.link,
+          dropdown: postData.dropdown,
+        });
       } else {
         console.error("Error loading post:", response.statusText);
       }
     } catch (error) {
       console.error("Error loading post:", error);
     }
-  }
+  };
 
   useEffect(() => {
     if (postId) {
@@ -40,9 +53,8 @@ const PostForm = ({ postId }: PostFormProps) => {
     }
   }, [postId]);
 
-  const handleOnSubmit = (event: any) => {
+  const handleOnSubmit = async (event: any) => {
     event.preventDefault();
-
     try {
       const title = event.target.title.value;
       const description = event.target.description.value;
@@ -53,49 +65,51 @@ const PostForm = ({ postId }: PostFormProps) => {
 
       const data = { title, description, body, link, dropdown, htmlBody };
 
-      console.log(data);
+      const response = await fetch(
+        postId ? `/api/v1/post/${postId}` : "/api/v1/posts",
+        {
+          method: postId ? "PUT" : "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
-      fetch("/api/v1/posts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
-        .then((response) => {
-          if (response.ok) {
-            response.json().then((data) => {
-              setMessage({
-                error: false,
-                success: true,
-                message: "Post created successfully",
-              });
-              sendPostNotification(title, description, link, data.postId);
-            });
-          } else {
-            setMessage({
-              error: true,
-              success: false,
-              message: "Error creating post: " + response.statusText,
-            });
-            console.error("Error creating post:", response.statusText);
-          }
-        })
-        .catch((error: Error) => {
-          setMessage({
-            error: true,
-            success: false,
-            message: "Error creating post: " + error.message,
-          });
-          console.error("Error creating post:", error);
+      if (response.ok) {
+        const responseData = await response.json();
+        setMessage({
+          error: false,
+          success: true,
+          message: postId
+            ? "Post updated successfully"
+            : "Post created successfully",
         });
+        if (!postId) {
+          sendPostNotification(title, description, link, responseData.postId);
+        }
+      } else {
+        setMessage({
+          error: true,
+          success: false,
+          message: `Error ${postId ? "updating" : "creating"} post: ${
+            response.statusText
+          }`,
+        });
+        console.error(
+          `Error ${postId ? "updating" : "creating"} post:`,
+          response.statusText
+        );
+      }
     } catch (error: any) {
       setMessage({
         error: true,
         success: false,
-        message: "Error creating post: " + error.message,
+        message: `Error ${postId ? "updating" : "creating"} post: ${
+          error.message
+        }`,
       });
-      console.error("Error creating post:", error);
+      console.error(`Error ${postId ? "updating" : "creating"} post:`, error);
     }
   };
 
@@ -103,10 +117,13 @@ const PostForm = ({ postId }: PostFormProps) => {
     setImageLink("");
   };
 
-  const [fileN, setFile] = useState();
+  const [fileN, setFile] = useState<File | null>(null);
   const [imageLink, setImageLink] = useState("");
-  const onFileChange = (event: any) => {
-    setFile(event.target.files[0]);
+
+  const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      setFile(event.target.files[0]);
+    }
   };
 
   const onFileUpload = async () => {
@@ -158,8 +175,6 @@ const PostForm = ({ postId }: PostFormProps) => {
 
       <form
         className="grid grid-flow-row gap-2 my-2"
-        action="/api/v1/posts"
-        method="POST"
         onSubmit={handleOnSubmit}
         onReset={handleOnReset}
       >
@@ -177,7 +192,11 @@ const PostForm = ({ postId }: PostFormProps) => {
           type="text"
           id="title"
           name="title"
-          placeholder="Tile"
+          placeholder="Title"
+          value={postDetails.title}
+          onChange={(e) =>
+            setPostDetails({ ...postDetails, title: e.target.value })
+          }
         />
 
         <label
@@ -194,6 +213,10 @@ const PostForm = ({ postId }: PostFormProps) => {
           px-3
           block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
           placeholder="Description"
+          value={postDetails.description}
+          onChange={(e) =>
+            setPostDetails({ ...postDetails, description: e.target.value })
+          }
         ></textarea>
 
         <label htmlFor="link">Image Link</label>
@@ -207,7 +230,7 @@ const PostForm = ({ postId }: PostFormProps) => {
           outline outline-transparent
           px-3
           block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-          value={imageLink}
+          value={imageLink || postDetails.link}
           onChange={(e) => setImageLink(e.target.value)}
         />
 
@@ -241,6 +264,10 @@ const PostForm = ({ postId }: PostFormProps) => {
           id="dropdown"
           name="dropdown"
           aria-label="Default select example"
+          value={postDetails.dropdown}
+          onChange={(e) =>
+            setPostDetails({ ...postDetails, dropdown: e.target.value })
+          }
         >
           <option value="00">Monday Hues</option>
           <option value="01">Campus Raid</option>
@@ -282,7 +309,7 @@ const PostForm = ({ postId }: PostFormProps) => {
             className="rounded-full bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
             type="submit"
           >
-            Create
+            {postId ? "Update" : "Create"}
           </button>
         </div>
       </form>

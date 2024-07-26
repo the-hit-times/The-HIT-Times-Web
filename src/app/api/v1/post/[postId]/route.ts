@@ -31,12 +31,64 @@ export async function GET(
   }
 }
 
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: { postId: string } }
+) {
+  const token = await getToken({
+    req: request,
+    secret: process.env.NEXTAUTH_SECRET,
+  });
+
+  if (token === null || token?.role !== "admin") {
+    return Response.json(
+      { success: false, msg: "Unauthorized" },
+      { status: 401 }
+    );
+  }
+
+  try {
+    await dbConnect();
+    const data = await request.json();
+    const postId = params.postId;
+    const post = await Post.findByIdAndUpdate(
+      {
+        _id: postId,
+      },
+      data
+    );
+    if (!post) {
+      throw new Error("Post not found");
+    }
+    return Response.json({ success: true });
+  } catch (error: any) {
+    const myBlob = {
+      success: false,
+      msg: error.message,
+    };
+    const myOptions = { status: 400 };
+    return Response.json(myBlob, myOptions);
+  }
+}
+
 export async function DELETE(
   request: NextRequest,
   { params }: { params: { postId: string } }
 ) {
-  await dbConnect();
+  const token = await getToken({
+    req: request,
+    secret: process.env.NEXTAUTH_SECRET,
+  });
+
+  if (token === null || token?.role !== "admin") {
+    return Response.json(
+      { success: false, msg: "Unauthorized" },
+      { status: 401 }
+    );
+  }
+
   try {
+    await dbConnect();
     const postId = params.postId;
     const post = await Post.findByIdAndDelete(postId);
     if (!post) {
