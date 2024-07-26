@@ -1,5 +1,6 @@
 import { Player, Teams } from "@/models/Team";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 type TeamProps = {
   teamCode: string;
@@ -24,29 +25,53 @@ const emptyPlayer: Player = {
   player_image: "",
 };
 
-const PlayerForm = ({ player, handleChange, handleDelete }: PlayerFormProps) => (
-  <div>
-    <input
-      type="text"
-      placeholder="Player Name"
-      value={player.player_name}
-      onChange={(e) => handleChange("player_name", e.target.value)}
-    />
-    <input
-      type="text"
-      placeholder="Player Position"
-      value={player.player_description}
-      onChange={(e) => handleChange("player_description", e.target.value)}
-    />
-    <input
-      type="url"
-      placeholder="Player Image"
-      value={player.player_image}
-      onChange={(e) => handleChange("player_image", e.target.value)}
-    />
-    <button type="button" onClick={handleDelete}>
-      Delete
-    </button>
+const extractImageUrl = (url: string): string => {
+  const googleDriveMatch = url.match(
+    /https:\/\/drive\.google\.com\/file\/d\/(.+?)\/view/
+  );
+  return googleDriveMatch
+    ? `https://drive.google.com/uc?export=view&id=${googleDriveMatch[1]}`
+    : url;
+};
+
+const PlayerForm = ({
+  player,
+  handleChange,
+  handleDelete,
+}: PlayerFormProps) => (
+  <div style={{ display: "flex", alignItems: "center" }}>
+    <div style={{ marginRight: "10px" }}>
+      <Image
+        src={extractImageUrl(player.player_image)}
+        alt={player.player_name}
+        width={50}
+        height={50}
+        style={{ objectFit: "cover" }}
+      />
+    </div>
+    <div>
+      <input
+        type="text"
+        placeholder="Player Name"
+        value={player.player_name}
+        onChange={(e) => handleChange("player_name", e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Player Position"
+        value={player.player_description}
+        onChange={(e) => handleChange("player_description", e.target.value)}
+      />
+      <input
+        type="url"
+        placeholder="Player Image"
+        value={player.player_image}
+        onChange={(e) => handleChange("player_image", e.target.value)}
+      />
+      <button type="button" onClick={handleDelete}>
+        Delete
+      </button>
+    </div>
   </div>
 );
 
@@ -62,7 +87,11 @@ const TeamFormSection = ({ team, setTeam, teamType }: TeamFormProps) => {
   };
 
   const handleAddPlayer = () => {
-    if (newPlayer.player_name || newPlayer.player_description || newPlayer.player_image) {
+    if (
+      newPlayer.player_name ||
+      newPlayer.player_description ||
+      newPlayer.player_image
+    ) {
       setTeam({
         ...team,
         [teamType]: {
@@ -74,7 +103,11 @@ const TeamFormSection = ({ team, setTeam, teamType }: TeamFormProps) => {
     }
   };
 
-  const handleEditPlayer = (index: number, field: keyof Player, value: string) => {
+  const handleEditPlayer = (
+    index: number,
+    field: keyof Player,
+    value: string
+  ) => {
     const updatedPlayers = teamData.players.map((player, idx) =>
       idx === index ? { ...player, [field]: value } : player
     );
@@ -112,7 +145,9 @@ const TeamFormSection = ({ team, setTeam, teamType }: TeamFormProps) => {
         <div key={index}>
           <PlayerForm
             player={player}
-            handleChange={(field, value) => handleEditPlayer(index, field, value)}
+            handleChange={(field, value) =>
+              handleEditPlayer(index, field, value)
+            }
             handleDelete={() => handleDeletePlayer(index)}
           />
         </div>
@@ -120,7 +155,9 @@ const TeamFormSection = ({ team, setTeam, teamType }: TeamFormProps) => {
       <div>
         <PlayerForm
           player={newPlayer}
-          handleChange={(field, value) => setNewPlayer({ ...newPlayer, [field]: value })}
+          handleChange={(field, value) =>
+            setNewPlayer({ ...newPlayer, [field]: value })
+          }
           handleDelete={() => setNewPlayer({ ...emptyPlayer })}
         />
         <button type="button" onClick={handleAddPlayer}>
