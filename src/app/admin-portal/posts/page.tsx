@@ -13,6 +13,11 @@ const ibmPlexSerif = IBM_Plex_Serif({
   weight: ["100", "200", "300", "400", "500", "600", "700"],
 });
 
+const nunitoSans = Nunito_Sans({
+  subsets: ["latin"],
+  weight: ["200", "300", "400", "600", "700", "800"],
+});
+
 export default function PostsPage() {
   const PAGE_LIMIT = 10;
   const [posts, setPosts] = useState<Posts[]>([]);
@@ -90,17 +95,35 @@ export default function PostsPage() {
 
         <Link href="/admin-portal/posts/create-post">
           <button className="bg-blue-100 rounded-full text-blue-800 py-2 px-4 flex flex-row items-center gap-2">
-            <PlusIcon width={18} height={18} /><span>Create Post</span>
+            <PlusIcon width={18} height={18} />
+            <span>Create Post</span>
           </button>
         </Link>
       </div>
 
       <div className="grid grid-flow-row md:grid-cols-3 gap-2">
         {posts.map((post) => (
-          <div key={post._id.toString()} className="p-2 bg-white rounded-md">
-            <Image src={post.link} alt={post.title} width={200} height={200} />
-            <h2 className="font-bold text-lg">{post.title}</h2>
-            <p className="text-sm text-gray-800">{post.description}</p>
+          <div
+            key={post._id.toString()}
+            className="p-2 bg-white rounded-md gap-2 flex flex-col"
+          >
+            <div className="">
+              <Image
+                src={post.link}
+                alt={post.title}
+                className="w-full aspect-video rounded-md object-cover"
+                width={500}
+                height={500}
+              />
+              <h3
+                className={ibmPlexSerif.className + " text-lg font-bold mt-4 "}
+              >
+                {post.title}
+              </h3>
+              <p className={nunitoSans.className + " text-gray-700"}>
+                {post.description}
+              </p>
+            </div>
             <div>
               <span className="text-sm text-gray-500">
                 {new Date(post.createdAt).toLocaleDateString()}
