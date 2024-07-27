@@ -31,7 +31,7 @@ export async function PUT(
 ) {
   try {
     await dbConnect(); // Ensure the database is connected
-    const { matchId } = params;    
+    const { matchId } = params;
     const data = await request.json();
 
     const db = admin.firestore();
@@ -51,6 +51,24 @@ export async function PUT(
       { msg: "success", updateData: matchDocument },
       { status: 200 }
     );
+  } catch (error: any) {
+    return NextResponse.json({ msg: error.message }, { status: 500 });
+  }
+}
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { matchId: string } }
+) {
+  try {
+    await dbConnect(); // Ensure the database is connected
+    const { matchId } = params;
+
+    const db = admin.firestore();
+    await db.collection("live_sessions").doc(matchId).delete();
+    await MatchPost.findOneAndDelete({ firebase_match_id: matchId });
+
+    return NextResponse.json({ msg: "success" }, { status: 200 });
   } catch (error: any) {
     return NextResponse.json({ msg: error.message }, { status: 500 });
   }
