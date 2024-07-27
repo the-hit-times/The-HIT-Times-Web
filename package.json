@@ -13,6 +13,7 @@
     "@heroicons/react": "^2.1.5",
     "@mdx-js/loader": "^3.0.1",
     "@mdx-js/react": "^3.0.1",
+    "@mui/material": "^5.16.5",
     "@next/mdx": "^14.2.4",
     "@tinymce/tinymce-react": "^5.1.1",
     "@types/mdx": "^2.0.13",
