@@ -17,6 +17,11 @@ const EditLivePostForm: React.FC<EditLivePostFormProps> = ({ match }) => {
   const [matchData, setMatchData] = useState<MatchPosts>(match);
   const [showPenalty, setShowPenalty] = useState<boolean>(false);
   const [sendNotification, setSendNotification] = useState<boolean>(true);
+  const [statusMessage, setStatusMessage] = useState({
+    error: false,
+    success: false,
+    message: "",
+  });
   const editorRef = useRef<TinyMCEEditor | null>(null);
 
   const handleTeamChange =
@@ -270,15 +275,29 @@ const EditLivePostForm: React.FC<EditLivePostFormProps> = ({ match }) => {
 
       if (response.ok) {
         const responseData = await response.json();
-        console.log("Match updated successfully", responseData);
+
+        setStatusMessage({
+          error: false,
+          success: true,
+          message: "Match updated successfully",
+        });
+
         if (sendNotification) {
           sendLiveNotification("", matchData, matchData.firebase_match_id);
         }
       } else {
-        console.error("Error updating match:", response.statusText);
+        setStatusMessage({
+          error: true,
+          success: false,
+          message: "Error updating match: " + response.statusText,
+        });
       }
     } catch (error) {
-      console.error("Error updating match:", error);
+      setStatusMessage({
+        error: true,
+        success: false,
+        message: "Error updating match: " + error,
+      });
     }
   };
 
@@ -426,7 +445,14 @@ const EditLivePostForm: React.FC<EditLivePostFormProps> = ({ match }) => {
       const content = editorRef.current?.getContent();
       const contentText = editorRef.current?.getContent({ format: "text" });
 
-      if (!content) return;
+      if (!content) {
+        setStatusMessage({
+          error: true,
+          success: false,
+          message: "Content cannot be empty",
+        });
+        return;
+      }
       const timeline = {
         timeline_date: timeline_date ? new Date(timeline_date) : new Date(),
         msgHtml: content,
@@ -456,8 +482,17 @@ const EditLivePostForm: React.FC<EditLivePostFormProps> = ({ match }) => {
           timeline: [...matchData.timeline, newTimeline.data],
         });
         editorRef.current?.setContent("");
+        setStatusMessage({
+          error: false,
+          success: true,
+          message: "Timeline added successfully",
+        });
       } else {
-        console.error("Error adding timeline:", res.statusText);
+        setStatusMessage({
+          error: true,
+          success: false,
+          message: "Error adding timeline",
+        });
       }
     };
 
@@ -509,10 +544,37 @@ const EditLivePostForm: React.FC<EditLivePostFormProps> = ({ match }) => {
         "Content-type": "application/json; charset=UTF-8",
       },
     });
+
+    if (notifyRes.ok) {
+      setStatusMessage({
+        error: false,
+        success: true,
+        message: "Notification sent successfully",
+      });
+    } else {
+      setStatusMessage({
+        error: true,
+        success: false,
+        message: "Error sending notification",
+      });
+    }
   };
+
+  const MessageBox = () => (
+    <div
+      className={`${
+        statusMessage.error ? "bg-red-200" : "bg-green-200"
+      } p-2 rounded-md ${
+        statusMessage.error ? "text-red-600" : "text-green-600"
+      }`}
+    >
+      <p>{statusMessage.message}</p>
+    </div>
+  );
 
   return (
     <div className="grid grid-flow-row gap-4">
+      {statusMessage.message && <MessageBox />}
       <MatchDetailsForm />
       <AddTimeline />
       <TimelineHistory />
