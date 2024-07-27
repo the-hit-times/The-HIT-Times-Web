@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { MatchPosts } from "@/models/Match";
 import { Editor } from "@tinymce/tinymce-react";
 import { Editor as TinyMCEEditor } from "tinymce";
+import parse from "html-react-parser";
+import { TrashIcon } from "@heroicons/react/24/solid";
 
 interface EditLivePostFormProps {
   match: MatchPosts;
@@ -279,7 +281,7 @@ const EditLivePostForm: React.FC<EditLivePostFormProps> = ({ match }) => {
     }
   };
 
-  return (
+  const MatchDetailsForm = () => (
     <form className="grid grid-flow-row gap-2 my-2" onSubmit={handleOnSubmit}>
       <div className="grid grid-flow-row grid-cols-2 gap-4">
         <div className="">
@@ -317,6 +319,75 @@ const EditLivePostForm: React.FC<EditLivePostFormProps> = ({ match }) => {
         </button>
       </div>
     </form>
+  );
+
+  const TimelineHistory = () => {
+    const handleDeleteTimeline = async (firebase_timeline_id: string) => {
+      const res = await fetch(
+        `/api/v1/live/match/${matchData.firebase_match_id}/timeline/${firebase_timeline_id}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (res.ok) {
+        const newTimeline = matchData.timeline.filter(
+          (timeline) => timeline.firebase_timeline_id !== firebase_timeline_id
+        );
+        setMatchData({
+          ...matchData,
+          timeline: newTimeline,
+        });
+      } else {
+        console.error("Error deleting timeline:", res.statusText);
+      }
+    };
+
+    return (
+      <div>
+        <h2 className="text-lg font-semibold text-gray-800">
+          Timeline History
+        </h2>
+        <div className="grid grid-flow-row gap-4 my-2">
+          {matchData.timeline
+            .sort(
+              (a, b) =>
+                new Date(b.timeline_date).getTime() -
+                new Date(a.timeline_date).getTime()
+            )
+            .map((timeline, index) => (
+              <div
+                key={timeline.firebase_timeline_id}
+                className="bg-white p-2 rounded-md flex flex-col gap-2 "
+              >
+                <div className="flex flex-row justify-between">
+                  <p className="text-xs font-light text-gray-800">
+                    {new Date(timeline.timeline_date).toLocaleString()}
+                  </p>
+                  <button
+                    onClick={() =>
+                      handleDeleteTimeline(timeline.firebase_timeline_id)
+                    }
+                    className="hover:bg-red-50 p-1 rounded-sm"
+                  >
+                    <TrashIcon className="h-5 w-5 text-red-500 " />
+                  </button>
+                </div>
+                <div className="porse prose-a:text-blue-500 prose-a:underline">
+                  {parse(timeline.msgHtml)}
+                </div>
+              </div>
+            ))}
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <div>
+      <MatchDetailsForm />
+      <TimelineHistory />
+    </div>
   );
 };
 
