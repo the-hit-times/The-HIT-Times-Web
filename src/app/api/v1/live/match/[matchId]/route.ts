@@ -27,11 +27,11 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params, body }: { params: { matchId: string }; body: any }
+  { params }: { params: { matchId: string } }
 ) {
   try {
     await dbConnect(); // Ensure the database is connected
-    const { matchId } = params;
+    const { matchId } = params;    
     const data = await request.json();
 
     const db = admin.firestore();

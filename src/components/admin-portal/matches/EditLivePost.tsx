@@ -258,13 +258,16 @@ const EditLivePostForm: React.FC<EditLivePostFormProps> = ({ match }) => {
   const handleOnSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const response = await fetch(`/api/v1/match/${matchData._id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(matchData),
-      });
+      const response = await fetch(
+        `/api/v1/live/match/${matchData.firebase_match_id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(matchData),
+        }
+      );
 
       if (response.ok) {
         const responseData = await response.json();
@@ -272,7 +275,6 @@ const EditLivePostForm: React.FC<EditLivePostFormProps> = ({ match }) => {
         if (sendNotification) {
           sendLiveNotification("", matchData, matchData.firebase_match_id);
         }
-        router.push("/manage/live-match");
       } else {
         console.error("Error updating match:", response.statusText);
       }
