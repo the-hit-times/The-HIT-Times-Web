@@ -4,7 +4,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { codeToTeamName, getAllTeamsCode } from "@/lib/codeToTeamName";
 import { useRouter } from "next/navigation";
 import { MatchPosts } from "@/models/Match";
-import parse from "html-react-parser";
 import { Editor } from "@tinymce/tinymce-react";
 import { Editor as TinyMCEEditor } from "tinymce";
 
@@ -33,6 +32,7 @@ const EditLivePostForm: React.FC<EditLivePostFormProps> = ({ match }) => {
     otherTeamCode: string
   ) => (
     <select
+      className="outline outline-transparent px-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
       value={teamCode}
       onChange={handleTeamChange(setTeamCode, otherTeamCode)}
     >
@@ -45,16 +45,20 @@ const EditLivePostForm: React.FC<EditLivePostFormProps> = ({ match }) => {
   );
 
   const renderTeamInput = (
+    teamNo: number,
     teamCode: string,
     setTeamCode: any,
     teamScore: string,
     setTeamScore: any,
     otherTeamCode: string
   ) => (
-    <div>
-      <label>{codeToTeamName[teamCode]}</label>
+    <div className="mb-4">
+      <label className="block text-sm font-medium leading-6 text-gray-900 mb-2">
+        {"Team " + teamNo}
+      </label>
       {renderTeamSelect(teamCode, setTeamCode, otherTeamCode)}
       <input
+        className="outline outline-transparent px-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 mt-2"
         required
         placeholder="Score"
         value={teamScore}
@@ -115,18 +119,22 @@ const EditLivePostForm: React.FC<EditLivePostFormProps> = ({ match }) => {
   }, [matchData]);
 
   const PenlityComponents = () => (
-    <div>
+    <div className="mb-4">
       <input
         type="checkbox"
         checked={showPenalty}
         onChange={() => setShowPenalty(!showPenalty)}
+        className="mr-2"
       />
-      <label>Show Penalty</label>
+      <label className="mb-2">Show Penalty</label>
       {showPenalty && (
-        <div>
-          <div>
-            <label>{codeToTeamName[matchData.team1.team_code]}</label>
+        <div className="grid grid-flow-row grid-cols-2 gap-4">
+          <div className="mb-2">
+            <label className="block text-sm font-medium leading-6 text-gray-900 mb-1">
+              {codeToTeamName[matchData.team1.team_code]}
+            </label>
             <input
+              className="outline outline-transparent px-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               required
               placeholder="Penalty"
               value={matchData.team1.team_penalty}
@@ -140,9 +148,13 @@ const EditLivePostForm: React.FC<EditLivePostFormProps> = ({ match }) => {
                 })
               }
             />
-
-            <label>{codeToTeamName[matchData.team2.team_code]}</label>
+          </div>
+          <div>
+            <label className="block text-sm font-medium leading-6 text-gray-900 mb-1">
+              {codeToTeamName[matchData.team2.team_code]}
+            </label>
             <input
+              className="outline outline-transparent px-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               required
               placeholder="Penalty"
               value={matchData.team2.team_penalty}
@@ -171,9 +183,12 @@ const EditLivePostForm: React.FC<EditLivePostFormProps> = ({ match }) => {
     };
 
     return (
-      <div>
-        <label>Match Type</label>
+      <div className="">
+        <label className="block text-sm font-medium leading-6 text-gray-900 mb-2">
+          Match Type
+        </label>
         <select
+          className="outline outline-transparent px-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
           value={matchData.match_type}
           onChange={(e) => setMatchType(e.target.value)}
         >
@@ -193,13 +208,16 @@ const EditLivePostForm: React.FC<EditLivePostFormProps> = ({ match }) => {
     };
 
     return (
-      <div>
-        <label>Match Status</label>
+      <div className="">
+        <label className="block text-sm font-medium leading-6 text-gray-900 mb-2">
+          Match Status
+        </label>
         <input
+          className="outline outline-transparent px-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
           type="text"
           value={matchData.match_status}
           onChange={(e) => setMatchStatus(e.target.value)}
-        ></input>
+        />
       </div>
     );
   };
@@ -221,9 +239,12 @@ const EditLivePostForm: React.FC<EditLivePostFormProps> = ({ match }) => {
     };
 
     return (
-      <div>
-        <label>Match Date</label>
+      <div className="mb-4">
+        <label className="block text-sm font-medium leading-6 text-gray-900 mb-2">
+          Match Date
+        </label>
         <input
+          className="outline outline-transparent px-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
           type="datetime-local"
           value={date}
           onChange={(e) => setMatchDate(e.target.value)}
@@ -232,58 +253,70 @@ const EditLivePostForm: React.FC<EditLivePostFormProps> = ({ match }) => {
     );
   };
 
-  const handleMatchDataUpdate = async (e: any) => {
-    e.preventDefault();
-    const data = {
-      ...matchData,
-    };
+  const handleOnSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      const response = await fetch(`/api/v1/match/${matchData._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(matchData),
+      });
 
-    const matchUpdateResponse = await fetch(`/api/v1/live/match/${matchData.firebase_match_id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log("Match updated successfully", responseData);
+        if (sendNotification) {
+          console.log("Notification sent");
+        }
+        router.push("/manage/live-match");
+      } else {
+        console.error("Error updating match:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error updating match:", error);
+    }
   };
 
   return (
-    <div>
-      <form onSubmit={handleMatchDataUpdate}>
-        <div>
-          <input
-            type="checkbox"
-            checked={sendNotification}
-            onChange={() => setSendNotification(!sendNotification)}
-          />
-          <label>Notify Users</label>
-
+    <form className="grid grid-flow-row gap-2 my-2" onSubmit={handleOnSubmit}>
+      <div className="grid grid-flow-row grid-cols-2 gap-4">
+        <div className="">
           {renderTeamInput(
+            1,
             matchData.team1.team_code,
             setTeam1Code,
             matchData.team1.team_score,
             setTeam1Score,
             matchData.team2.team_code
           )}
+        </div>
+        <div className="">
           {renderTeamInput(
+            2,
             matchData.team2.team_code,
             setTeam2Code,
             matchData.team2.team_score,
             setTeam2Score,
             matchData.team1.team_code
           )}
-
-          {matchData.match_type === "football" && <PenlityComponents />}
-
-          {MatchDateField(matchData.match_date)}
-
-          <MatchTypeInputField />
-          <MatchStatusInputField />
         </div>
-        <button type="submit">Update</button>
-      </form>
-    </div>
+      </div>
+      <PenlityComponents />
+      <MatchTypeInputField />
+      <MatchStatusInputField />
+      {MatchDateField(matchData.match_date)}
+
+      <div className="flex flex-row justify-end gap-4">
+        <button
+          className="rounded-full bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+          type="submit"
+        >
+          Update
+        </button>
+      </div>
+    </form>
   );
 };
 
