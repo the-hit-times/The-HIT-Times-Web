@@ -140,7 +140,7 @@ const AlumniPage: React.FC = () => {
           <div className="my-4 grid grid-flow-row gap-4">
             {alumniData.length === 0 && (
               <div>
-                No Data. Can't find who you are looking for?{" "}
+                {"No Data. Can't find who you are looking for? "}
                 <Link className="text-blue-900 font-bold" href={"/about-us#contact-us"}>
                   Contact us. 
                 </Link>
