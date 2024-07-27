@@ -5,6 +5,7 @@ import EditLivePostForm from "@/components/admin-portal/matches/EditLivePost";
 import { Suspense, useEffect, useState } from "react";
 import { MatchPosts } from "@/models/Match";
 import { notFound } from "next/navigation";
+import { CircularLoader } from "@/components/common/loader/Loaders";
 
 const ibmPlexSerif = IBM_Plex_Serif({
   subsets: ["latin"],
@@ -46,7 +47,7 @@ export default function EditMatchPost({
       >
         Edit Match
       </h1>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<CircularLoader />}>
         {matchData && <EditLivePostForm match={matchData} />}
       </Suspense>
     </div>

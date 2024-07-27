@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { IBM_Plex_Serif, Nunito_Sans, Poppins } from "next/font/google";
 import { dropdownsToSections } from "@/components/WeeklyPortion/weeklyPortion";
 import Article from "@/components/WeeklyPortion/Article";
+import { CircularLoader } from "@/components/common/loader/Loaders";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -99,7 +100,7 @@ export default function PostsPage({
         ))}
       </div>
 
-      {loading && <p>Loading...</p>}
+      {loading && <CircularLoader />}
     </div>
   );
 }

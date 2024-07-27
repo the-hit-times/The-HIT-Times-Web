@@ -7,6 +7,7 @@ import { Types } from "mongoose";
 import Link from "next/link";
 import { IBM_Plex_Serif, Nunito_Sans, Poppins } from "next/font/google";
 import { PlusIcon } from "@heroicons/react/24/outline";
+import { CircularLoader } from "@/components/common/loader/Loaders";
 
 const ibmPlexSerif = IBM_Plex_Serif({
   subsets: ["latin"],
@@ -151,7 +152,7 @@ export default function PostsPage() {
         ))}
       </div>
 
-      {loading && <p>Loading...</p>}
+      {loading && <CircularLoader />}
     </div>
   );
 }

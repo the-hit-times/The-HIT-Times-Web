@@ -5,6 +5,7 @@ import Link from "next/link";
 import { MatchPosts } from "@/models/Match";
 import { IBM_Plex_Serif, Nunito_Sans, Poppins } from "next/font/google";
 import { codeToTeamName } from "@/lib/codeToTeamName";
+import { CircularLoader } from "@/components/common/loader/Loaders";
 
 const ibmPlexSerif = IBM_Plex_Serif({
   subsets: ["latin"],
@@ -138,7 +139,7 @@ export default function MangeMatchPostPage() {
         ))}
       </div>
 
-      {loading && <p>Loading...</p>}
+      {loading && <CircularLoader />}
     </div>
   );
 }

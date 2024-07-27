@@ -2,6 +2,7 @@ import { Player, Teams } from "@/models/Team";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { TrashIcon } from "@heroicons/react/24/outline";
+import { CircularLoader } from "@/components/common/loader/Loaders";
 
 type TeamProps = {
   teamCode: string;
@@ -283,7 +284,7 @@ export default function TeamForm({ teamCode, deptName }: TeamProps) {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <CircularLoader />;
   }
 
   return (

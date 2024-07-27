@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import ArticleSection, { ArticleSectionProps } from "./ArticleSection"; // Ensure this import path is correct
 import { Posts } from "@/models/Post";
+import { CircularLoader } from "@/components/common/loader/Loaders";
 
 export const dropdownsToSections: { [key: string]: string } = {
   "00": "Monday Hues",
@@ -49,12 +50,18 @@ const fetchArticles = async (): Promise<ArticleSectionProps[]> => {
 // Main React component
 const WeeklyPortion: React.FC = () => {
   const [sections, setSections] = useState<ArticleSectionProps[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchArticles().then((sections) => {
       setSections(sections);
     });
+    setLoading(false);
   }, []);
+
+  if (loading) {
+    return <CircularLoader />;
+  }
 
   return (
     <div className="grid grid-flow-row gap-8">
