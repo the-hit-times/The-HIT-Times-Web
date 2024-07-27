@@ -5,6 +5,14 @@ import Image from "next/image";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { Types } from "mongoose";
 import Link from "next/link";
+import { IBM_Plex_Serif, Nunito_Sans, Poppins } from "next/font/google";
+
+
+const ibmPlexSerif = IBM_Plex_Serif({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
+});
+
 
 export default function PostsPage() {
   const PAGE_LIMIT = 10;
@@ -72,7 +80,12 @@ export default function PostsPage() {
 
   return (
     <div>
-      <h1>Posts Page</h1>
+      <h1
+        className={
+          ibmPlexSerif.className + " text-zinc-800 text-5xl font-semibold py-8"
+        }
+      >
+      Posts Page</h1>
 
       <div className="grid grid-flow-row md:grid-cols-3 gap-2">
         {posts.map((post) => (

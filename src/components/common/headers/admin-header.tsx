@@ -24,6 +24,10 @@ const links = [
     href: "/admin-portal/posts",
   },
   {
+    title: "Matches",
+    href: "/admin-portal/matches",
+  },
+  {
     title: "Notify",
     href: "/admin-portal/notify",
   },

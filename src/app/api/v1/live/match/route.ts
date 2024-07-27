@@ -17,7 +17,10 @@ export async function GET(request: NextRequest) {
         : Number(searchParams.get("page")) - 1;
 
     const post = await MatchPost.find()
-      .sort({ createdAt: -1 })
+      .sort({
+        is_live: -1,
+        match_date: -1,
+      })
       .skip(page * limit)
       .limit(limit);
 
