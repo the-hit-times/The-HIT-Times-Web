@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
-export interface Posts extends mongoose.Document {
-  _id: string;
+export interface Posts  {
+  _id: mongoose.Types.ObjectId;
   title: string;
   description: string;
   body: string;
@@ -9,6 +9,8 @@ export interface Posts extends mongoose.Document {
   link: string;
   dropdown: string;
   c_image: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const PostSchema = new mongoose.Schema<Posts>(

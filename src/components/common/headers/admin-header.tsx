@@ -12,12 +12,16 @@ const nunitoSans = Nunito_Sans({ subsets: ["latin"] });
 
 const links = [
   {
-    title: "Create a Post",
-    href: "/admin-portal/posts/create-post",
+    title: "Teams",
+    href: "/admin-portal/teams",
   },
   {
     title: "Posts",
     href: "/admin-portal/posts",
+  },
+  {
+    title: "Matches",
+    href: "/admin-portal/matches",
   },
   {
     title: "Notify",
@@ -25,7 +29,7 @@ const links = [
   },
 ];
 
-const UserProfile = (session: Session) => {
+export const UserProfile = (session: Session) => {
   return (
     <li
       className={
@@ -37,7 +41,7 @@ const UserProfile = (session: Session) => {
   );
 };
 
-const SignOut = (session: Session) => {
+export const SignOut = (session: Session) => {
   if (session) {
     return (
       <li

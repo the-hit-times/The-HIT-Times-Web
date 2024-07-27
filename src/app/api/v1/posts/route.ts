@@ -15,11 +15,26 @@ export async function GET(request: NextRequest) {
         ? 0
         : Number(searchParams.get("page")) - 1;
 
-    const post = await Post.find()
+    const query: { [key: string]: string } = {};
+    const keys = Object.keys(Post.schema.paths);
+
+    if ("_id" in keys) {
+      const post = await Post.findById(searchParams.get("_id"));
+      return Response.json(post);
+    }
+
+    keys.forEach((key) => {
+      const value = searchParams.get(key);
+      if (value) {
+        query[key] = value;
+      }
+    });
+
+    const post = await Post.find(query)
       .sort({ createdAt: -1 })
       .skip(page * limit)
       .limit(limit);
-    return Response.json( [...post]);
+    return Response.json([...post]);
   } catch (error: any) {
     const myBlob = {
       success: false,
@@ -45,7 +60,7 @@ export async function POST(request: NextRequest) {
 
   try {
     await dbConnect();
-    
+
     const data = await request.json();
 
     const post = await Post.create(data);
