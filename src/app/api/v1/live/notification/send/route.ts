@@ -20,10 +20,8 @@ export async function POST(request: NextRequest) {
   try {
     const data = await request.json();
     const notificationType = "LIVE";
-    const match_date = new Date(data.match_date);
     const notificationContent = {
       ...data,
-      match_date: match_date,
     };
     const payload = {
       data: {

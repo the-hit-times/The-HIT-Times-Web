@@ -4,7 +4,7 @@ import admin from "@/lib/firebase"; // Make sure to initialize Firebase admin in
 import dbConnect from "@/lib/dbConnect"; // Your database connection file
 import MatchPost from "@/models/Match"; // Your MatchPost model
 
-const matchPostFirebaseRef = admin.firestore().collection("matches"); // Your Firestore collection reference
+const matchPostFirebaseRef = admin.firestore().collection("live_sessions"); // Your Firestore collection reference
 
 export async function POST(request: NextRequest) {
   const token = await getToken({

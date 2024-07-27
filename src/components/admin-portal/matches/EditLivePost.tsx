@@ -270,7 +270,7 @@ const EditLivePostForm: React.FC<EditLivePostFormProps> = ({ match }) => {
         const responseData = await response.json();
         console.log("Match updated successfully", responseData);
         if (sendNotification) {
-          console.log("Notification sent");
+          sendLiveNotification("", matchData, matchData.firebase_match_id);
         }
         router.push("/manage/live-match");
       } else {
@@ -389,6 +389,7 @@ const EditLivePostForm: React.FC<EditLivePostFormProps> = ({ match }) => {
 
       const timeline_date = e.target.timeline_date.value;
       const content = editorRef.current?.getContent();
+      const contentText = editorRef.current?.getContent({ format: "text" });
 
       if (!content) return;
       const timeline = {
@@ -407,6 +408,13 @@ const EditLivePostForm: React.FC<EditLivePostFormProps> = ({ match }) => {
       );
 
       if (res.ok) {
+        if (sendNotification) {
+          sendLiveNotification(
+            contentText ?? "",
+            matchData,
+            matchData.firebase_match_id
+          );
+        }
         const newTimeline = await res.json();
         setMatchData({
           ...matchData,
@@ -447,6 +455,25 @@ const EditLivePostForm: React.FC<EditLivePostFormProps> = ({ match }) => {
         </div>
       </form>
     );
+  };
+
+  const sendLiveNotification = async (
+    timelineMessage: String,
+    data: MatchPosts,
+    firebaseMatchId: string
+  ) => {
+    const notifyRes = await fetch("/api/v1/live/notification/send", {
+      method: "POST",
+      redirect: "follow",
+      body: JSON.stringify({
+        ...data,
+        id: firebaseMatchId,
+        timeline_message: timelineMessage,
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
   };
 
   return (

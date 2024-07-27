@@ -15,10 +15,14 @@ export async function POST(
     const { matchId } = params;
     const timeline = await request.json();
 
+    const match_date = new Date(timeline.timeline_date);
     const timelineFirebaseRef = await matchPostFirebaseRef
       .doc(matchId)
       .collection("timeline");
-    const timelineFirebaseDoc = await timelineFirebaseRef.add(timeline);
+    const timelineFirebaseDoc = await timelineFirebaseRef.add({
+      ...timeline,
+      timeline_date: match_date,
+    });
 
     const timelineId = timelineFirebaseDoc.id;
 

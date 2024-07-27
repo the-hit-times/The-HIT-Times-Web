@@ -5,7 +5,9 @@ const ibmPlexSerif = IBM_Plex_Serif({
   weight: ["100", "200", "300", "400", "500", "600", "700"],
 });
 
-export default function CreateLivePost() {
+export default async function CreateLivePost() {
+
+
   return (
     <div>
       <h1
