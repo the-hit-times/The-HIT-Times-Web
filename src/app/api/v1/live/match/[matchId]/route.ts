@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect"; // Your database connection file
 import MatchPost from "@/models/Match"; // Your MatchPost model
+import admin from "@/lib/firebase";
 
 export const dynamic = "force-dynamic"; // defaults to force-static
 
@@ -19,6 +20,35 @@ export async function GET(
     }
 
     return NextResponse.json({ data: doc, code: "success" }, { status: 200 });
+  } catch (error: any) {
+    return NextResponse.json({ msg: error.message }, { status: 500 });
+  }
+}
+
+export async function PUT(
+  request: NextRequest,
+  { params, body }: { params: { matchId: string }; body: any }
+) {
+  try {
+    await dbConnect(); // Ensure the database is connected
+    const { matchId } = params;
+    const data = await request.json();
+
+    const db = admin.firestore();
+    const matchPostFirebaseRef = db.collection("live_sessions");
+    const matchDocument = await matchPostFirebaseRef.doc(matchId).set({
+      ...data,
+    });
+    await MatchPost.findOneAndUpdate(
+      { firebase_match_id: matchId },
+      {
+        ...data,
+      }
+    );
+    return NextResponse.json(
+      { msg: "success", updateData: matchDocument },
+      { status: 200 }
+    );
   } catch (error: any) {
     return NextResponse.json({ msg: error.message }, { status: 500 });
   }

@@ -232,18 +232,25 @@ const EditLivePostForm: React.FC<EditLivePostFormProps> = ({ match }) => {
     );
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleMatchDataUpdate = async (e: any) => {
     e.preventDefault();
     const data = {
       ...matchData,
     };
 
-    console.log(data);
+    const matchUpdateResponse = await fetch(`/api/v1/live/match/${matchData.firebase_match_id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleMatchDataUpdate}>
         <div>
           <input
             type="checkbox"
