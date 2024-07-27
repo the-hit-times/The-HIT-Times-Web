@@ -5,6 +5,7 @@ export interface Alumni {
   name: string;
   linkedin: string;
   profile_image: string;
+  position: string;
   session_start: number;
   session_end: number;
 }
@@ -17,6 +18,7 @@ const AlumnusSchema = new mongoose.Schema<Alumni>(
     },
     name: { type: String, required: true },
     profile_image: { type: String, default: "404.svg" },
+    position: { type: String, default: "" },  
     linkedin: { type: String, default: "" },
     session_start: { type: Number, required: true },
     session_end: { type: Number, required: true },

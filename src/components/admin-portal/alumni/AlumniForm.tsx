@@ -17,6 +17,7 @@ const AlumniForm = ({ alumniId }: AlumniFormProps) => {
     name: "",
     linkedin: "",
     profile_image: "",
+    position: "",
     session_start: new Date().getFullYear() - 4,
     session_end: new Date().getFullYear(),
   });
@@ -31,6 +32,7 @@ const AlumniForm = ({ alumniId }: AlumniFormProps) => {
           name: alumniData.name,
           profile_image: alumniData.profile_image,
           linkedin: alumniData.linkedin,
+          position: alumniData.position,
           session_start: alumniData.session_start,
           session_end: alumniData.session_end,
         });
@@ -51,11 +53,18 @@ const AlumniForm = ({ alumniId }: AlumniFormProps) => {
   const handleOnSubmit = async (event: any) => {
     event.preventDefault();
     try {
-      const { name, linkedin, profile_image, session_start, session_end } =
-        alumniDetails;
+      const {
+        name,
+        linkedin,
+        profile_image,
+        position,
+        session_start,
+        session_end,
+      } = alumniDetails;
       const data = {
         name,
         linkedin,
+        position,
         profile_image,
         session_start,
         session_end,
@@ -80,6 +89,17 @@ const AlumniForm = ({ alumniId }: AlumniFormProps) => {
             ? "Alumni updated successfully"
             : "Alumni created successfully",
         });
+
+        if (!alumniId) {
+          setAlumniDetails({
+            name: "",
+            profile_image: "",
+            linkedin: "",
+            position: "",
+            session_start: 0,
+            session_end: 0,
+          });
+        }
       } else {
         setMessage({
           error: true,
@@ -113,6 +133,7 @@ const AlumniForm = ({ alumniId }: AlumniFormProps) => {
       name: "",
       profile_image: "",
       linkedin: "",
+      position: "",
       session_start: 0,
       session_end: 0,
     });
@@ -200,6 +221,27 @@ const AlumniForm = ({ alumniId }: AlumniFormProps) => {
           value={alumniDetails.linkedin}
           onChange={(e) =>
             setAlumniDetails({ ...alumniDetails, linkedin: e.target.value })
+          }
+        />
+
+        <label
+          className="block text-sm font-medium leading-6 text-gray-900"
+          htmlFor="position"
+        >
+          Position
+        </label>
+        <input
+          className="
+        outline outline-transparent
+        px-3
+        block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          type="text"
+          id="position"
+          name="position"
+          placeholder="Position"
+          value={alumniDetails.position}
+          onChange={(e) =>
+            setAlumniDetails({ ...alumniDetails, position: e.target.value })
           }
         />
 

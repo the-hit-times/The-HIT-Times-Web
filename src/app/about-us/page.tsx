@@ -128,12 +128,15 @@ const AboutUs = () => {
           </div>
         </div>
         <div className="">
-          <h2 className={ibmPlexSerif.className + " font-semibold text-2xl"}>
+          <h2
+            className={ibmPlexSerif.className + " font-semibold text-2xl"}
+            id="contact-us"
+          >
             Contact Us
           </h2>
           <div className="grid sm:grid-flow-col grid-flow-row my-4">
             {contactData.map((contact) => (
-              <ContactCard {...contact} />
+              <ContactCard key={contact.handle} {...contact} />
             ))}
           </div>
         </div>

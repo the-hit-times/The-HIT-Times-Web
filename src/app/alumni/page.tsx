@@ -9,6 +9,7 @@ import { EnvelopeIcon } from "@heroicons/react/24/solid";
 import { Alumni } from "@/models/Alumnus";
 import { CircularLoader } from "@/components/common/loader/Loaders";
 import AlumniCard from "@/components/alumni/Profile";
+import Link from "next/link";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -31,12 +32,19 @@ interface AlumniData {
 
 const AlumniPage: React.FC = () => {
   const [alumniData, setAlumniData] = useState<AlumniData[]>([]);
+  const [filter, setFilter] = useState({
+    startSession: new Date().getFullYear() - 4,
+    endSession: new Date().getFullYear(),
+  });
   const [loading, setLoading] = useState(true);
 
-  const LIMIT = 20;
-
   const fetchAlumniData = async () => {
-    const response = await fetch("/api/v1/alumnus");
+    const start = filter.startSession;
+    const end = filter.endSession;
+
+    const response = await fetch(
+      `/api/v1/alumnus?startSession=${start}&endSession=${end}`
+    );
     const data = await response.json();
 
     const alumni = data.data as Alumni[];
@@ -51,12 +59,12 @@ const AlumniPage: React.FC = () => {
       }
     });
 
-    const alumniDataArray = Object.entries(alumniData).map(
-      ([year, alumni]) => ({
+    const alumniDataArray = Object.entries(alumniData)
+      .map(([year, alumni]) => ({
         year,
         alumni,
-      })
-    );
+      }))
+      .sort((a, b) => parseInt(b.year) - parseInt(a.year));
 
     setAlumniData(alumniDataArray);
     setLoading(false);
@@ -64,17 +72,61 @@ const AlumniPage: React.FC = () => {
 
   useEffect(() => {
     fetchAlumniData();
-  }, []);
+  }, [filter]);
 
   if (loading) {
     return <CircularLoader />;
   }
 
+  const FilterMenu = () => {
+    const currentYear = new Date().getFullYear();
+    const startYear = 2013;
+
+    const generateYearOptions = () => {
+      const options = [];
+      for (let year = currentYear; year >= startYear; year--) {
+        const start = year - 4;
+        const end = year;
+
+        options.push(
+          <option
+            key={year}
+            value={`${start}-${end}`}
+            data-label-start={start}
+            data-label-end={end}
+          >
+            {`${start}-${end}`}
+          </option>
+        );
+      }
+      return options;
+    };
+
+    return (
+      <div className="flex flex-1 items-center justify-end">
+        <select
+          className="p-2 rounded-lg bg-gray-100 text-black font-bold focus:outline-none appearance-none"
+          value={`${filter.startSession}-${filter.endSession}`}
+          onChange={(e) => {
+            const [start, end] = e.target.value.split("-");
+            setFilter({
+              startSession: parseInt(start),
+              endSession: parseInt(end),
+            });
+          }}
+        >
+          {generateYearOptions()}
+        </select>
+        <FunnelIcon className="w-6 h-6" />
+      </div>
+    );
+  };
+
   return (
     <div className="">
       <div className="">
         <div className="flex flex-col gap-4">
-          <div className="mr-2 flex items-center justify-center lg:mr-0 md:mr-0">
+          <div className="mr-2 flex items-center justify-between lg:mr-0 md:mr-0">
             <h1
               className={
                 ibmPlexSerif.className + " text-5xl font-semibold my-8"
@@ -82,24 +134,32 @@ const AlumniPage: React.FC = () => {
             >
               Our Alumnus
             </h1>
-            <div className="flex flex-1 items-center justify-end gap-4">
-              <h2 className="text-xl font-bold">2021-2024</h2>
-              <FunnelIcon className="w-6 h-6" />
-            </div>
+            <FilterMenu />
           </div>
 
-          {alumniData.map(({ year, alumni }) => (
-            <div key={year} className="flex flex-col gap-8">
-              <div className="mr-1 flex flex-col items-start gap-5 lg:mr-0 md:mr-0">
-                <h3 className="text-lg font-bold">{year}</h3>
-                <div className="mb-4 mr-3.5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-5 lg:mr-0 md:mr-0">
-                  {alumni.map((alumniMember, index) => (
-                    <AlumniCard key={index} {...alumniMember} />
-                  ))}
-                </div>
+          <div className="my-4 grid grid-flow-row gap-4">
+            {alumniData.length === 0 && (
+              <div>
+                No Data. Can't find who you are looking for?{" "}
+                <Link className="text-blue-900 font-bold" href={"/about-us#contact-us"}>
+                  Contact us. 
+                </Link>
               </div>
-            </div>
-          ))}
+            )}
+            {alumniData.length > 0 &&
+              alumniData.map(({ year, alumni }) => (
+                <div key={year} className="flex flex-col gap-8">
+                  <div className="mr-1 flex flex-col items-start gap-5 lg:mr-0 md:mr-0">
+                    <h3 className="text-lg font-bold">{year}</h3>
+                    <div className="grid grid-flow-col">
+                      {alumni.map((alumniMember, index) => (
+                        <AlumniCard key={index} {...alumniMember} />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+          </div>
         </div>
       </div>
     </div>
