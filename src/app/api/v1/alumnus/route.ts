@@ -15,7 +15,19 @@ export async function GET(request: NextRequest) {
         ? 0
         : Number(searchParams.get("page")) - 1;
 
-    const alumni = await Alumnus.find()
+    const startSession = searchParams.get("startSession");
+    const endSession = searchParams.get("endSession");
+
+    var query = {};
+
+    if (startSession && endSession) {
+      query = {
+        session_start: { $gte: startSession },
+        session_end: { $lte: endSession },
+      };
+    }
+
+    const alumni = await Alumnus.find(query)
       .sort({
         session_end: -1,
       })
@@ -24,6 +36,7 @@ export async function GET(request: NextRequest) {
 
     return Response.json({ code: "success", data: alumni }, { status: 200 });
   } catch (error) {
+    console.log(error);
     return Response.json(
       { success: false, msg: "Internal Server Error" },
       { status: 500 }
