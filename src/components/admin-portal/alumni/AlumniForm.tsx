@@ -16,8 +16,8 @@ const AlumniForm = ({ alumniId }: AlumniFormProps) => {
   const [alumniDetails, setAlumniDetails] = useState({
     name: "",
     linkedin: "",
-    session_start: 0,
-    session_end: 0,
+    session_start: new Date().getFullYear() - 4,
+    session_end: new Date().getFullYear(),  
   });
 
   const loadAlumni = async (alumniId: string) => {

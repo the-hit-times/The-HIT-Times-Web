@@ -92,7 +92,7 @@ export default function AlumniPage() {
         </Link>
       </div>
 
-      <div className="grid grid-flow-row md:grid-cols-3 gap-2">
+      <div className="grid grid-flow-row md:grid-cols-3 gap-2 my-4">
         {alumni.map((alum) => (
           <div
             key={alum._id.toString()}

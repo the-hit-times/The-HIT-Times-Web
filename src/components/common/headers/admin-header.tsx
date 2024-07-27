@@ -24,6 +24,10 @@ const links = [
     href: "/admin-portal/matches",
   },
   {
+    title: "Alumni",
+    href: "/admin-portal/alumni",
+  },
+  {
     title: "Notify",
     href: "/admin-portal/notify",
   },
