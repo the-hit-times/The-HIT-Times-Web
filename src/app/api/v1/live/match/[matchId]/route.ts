@@ -36,8 +36,10 @@ export async function PUT(
 
     const db = admin.firestore();
     const matchPostFirebaseRef = db.collection("live_sessions");
+    const match_date = new Date(data.match_date);
     const matchDocument = await matchPostFirebaseRef.doc(matchId).set({
       ...data,
+      match_date: match_date,
     });
     await MatchPost.findOneAndUpdate(
       { firebase_match_id: matchId },
