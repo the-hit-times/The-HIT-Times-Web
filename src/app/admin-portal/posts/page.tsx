@@ -6,13 +6,12 @@ import { PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { Types } from "mongoose";
 import Link from "next/link";
 import { IBM_Plex_Serif, Nunito_Sans, Poppins } from "next/font/google";
-
+import { PlusIcon } from "@heroicons/react/24/outline";
 
 const ibmPlexSerif = IBM_Plex_Serif({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700"],
 });
-
 
 export default function PostsPage() {
   const PAGE_LIMIT = 10;
@@ -80,12 +79,21 @@ export default function PostsPage() {
 
   return (
     <div>
-      <h1
-        className={
-          ibmPlexSerif.className + " text-zinc-800 text-5xl font-semibold py-8"
-        }
-      >
-      Posts Page</h1>
+      <div className="flex flex-row py-8 justify-between items-center">
+        <h1
+          className={
+            ibmPlexSerif.className + " text-zinc-800 text-5xl font-semibold"
+          }
+        >
+          Posts Page
+        </h1>
+
+        <Link href="/admin-portal/posts/create-post">
+          <button className="bg-blue-100 rounded-full text-blue-800 py-2 px-4 flex flex-row items-center gap-2">
+            <PlusIcon width={18} height={18} /><span>Create Post</span>
+          </button>
+        </Link>
+      </div>
 
       <div className="grid grid-flow-row md:grid-cols-3 gap-2">
         {posts.map((post) => (

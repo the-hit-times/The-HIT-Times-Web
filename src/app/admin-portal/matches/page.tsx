@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
+import { PencilIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { MatchPosts } from "@/models/Match";
 import { IBM_Plex_Serif, Nunito_Sans, Poppins } from "next/font/google";
@@ -65,13 +65,22 @@ export default function MangeMatchPostPage() {
 
   return (
     <div>
-      <h1
-        className={
-          ibmPlexSerif.className + " text-zinc-800 text-5xl font-semibold py-8"
-        }
-      >
-        Manage Matches
-      </h1>
+      <div className="flex flex-row py-8 justify-between items-center">
+        <h1
+          className={
+            ibmPlexSerif.className + " text-zinc-800 text-5xl font-semibold"
+          }
+        >
+          Manage Matches
+        </h1>
+
+        <Link href="/admin-portal/matches/create-match">
+          <button className="bg-blue-100 rounded-full text-blue-800 py-2 px-4 flex flex-row items-center gap-2">
+            <PlusIcon width={18} height={18} />
+            <span>Create Match</span>
+          </button>
+        </Link>
+      </div>
 
       <div className="grid grid-flow-row md:grid-cols-3 gap-2 my-4">
         {posts.map((post) => (
@@ -107,7 +116,7 @@ export default function MangeMatchPostPage() {
             </div>
             <div>
               <hr />
-              <div className="flex flex-row justify-between p-2">
+              <div className="flex flex-row justify-between pt-2">
                 <button>
                   <Link
                     href={`/admin-portal/matches/edit/${post.firebase_match_id}`}

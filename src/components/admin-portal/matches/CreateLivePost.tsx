@@ -48,7 +48,7 @@ const CreateLivePostForm = () => {
     if (res.ok) {
       const result = await res.json();
 
-      if (result.msg === 'success') {
+      if (result.msg === "success") {
         if (!sendNotification) {
           router.push(`/admin-portal/matches/edit/${result.matchId}`);
           return;
@@ -69,10 +69,12 @@ const CreateLivePostForm = () => {
 
         const notifyResult = await notifyRes.json();
 
-        if (notifyResult.msg === 'success') {
+        if (notifyResult.msg === "success") {
           router.push(`/admin-portal/matches/edit/${result.matchId}`);
         } else {
-          alert("Failed to send a live match notification: " + notifyResult.msg);
+          alert(
+            "Failed to send a live match notification: " + notifyResult.msg
+          );
         }
       } else {
         alert("Failed to create a live match: " + result.msg);
@@ -94,6 +96,7 @@ const CreateLivePostForm = () => {
     otherTeamCode: string
   ) => (
     <select
+      className="outline outline-transparent px-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
       value={teamCode}
       onChange={handleTeamChange(setTeamCode, otherTeamCode)}
     >
@@ -106,6 +109,7 @@ const CreateLivePostForm = () => {
   );
 
   const renderTeamInput = (
+    teamNo: number,
     teamCode: string,
     setTeamCode: any,
     teamScore: string,
@@ -113,9 +117,12 @@ const CreateLivePostForm = () => {
     otherTeamCode: string
   ) => (
     <div>
-      <label>{codeToTeamName[teamCode]}</label>
+      <label className="block text-sm font-medium leading-6 text-gray-900 mb-2">
+        {"Team " + teamNo}
+      </label>
       {renderTeamSelect(teamCode, setTeamCode, otherTeamCode)}
       <input
+        className="outline outline-transparent px-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 mt-2"
         required
         placeholder="Score"
         value={teamScore}
@@ -125,35 +132,32 @@ const CreateLivePostForm = () => {
   );
 
   return (
-    <div>
-      <form onSubmit={matchPostData}>
-        <div>
-          <input
-            type="checkbox"
-            checked={sendNotification}
-            onChange={() => setSendNotification(!sendNotification)}
-          />
-          <label>Notify Users</label>
+    <div className="my-4">
+      <form onSubmit={matchPostData} className="grid grid-flow-row gap-4">
+        <div className="grid grid-flow-row grid-cols-2 gap-4">
+          {renderTeamInput(
+            1,
+            team1Code,
+            setTeam1Code,
+            team1Score,
+            setTeam1Score,
+            team2Code
+          )}
+          {renderTeamInput(
+            2,
+            team2Code,
+            setTeam2Code,
+            team2Score,
+            setTeam2Score,
+            team1Code
+          )}
         </div>
-
-        {renderTeamInput(
-          team1Code,
-          setTeam1Code,
-          team1Score,
-          setTeam1Score,
-          team2Code
-        )}
-        {renderTeamInput(
-          team2Code,
-          setTeam2Code,
-          team2Score,
-          setTeam2Score,
-          team1Code
-        )}
-
         <div>
-          <label>Match Date and Time</label>
+          <label className="block text-sm font-medium leading-6 text-gray-900 mb-2">
+            Match Date and Time
+          </label>
           <input
+            className="outline outline-transparent px-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 mt-2"
             type="datetime-local"
             value={matchDateTime}
             onChange={(e) => setMatchDateTime(e.target.value)}
@@ -161,16 +165,25 @@ const CreateLivePostForm = () => {
         </div>
 
         <div>
-          <label>Is Match Live?</label>
-          <select value={isLive} onChange={(e) => setIsLive(e.target.value)}>
+          <label className="block text-sm font-medium leading-6 text-gray-900 mb-2">
+            Is Match Live?
+          </label>
+          <select
+            className="outline outline-transparent px-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 mt-2"
+            value={isLive}
+            onChange={(e) => setIsLive(e.target.value)}
+          >
             <option value="true">LIVE</option>
             <option value="false">NOT LIVE</option>
           </select>
         </div>
 
         <div>
-          <label>Match Type</label>
+          <label className="block text-sm font-medium leading-6 text-gray-900 mb-2">
+            Match Type
+          </label>
           <select
+            className="outline outline-transparent px-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 mt-2"
             value={matchType}
             onChange={(e) => setMatchType(e.target.value)}
           >
@@ -180,8 +193,11 @@ const CreateLivePostForm = () => {
         </div>
 
         <div>
-          <label>Match Status</label>
+          <label className="block text-sm font-medium leading-6 text-gray-900 mb-2">
+            Match Status
+          </label>
           <textarea
+            className="outline outline-transparent px-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 mt-2"
             required
             placeholder="Match Started"
             value={matchStatus}
@@ -189,8 +205,23 @@ const CreateLivePostForm = () => {
             maxLength={35}
           ></textarea>
         </div>
+        <div className="flex flex-row justify-between gap-4">
+          <div>
+            <input
+              type="checkbox"
+              checked={sendNotification}
+              onChange={() => setSendNotification(!sendNotification)}
+            />
+            <label>Notify Users</label>
+          </div>
 
-        <button type="submit">Submit</button>
+          <button
+            className="rounded-full bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+            type="submit"
+          >
+            Submit
+          </button>
+        </div>
       </form>
     </div>
   );
