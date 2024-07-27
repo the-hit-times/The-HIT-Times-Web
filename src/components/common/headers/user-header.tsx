@@ -12,10 +12,10 @@ const links = [
     title: "Alumni",
     href: "/alumni",
   },
-  {
-    title: "Tabloids",
-    href: "/tabloids",
-  },
+  // {
+  //   title: "Tabloids",
+  //   href: "/tabloids",
+  // },
   // {
   //   title: "Notice",
   //   href: "/notice",

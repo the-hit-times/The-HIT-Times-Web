@@ -1,5 +1,7 @@
+"use client";
+
 import { FunnelIcon } from "@heroicons/react/24/outline";
-import React from "react";
+import React, { useState } from "react";
 
 import { IBM_Plex_Serif, Nunito_Sans, Poppins } from "next/font/google";
 import Image from "next/image";
