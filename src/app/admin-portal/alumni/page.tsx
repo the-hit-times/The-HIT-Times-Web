@@ -99,13 +99,13 @@ export default function AlumniPage() {
             className="p-2 bg-white rounded-md gap-2 flex flex-col"
           >
             <div className="">
-              {/* <Image
-                src={alum.image}
+              <Image
+                src={alum.profile_image}
                 alt={alum.name}
                 className="w-full aspect-video rounded-md object-cover"
                 width={500}
                 height={500}
-              /> */}
+              />
               <h3
                 className={ibmPlexSerif.className + " text-lg font-bold mt-4 "}
               >

@@ -16,8 +16,9 @@ const AlumniForm = ({ alumniId }: AlumniFormProps) => {
   const [alumniDetails, setAlumniDetails] = useState({
     name: "",
     linkedin: "",
+    profile_image: "",
     session_start: new Date().getFullYear() - 4,
-    session_end: new Date().getFullYear(),  
+    session_end: new Date().getFullYear(),
   });
 
   const loadAlumni = async (alumniId: string) => {
@@ -28,6 +29,7 @@ const AlumniForm = ({ alumniId }: AlumniFormProps) => {
         const alumniData = data.data;
         setAlumniDetails({
           name: alumniData.name,
+          profile_image: alumniData.profile_image,
           linkedin: alumniData.linkedin,
           session_start: alumniData.session_start,
           session_end: alumniData.session_end,
@@ -49,8 +51,15 @@ const AlumniForm = ({ alumniId }: AlumniFormProps) => {
   const handleOnSubmit = async (event: any) => {
     event.preventDefault();
     try {
-      const { name, linkedin, session_start, session_end } = alumniDetails;
-      const data = { name, linkedin, session_start, session_end };
+      const { name, linkedin, profile_image, session_start, session_end } =
+        alumniDetails;
+      const data = {
+        name,
+        linkedin,
+        profile_image,
+        session_start,
+        session_end,
+      };
 
       const response = await fetch(
         alumniId ? `/api/v1/alumnus/${alumniId}` : "/api/v1/alumnus/",
@@ -62,7 +71,6 @@ const AlumniForm = ({ alumniId }: AlumniFormProps) => {
           body: JSON.stringify(data),
         }
       );
-
       if (response.ok) {
         const responseData = await response.json();
         setMessage({
@@ -103,6 +111,7 @@ const AlumniForm = ({ alumniId }: AlumniFormProps) => {
   const handleOnReset = () => {
     setAlumniDetails({
       name: "",
+      profile_image: "",
       linkedin: "",
       session_start: 0,
       session_end: 0,
@@ -146,6 +155,30 @@ const AlumniForm = ({ alumniId }: AlumniFormProps) => {
           value={alumniDetails.name}
           onChange={(e) =>
             setAlumniDetails({ ...alumniDetails, name: e.target.value })
+          }
+        />
+
+        <label
+          className="block text-sm font-medium leading-6 text-gray-900"
+          htmlFor="profile_image"
+        >
+          Profile Image
+        </label>
+        <input
+          className="
+        outline outline-transparent
+        px-3
+        block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          type="text"
+          id="profile_image"
+          name="profile_image"
+          placeholder="Profile Image URL"
+          value={alumniDetails.profile_image}
+          onChange={(e) =>
+            setAlumniDetails({
+              ...alumniDetails,
+              profile_image: e.target.value,
+            })
           }
         />
 
