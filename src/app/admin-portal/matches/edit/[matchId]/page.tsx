@@ -24,7 +24,7 @@ export default function EditMatchPost({
     const response = await fetch(`/api/v1/live/match/${matchId}`);
     const data = await response.json();
     if (response.ok) {
-      setMatchData(data);
+      setMatchData(data.data);
     }
     setLoading(false);
   };
