@@ -1,11 +1,14 @@
 "use client";
 
 import { FunnelIcon } from "@heroicons/react/24/outline";
-import React, { useState } from "react";
+import React, { Profiler, useEffect, useState } from "react";
 
 import { IBM_Plex_Serif, Nunito_Sans, Poppins } from "next/font/google";
 import Image from "next/image";
 import { EnvelopeIcon } from "@heroicons/react/24/solid";
+import { Alumni } from "@/models/Alumnus";
+import { CircularLoader } from "@/components/common/loader/Loaders";
+import AlumniCard from "@/components/alumni/Profile";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -21,76 +24,52 @@ const nunitoSans = Nunito_Sans({
   weight: ["200", "300", "400", "600", "700", "800"],
 });
 
-interface AlumniCardProps {
-  name: string;
-  position: string;
-  imgSrc: string;
-}
-
-const AlumniCard: React.FC<AlumniCardProps> = ({ name, position, imgSrc }) => {
-  return (
-    <div className="flex w-full flex-col items-center">
-      <Image
-        src={imgSrc}
-        alt={`${name} Profile Image`}
-        width={80}
-        height={80}
-        className="w-full rounded-full object-cover"
-      />
-      <h4 className="text-base mt-2 mx-auto leading-6 text-black font-bold">
-        {name}
-      </h4>
-      <p className="text-base font-normal text-gray-900">{position}</p>
-    </div>
-  );
-};
-
 interface AlumniData {
   year: string;
-  alumni: {
-    name: string;
-    position: string;
-    imgSrc: string;
-  }[];
+  alumni: Alumni[];
 }
 
-const alumniData: AlumniData[] = [
-  {
-    year: "2024",
-    alumni: [
-      {
-        name: "Alumni Name 1",
-        position: "Position 1",
-        imgSrc: "/profile-vector.jpg",
-      },
-      {
-        name: "Alumni Name 2",
-        position: "Position 2",
-        imgSrc: "/profile-vector.jpg",
-      },
-      // Add more alumni as needed
-    ],
-  },
-  {
-    year: "2023",
-    alumni: [
-      {
-        name: "Alumni Name 3",
-        position: "Position 3",
-        imgSrc: "/profile-vector.jpg",
-      },
-      {
-        name: "Alumni Name 4",
-        position: "Position 4",
-        imgSrc: "/profile-vector.jpg",
-      },
-      // Add more alumni as needed
-    ],
-  },
-  // Add more years as needed
-];
+const AlumniPage: React.FC = () => {
+  const [alumniData, setAlumniData] = useState<AlumniData[]>([]);
+  const [loading, setLoading] = useState(true);
 
-const Alumni: React.FC = () => {
+  const LIMIT = 20;
+
+  const fetchAlumniData = async () => {
+    const response = await fetch("/api/v1/alumnus");
+    const data = await response.json();
+
+    const alumni = data.data as Alumni[];
+
+    const alumniData: { [year: string]: Alumni[] } = {};
+
+    alumni.forEach((alumnus, index) => {
+      if (alumnus.session_end in alumniData) {
+        alumniData[alumnus.session_end].push(alumnus);
+      } else {
+        alumniData[alumnus.session_end] = [alumnus];
+      }
+    });
+
+    const alumniDataArray = Object.entries(alumniData).map(
+      ([year, alumni]) => ({
+        year,
+        alumni,
+      })
+    );
+
+    setAlumniData(alumniDataArray);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchAlumniData();
+  }, []);
+
+  if (loading) {
+    return <CircularLoader />;
+  }
+
   return (
     <div className="">
       <div className="">
@@ -127,4 +106,4 @@ const Alumni: React.FC = () => {
   );
 };
 
-export default Alumni;
+export default AlumniPage;
