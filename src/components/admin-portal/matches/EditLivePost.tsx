@@ -14,7 +14,6 @@ interface EditLivePostFormProps {
 }
 
 const EditLivePostForm: React.FC<EditLivePostFormProps> = ({ match }) => {
-  const router = useRouter();
   const [matchData, setMatchData] = useState<MatchPosts>(match);
   const [showPenalty, setShowPenalty] = useState<boolean>(false);
   const [sendNotification, setSendNotification] = useState<boolean>(true);
@@ -283,6 +282,31 @@ const EditLivePostForm: React.FC<EditLivePostFormProps> = ({ match }) => {
     }
   };
 
+  const IsMatchLiveField = () => {
+    const handleIsLiveChange = (e: any) => {
+      setMatchData({
+        ...matchData,
+        is_live: e.target.value === "yes",
+      });
+    };
+
+    return (
+      <div className="mb-4">
+        <label className="block text-sm font-medium leading-6 text-gray-900 mb-2">
+          Match Type
+        </label>
+        <select
+          className="outline outline-transparent px-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          value={matchData.is_live ? "yes" : "no"}
+          onChange={handleIsLiveChange}
+        >
+          <option value={"yes"}>Yes</option>
+          <option value={"no"}>No</option>
+        </select>
+      </div>
+    );
+  };
+
   const MatchDetailsForm = () => (
     <form className="grid grid-flow-row gap-2 my-2" onSubmit={handleOnSubmit}>
       <div className="grid grid-flow-row grid-cols-2 gap-4">
@@ -307,12 +331,21 @@ const EditLivePostForm: React.FC<EditLivePostFormProps> = ({ match }) => {
           )}
         </div>
       </div>
-      <PenlityComponents />
+      {matchData.match_type === "football" && <PenlityComponents />}
+      <IsMatchLiveField />
       <MatchTypeInputField />
       <MatchStatusInputField />
       {MatchDateField(matchData.match_date)}
 
-      <div className="flex flex-row justify-end gap-4">
+      <div className="flex flex-row justify-between gap-4">
+        <label className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            checked={sendNotification}
+            onChange={() => setSendNotification(!sendNotification)}
+          />
+          <span>Send Notification</span>
+        </label>
         <button
           className="rounded-full bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
           type="submit"
