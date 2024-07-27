@@ -383,9 +383,76 @@ const EditLivePostForm: React.FC<EditLivePostFormProps> = ({ match }) => {
     );
   };
 
+  const AddTimeline = () => {
+    const handleAddTimeline = async (e: any) => {
+      e.preventDefault();
+
+      const timeline_date = e.target.timeline_date.value;
+      const content = editorRef.current?.getContent();
+
+      if (!content) return;
+      const timeline = {
+        timeline_date: timeline_date ? new Date(timeline_date) : new Date(),
+        msgHtml: content,
+      };
+      const res = await fetch(
+        `/api/v1/live/match/${matchData.firebase_match_id}/timeline`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(timeline),
+        }
+      );
+
+      if (res.ok) {
+        const newTimeline = await res.json();
+        setMatchData({
+          ...matchData,
+          timeline: [...matchData.timeline, newTimeline.data],
+        });
+        editorRef.current?.setContent("");
+      } else {
+        console.error("Error adding timeline:", res.statusText);
+      }
+    };
+
+    return (
+      <form onSubmit={handleAddTimeline} className="grid grid-flow-row gap-4">
+        <h2 className="text-lg font-semibold text-gray-800">Add Timeline</h2>
+        <div className="grid grid-flow-row gap-2">
+          <input
+            name="timeline_date"
+            type="datetime-local"
+            className="outline outline-transparent px-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          />
+          <Editor
+            onInit={(evt, editor) => (editorRef.current = editor)}
+            apiKey="w6q7m6bspz8sqsc3xf8ogte5se9rmnjz0x84aruqxnvb5jek"
+            init={{
+              plugins: "link",
+              default_link_target: "_blank",
+            }}
+            initialValue=""
+          />
+          <div className="flex flex-row justify-end gap-4">
+            <button
+              className="rounded-full bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+              type="submit"
+            >
+              Add Timeline
+            </button>
+          </div>
+        </div>
+      </form>
+    );
+  };
+
   return (
-    <div>
+    <div className="grid grid-flow-row gap-4">
       <MatchDetailsForm />
+      <AddTimeline />
       <TimelineHistory />
     </div>
   );
