@@ -37,6 +37,14 @@ const quickActions = [
     url: "/admin-portal/matches",
   },
   {
+    title: "Add Alumni",
+    url: "/admin-portal/alumni/create-alumni",
+  },
+  {
+    title: "See all Alumni",
+    url: "/admin-portal/alumni",
+  },
+  {
     title: "Send a Notification",
     url: "/admin-portal/notify",
   },

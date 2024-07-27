@@ -8,8 +8,21 @@ export const dynamic = "force-dynamic"; // defaults to force-static
 export async function GET(request: NextRequest) {
   try {
     dbConnect();
-    const alumni = await Alumnus.find({});
-    return Response.json({ success: true, data: alumni }, { status: 200 });
+    const { searchParams } = new URL(request.url);
+    const limit = Number(searchParams.get("limit"));
+    const page =
+      Number(searchParams.get("page")) - 1 <= 0
+        ? 0
+        : Number(searchParams.get("page")) - 1;
+
+    const alumni = await Alumnus.find()
+      .sort({
+        session_end: -1,
+      })
+      .skip(page * limit)
+      .limit(limit);
+
+    return Response.json({ code: "success", data: alumni }, { status: 200 });
   } catch (error) {
     return Response.json(
       { success: false, msg: "Internal Server Error" },
