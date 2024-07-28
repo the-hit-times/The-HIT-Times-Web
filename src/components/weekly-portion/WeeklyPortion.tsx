@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import ArticleSection, { ArticleSectionProps } from "./ArticleSection"; // Ensure this import path is correct
 import { Posts } from "@/models/Post";
 import { CircularLoader } from "@/components/common/loader/Loaders";
@@ -55,8 +55,8 @@ const WeeklyPortion: React.FC = () => {
   useEffect(() => {
     fetchArticles().then((sections) => {
       setSections(sections);
+      setLoading(false);
     });
-    setLoading(false);
   }, []);
 
   if (loading) {
@@ -64,16 +64,18 @@ const WeeklyPortion: React.FC = () => {
   }
 
   return (
-    <div className="grid grid-flow-row gap-8">
-      {sections.map((section) => (
-        <ArticleSection
-          key={section.heading}
-          heading={section.heading}
-          articles={section.articles}
-          showAllLink={section.showAllLink}
-        />
-      ))}
-    </div>
+    <Suspense fallback={<CircularLoader />}>
+      <div className="grid grid-flow-row gap-8">
+        {sections.map((section) => (
+          <ArticleSection
+            key={section.heading}
+            heading={section.heading}
+            articles={section.articles}
+            showAllLink={section.showAllLink}
+          />
+        ))}
+      </div>
+    </Suspense>
   );
 };
 

@@ -7,6 +7,7 @@ import Link from "next/link";
 import { IBM_Plex_Serif, Nunito_Sans } from "next/font/google";
 import { CircularLoader } from "@/components/common/loader/Loaders";
 import { Alumni } from "@/models/Alumnus";
+import ArticleImage from "@/components/weekly-portion/ArticleImage";
 
 const ibmPlexSerif = IBM_Plex_Serif({
   subsets: ["latin"],
@@ -99,7 +100,7 @@ export default function AlumniPage() {
             className="p-2 bg-white rounded-md gap-2 flex flex-col"
           >
             <div className="">
-              <Image
+              <ArticleImage
                 src={alum.profile_image}
                 alt={alum.name}
                 className="w-full aspect-video rounded-md object-cover"

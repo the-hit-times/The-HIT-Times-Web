@@ -8,6 +8,7 @@ import Link from "next/link";
 import { IBM_Plex_Serif, Nunito_Sans, Poppins } from "next/font/google";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { CircularLoader } from "@/components/common/loader/Loaders";
+import ArticleImage from "@/components/weekly-portion/ArticleImage";
 
 const ibmPlexSerif = IBM_Plex_Serif({
   subsets: ["latin"],
@@ -109,13 +110,14 @@ export default function PostsPage() {
             className="p-2 bg-white rounded-md gap-2 flex flex-col"
           >
             <div className="">
-              <Image
+              <ArticleImage
                 src={post.link}
                 alt={post.title}
                 className="w-full aspect-video rounded-md object-cover"
                 width={500}
                 height={500}
               />
+
               <h3
                 className={ibmPlexSerif.className + " text-lg font-bold mt-4 "}
               >

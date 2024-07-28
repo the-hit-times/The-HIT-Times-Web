@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
 import parse from "html-react-parser";
 import { IBM_Plex_Serif, Nunito_Sans, Poppins } from "next/font/google";
 import { notFound } from "next/navigation";
+import { CircularLoader } from "@/components/common/loader/Loaders";
+import ArticleImage from "@/components/weekly-portion/ArticleImage";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -34,7 +36,7 @@ const PostInfoPage = ({ params }: { params: { postId: string } }) => {
     const data = await res.json();
     setPostinfo(data[0]);
     setLoading(false);
-    if (data.length  !== 1) {
+    if (data.length !== 1) {
       return;
     }
     loadRelatedPosts(data[0].dropdown);
@@ -78,15 +80,14 @@ const PostInfoPage = ({ params }: { params: { postId: string } }) => {
   useEffect(() => {
     loadPost();
   }, []);
-  
+
   if (loading) {
-    return <div>Loading...</div>;
+    return <CircularLoader />;
   }
 
   if (!postinfo) {
     notFound();
   }
-  
 
   return (
     <div>
@@ -101,7 +102,7 @@ const PostInfoPage = ({ params }: { params: { postId: string } }) => {
           >
             {postinfo.title}
           </h1>
-          <Image
+          <ArticleImage
             src={postinfo.link}
             alt="image"
             width={500}
@@ -142,12 +143,12 @@ const PostInfoPage = ({ params }: { params: { postId: string } }) => {
                 <Link href={post._id.toString()}>
                   <div className="">
                     <div className="overflow-hidden rounded-md ">
-                      <Image
+                      <ArticleImage
                         src={post.link}
-                        alt="loading image"
+                        alt={post.title}
+                        className="w-full aspect-video rounded-md object-cover"
                         width={500}
                         height={150}
-                        className="hover:scale-125 hover:opacity-85 duration-1000 object-cover aspect-video"
                       />
                     </div>
                     <h5

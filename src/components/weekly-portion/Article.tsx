@@ -2,6 +2,7 @@ import { Posts } from "@/models/Post";
 import Image from "next/image";
 import { IBM_Plex_Serif, Nunito_Sans } from "next/font/google";
 import Link from "next/link";
+import ArticleImage from "./ArticleImage";
 
 const ibmPlexSerif = IBM_Plex_Serif({
   subsets: ["latin"],
@@ -17,7 +18,7 @@ export default function Article({ article }: { article: Posts }) {
   return (
     <Link href={"/posts/" + article._id}>
       <div className="article-container">
-        <Image
+        <ArticleImage
           src={article.link}
           alt={article.title}
           className="w-full aspect-video rounded-md object-cover"

@@ -1,5 +1,5 @@
 import HeroSection from "@/components/heroSection/heroSection";
-import WeeklyPortion from "@/components/WeeklyPortion/weeklyPortion";
+import WeeklyPortion from "@/components/weekly-portion/WeeklyPortion";
 
 export default function MDXPage() {
   return (

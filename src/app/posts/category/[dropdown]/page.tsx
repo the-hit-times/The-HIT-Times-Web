@@ -5,8 +5,8 @@ import Link from "next/link";
 import { Posts } from "@/models/Post";
 import { useEffect, useState } from "react";
 import { IBM_Plex_Serif, Nunito_Sans, Poppins } from "next/font/google";
-import { dropdownsToSections } from "@/components/WeeklyPortion/weeklyPortion";
-import Article from "@/components/WeeklyPortion/Article";
+import { dropdownsToSections } from "@/components/weekly-portion/WeeklyPortion";
+import Article from "@/components/weekly-portion/Article";
 import { CircularLoader } from "@/components/common/loader/Loaders";
 
 const poppins = Poppins({
@@ -94,7 +94,7 @@ export default function PostsPage({
         {pageTitle}
       </h1>
 
-      <div className="grid grid-flow-row md:grid-cols-3 gap-8">
+      <div className="grid grid-flow-row md:grid-cols-3 gap-8 my-4">
         {posts.map((post) => (
           <Article key={post._id.toString()} article={post} />
         ))}
