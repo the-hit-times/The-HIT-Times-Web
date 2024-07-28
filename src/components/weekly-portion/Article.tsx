@@ -21,7 +21,7 @@ export default function Article({ article }: { article: Posts }) {
         <ArticleImage
           src={article.link}
           alt={article.title}
-          className="w-full aspect-video rounded-md object-cover"
+          className="w-full aspect-video rounded-lg object-cover"
           width={500}
           height={500}
         />
