@@ -11,6 +11,7 @@ import { IBM_Plex_Serif, Nunito_Sans, Poppins } from "next/font/google";
 import { notFound } from "next/navigation";
 import { CircularLoader } from "@/components/common/loader/Loaders";
 import ArticleImage from "@/components/weekly-portion/ArticleImage";
+import Article from "@/components/weekly-portion/Article";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -126,7 +127,7 @@ const PostInfoPage = ({ params }: { params: { postId: string } }) => {
                 {calculateReadTime(postinfo.htmlBody ?? postinfo.body)}
               </p>
             </div>
-            <div className={nunitoSans.className + " text-gray-700 text-lg"}>
+            <div className={nunitoSans.className + " text-gray-700 text-lg prose-a:text-blue-800 text-justify"}>
               {parse(postinfo.htmlBody ?? postinfo.body)}
             </div>
           </div>
@@ -136,36 +137,10 @@ const PostInfoPage = ({ params }: { params: { postId: string } }) => {
           <h3 className={poppins.className + " font-medium"}>Related Topics</h3>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 my-4">
             {relatedPosts?.map((post) => (
-              <div
+              <Article
                 key={post._id.toString()}
-                className="bg-white shadow overflow-hidden sm:rounded-lg"
-              >
-                <Link href={post._id.toString()}>
-                  <div className="">
-                    <div className="overflow-hidden rounded-md ">
-                      <ArticleImage
-                        src={post.link}
-                        alt={post.title}
-                        className="w-full aspect-video rounded-md object-cover"
-                        width={500}
-                        height={150}
-                      />
-                    </div>
-                    <h5
-                      className={
-                        ibmPlexSerif.className +
-                        " text-md font-medium leading-6 text-gray-600 p-2"
-                      }
-                    >
-                      {post.description}
-                    </h5>
-                  </div>
-                </Link>
-                <div className="sticky top-full">
-                  <hr />
-                  <RealtedPostIcons />
-                </div>
-              </div>
+                article={post}
+               />
             ))}
           </div>
         </div>
