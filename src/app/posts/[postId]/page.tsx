@@ -116,21 +116,31 @@ const PostInfoPage = ({ params }: { params: { postId: string } }) => {
         </div>
 
         <div className="flex flex-row gap-8 mt-8 w-full">
-          <div className="">
-            <MainPostIcons />
+          <div className="hidden sm:flex">
+            <MainPostIcons post={postinfo} />
           </div>
           <div className="flex flex-col gap-4 flex-1">
-            <div
-              className={poppins.className + " flex flex-row gap-8 text-sm "}
-            >
-              <p className="text-gray-800 font-medium">
-                {getRelativeTime(postinfo.createdAt)}
-              </p>
-              <p className="text-gray-500">
-                {calculateReadTime(postinfo.htmlBody ?? postinfo.body)}
-              </p>
+            <div className=" flex flex-row justify-between">
+              <div
+                className={poppins.className + " flex flex-row gap-8 text-sm "}
+              >
+                <p className="text-gray-800 font-medium">
+                  {getRelativeTime(postinfo.createdAt)}
+                </p>
+                <p className="text-gray-500">
+                  {calculateReadTime(postinfo.htmlBody ?? postinfo.body)}
+                </p>
+              </div>
+              <div className="sm:hidden">
+                <RealtedPostIcons post={postinfo} />
+              </div>
             </div>
-            <div className={nunitoSans.className + " text-gray-700 text-lg prose-a:text-blue-800 text-justify"}>
+            <div
+              className={
+                nunitoSans.className +
+                " text-gray-700 text-lg prose-a:text-blue-800 text-justify"
+              }
+            >
               {parse(postinfo.htmlBody ?? postinfo.body)}
             </div>
           </div>
@@ -140,10 +150,7 @@ const PostInfoPage = ({ params }: { params: { postId: string } }) => {
           <h3 className={poppins.className + " font-medium"}>Related Topics</h3>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 my-4">
             {relatedPosts?.map((post) => (
-              <Article
-                key={post._id.toString()}
-                article={post}
-               />
+              <Article key={post._id.toString()} article={post} />
             ))}
           </div>
         </div>

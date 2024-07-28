@@ -54,12 +54,13 @@ export const UserHeader = () => {
 
   return (
     <header>
-      <nav className="grid grid-flow-col py-5">
+      <nav className="grid grid-flow-col items-center py-5">
         <Link href={"/"}>
           <Image
             src="/header/hit_logo_black.webp"
             alt="The HIT Times"
-            width={200}
+            className="sm:w-fit w-32"
+            width={100}
             height={50}
           />
         </Link>
@@ -95,15 +96,27 @@ export const UserHeader = () => {
             onClick={() => setShowDropdown(!showDropdown)}
             className="m-1"
           >
-            <ArrowLeftIcon className="size-8 hover:rounded-full hover:bg-gray-100 p-1" />
+            <ArrowLeftIcon className="size-8 rounded-full bg-gray-100 p-2 mt-2" />
           </button>
-          <ul className="flex flex-col gap-4 py-4 px-2">
+          <ul className="grid grid-flow-row gap-4 py-4 px-2">
+            <li>
+              <Link
+                className={
+                  nunitoSans.className +
+                  " text-zinc-800 text-2xl font-semibold hover:underline"
+                }
+                href={"/"}
+                onClick={() => setShowDropdown(false)}
+              >
+                Home
+              </Link>
+            </li>
             {links.map((link) => (
               <li key={link.href}>
                 <Link
                   className={
                     nunitoSans.className +
-                    " text-zinc-800 text-base font-semibold hover:underline"
+                    " text-zinc-800 text-2xl font-semibold hover:underline"
                   }
                   onClick={() => setShowDropdown(false)}
                   href={link.href}

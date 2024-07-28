@@ -40,14 +40,16 @@ const HeroSection = ({ notice, noticeLink }: HeroSectionProps) => {
         <div className="flex flex-wrap">
           <div className="w-full lg:w-1/2 lg:pr-12">
             <div className="flex justify-center">
-              <ArticleImage
-                height={900}
-                width={1600}
-                quality={100}
-                src={post.link}
-                alt="image"
-                className="rounded-2xl object-contain aspect-video bg-gray-200"
-              />
+              <Link href={"/posts/" + post._id.toString()}>
+                <ArticleImage
+                  height={900}
+                  width={1600}
+                  quality={100}
+                  src={post.link}
+                  alt="image"
+                  className="rounded-2xl object-contain aspect-video bg-gray-200"
+                />
+              </Link>
             </div>
           </div>
           <div className="w-full lg:w-1/2  my-auto">
@@ -57,22 +59,24 @@ const HeroSection = ({ notice, noticeLink }: HeroSectionProps) => {
                   Featured
                 </div>
                 <div>
-                  <RealtedPostIcons />
+                  <RealtedPostIcons post={post} />
                 </div>
               </div>
-              <div className="text-4xl tracking-tight font-serif line-clamp-3 text-ellipsis">
-                {post.title}
-              </div>
-              <div className="my-2 font-light text-ellipsis line-clamp-2">
-                {post.description}
-                {". "}
-                <Link
-                  href={"/posts/" + post._id.toString()}
-                  className="underline text-blue-700"
-                >
-                  Read More
-                </Link>
-              </div>
+              <Link href={"/posts/" + post._id.toString()}>
+                <div className="text-4xl tracking-tight font-serif line-clamp-3 text-ellipsis">
+                  {post.title}
+                </div>
+                <div className="my-2 font-light text-ellipsis line-clamp-2">
+                  {post.description}
+                  {". "}
+                  <Link
+                    href={"/posts/" + post._id.toString()}
+                    className="underline text-blue-700"
+                  >
+                    Read More
+                  </Link>
+                </div>
+              </Link>
             </div>
           </div>
         </div>

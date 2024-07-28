@@ -88,7 +88,8 @@ export default function PostsPage({
     <div>
       <h1
         className={
-          ibmPlexSerif.className + " text-zinc-800 text-5xl font-semibold py-8"
+          ibmPlexSerif.className +
+          " text-zinc-800 sm:text-5xl text-3xl font-semibold py-8"
         }
       >
         {pageTitle}

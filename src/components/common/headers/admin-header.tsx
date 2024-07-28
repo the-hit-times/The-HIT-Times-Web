@@ -72,12 +72,13 @@ export const AdminHeader = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   return (
     <header>
-      <nav className="grid grid-flow-col py-5">
+      <nav className="grid grid-flow-col items-center py-5">
         <Link href={"/admin-portal"}>
           <Image
             src="/header/hit_logo_black.webp"
             alt="The HIT Times"
-            width={200}
+            className="sm:w-fit w-32"
+            width={100}
             height={50}
           />
         </Link>
