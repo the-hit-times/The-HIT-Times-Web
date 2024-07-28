@@ -22,8 +22,7 @@ export async function GET(request: NextRequest) {
 
     if (startSession && endSession) {
       query = {
-        session_start: { $gte: startSession },
-        session_end: { $lte: endSession },
+        session_end: { $gte: startSession, $lte: endSession },
       };
     }
 
