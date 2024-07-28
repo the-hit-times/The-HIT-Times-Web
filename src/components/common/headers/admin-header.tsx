@@ -75,7 +75,7 @@ export const AdminHeader = () => {
       <nav className="grid grid-flow-col py-5">
         <Link href={"/admin-portal"}>
           <Image
-            src="/header/hit_logo_black.png"
+            src="/header/hit_logo_black.webp"
             alt="The HIT Times"
             width={200}
             height={50}
