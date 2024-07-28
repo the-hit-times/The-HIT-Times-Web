@@ -40,7 +40,7 @@ const PostInfoPage = ({ params }: { params: { postId: string } }) => {
     if (data.length !== 1) {
       return;
     }
-    loadRelatedPosts(data[0].dropdown);
+    loadRelatedPosts(data[0]);
   };
 
   const getRelativeTime = (date: Date): string => {
@@ -73,10 +73,13 @@ const PostInfoPage = ({ params }: { params: { postId: string } }) => {
     return Math.ceil(words.length / 200) + " min read";
   };
 
-  const loadRelatedPosts = async (dropdown: string) => {
-    const res = await fetch(`/api/v1/posts?dropdown=${dropdown}&limit=5`);
+  const loadRelatedPosts = async (post: Posts) => {
+    const res = await fetch(`/api/v1/posts?dropdown=${post.dropdown}&limit=6`);
     const data = await res.json();
-    setRelatedPosts(data);
+
+    // Remove the current post from the related posts
+    const filteredData = data.filter((x: Posts) => x._id !== post._id);
+    setRelatedPosts(filteredData);
   };
   useEffect(() => {
     loadPost();
