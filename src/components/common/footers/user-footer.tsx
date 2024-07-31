@@ -26,7 +26,7 @@ export const UserFooter = () => {
         <ul className="flex flex-col">
           <li>
             <Link
-              href={"/privacy-polivy"}
+              href={"/privacy-policy"}
               className="text-white px-5 hover:text-gray-400 text-sm"
             >
               Privacy Policy
@@ -34,7 +34,7 @@ export const UserFooter = () => {
           </li>
           <li>
             <Link
-              href={"/terms-of-services"}
+              href={"/terms-of-service"}
               className="text-white px-5 hover:text-gray-400 text-sm"
             >
               Terms Of Service
