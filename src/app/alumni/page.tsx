@@ -103,7 +103,7 @@ const AlumniPage: React.FC = () => {
     };
 
     return (
-      <div className="flex flex-1 items-center justify-end">
+      <div className="flex items-center">
         <select
           className="p-2 rounded-lg bg-gray-100 text-black font-bold focus:outline-none appearance-none"
           value={`${filter.startSession}-${filter.endSession}`}
@@ -126,7 +126,7 @@ const AlumniPage: React.FC = () => {
     <div className="">
       <div className="">
         <div className="flex flex-col gap-4">
-          <div className="mr-2 flex items-center justify-between lg:mr-0 md:mr-0">
+          <div className="flex sm:flex-row flex-col justify-between">
             <h1
               className={
                 ibmPlexSerif.className + " text-5xl font-semibold my-8"
