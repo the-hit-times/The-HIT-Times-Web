@@ -24,6 +24,7 @@ const PostForm = ({ postId }: PostFormProps) => {
     description: "",
     link: "",
     dropdown: "",
+    htmlBody: "",
   });
 
   const loadPost = async (postId: string) => {
@@ -32,12 +33,12 @@ const PostForm = ({ postId }: PostFormProps) => {
       if (response.ok) {
         const data = await response.json();
         const postData = data.data;
-        editorRef.current?.setContent(postData.htmlBody);
         setPostDetails({
           title: postData.title,
           description: postData.description,
           link: postData.link,
           dropdown: postData.dropdown,
+          htmlBody: postData.htmlBody
         });
       } else {
         console.error("Error loading post:", response.statusText);
@@ -295,7 +296,7 @@ const PostForm = ({ postId }: PostFormProps) => {
             plugins: "link",
             default_link_target: "_blank",
           }}
-          initialValue=""
+          initialValue={postDetails.htmlBody}
         />
 
         <div className="flex flex-row justify-end gap-4">

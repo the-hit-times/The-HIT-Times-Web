@@ -27,7 +27,8 @@ export default function MangeMatchPostPage() {
     if (data.length < PAGE_LIMIT) {
       setLoadmore(false);
     }
-    setPosts(data.data);
+    const updatedPosts = [...posts, ...data.data];
+    setPosts(updatedPosts);
     setLoading(false);
   };
 
