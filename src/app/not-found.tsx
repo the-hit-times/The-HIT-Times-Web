@@ -7,6 +7,6 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
     return (
-        <div>Page your trying to visit does not exists.</div>
+        <div className="min-h-screen">Page your trying to visit does not exists.</div>
     );
 }

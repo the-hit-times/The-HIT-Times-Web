@@ -40,6 +40,10 @@ const links = [
     title: "Viral Corner",
     href: "/posts/category/04",
   },
+  {
+    title: "My Bookmarks", 
+    href: "/my-bookmarks"
+  }
 ];
 
 const nunitoSans = Nunito_Sans({ subsets: ["latin"] });
