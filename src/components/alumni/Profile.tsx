@@ -13,10 +13,10 @@ const AlumniCard: React.FC<Alumni> = ({ name, profile_image, position, linkedin 
           height={80}
           className="rounded-full object-cover w-20 h-20"
         />
-        <h4 className="w-full text-base mt-2  leading-6 text-black font-bold text-center">
+        <h4 className="w-full text-base mt-2  leading-6 text-black font-bold text-center text-ellipsis line-clamp-2">
           {name}
         </h4>
-        <p className="text-base font-normal text-gray-600">{position}</p>
+        <p className="text-sm font-normal text-gray-600">{position}</p>
       </div>
     </Link>
   );

@@ -29,6 +29,8 @@ export async function GET(request: NextRequest) {
     const alumni = await Alumnus.find(query)
       .sort({
         session_end: -1,
+        position: 1,
+        name: 1,
       })
       .skip(page * limit)
       .limit(limit);

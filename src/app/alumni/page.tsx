@@ -155,7 +155,7 @@ const AlumniPage: React.FC = () => {
                   <div key={year} className="flex flex-col gap-8">
                     <div className="mr-1 flex flex-col items-start gap-5 lg:mr-0 md:mr-0">
                       <h3 className="text-lg font-bold">{year}</h3>
-                      <div className="grid grid-flow-col">
+                      <div className="flex flex-wrap gap-4">
                         {alumni.map((alumniMember, index) => (
                           <AlumniCard key={index} {...alumniMember} />
                         ))}
