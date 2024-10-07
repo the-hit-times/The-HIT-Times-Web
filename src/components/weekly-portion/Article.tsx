@@ -19,7 +19,7 @@ export default function Article({ article }: { article: Posts }) {
   return (
     <Link href={"/posts/" + article._id}>
       <div className="group/item hover:scale-105 hover:duration-300 hover:delay-200 scroll-smooth">
-      <div className="h-full mt-1 hover:bg-gradient-to-r from-slate-300 via-slate-400 to-slate-500 hover:duration-300 hover:delay-150 hover:shadow-2xl rounded-xl  animate-flip-up animate-duration-500 animate-delay-300 ">
+      <div className="h-full mt-1 hover:bg-gradient-to-r from-slate-100 to-violet-200 hover:duration-300 hover:delay-150 hover:shadow-2xl rounded-xl  animate-flip-up animate-duration-500 animate-delay-300 ">
         <ArticleImage
           src={article.link}
           alt={article.title}
