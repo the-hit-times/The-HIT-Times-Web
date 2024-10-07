@@ -66,7 +66,7 @@ const HeroSection = ({ notice, noticeLink }: HeroSectionProps) => {
                 <div className="text-4xl tracking-tight font-serif line-clamp-3 text-ellipsis animate-flip-up animate-once animate-duration-1000 animate-delay-1000">
                   {post.title}
                 </div>
-                <div className=" my-2 font-light text-ellipsis line-clamp-2 animate-typing animate-delay-1000">
+                <div className=" my-2 font-light text-ellipsis line-clamp-2 animate-fade-up animate-duration-1000 animate-delay-1000">
                   {post.description}
                   {". "}
                   <Link
