@@ -5,7 +5,7 @@ import { Posts } from "@/models/Post";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import ArticleImage from "../weekly-portion/ArticleImage";
-import parse from "html-react-parser";
+import parse, { attributesToProps } from "html-react-parser";
 
 interface HeroSectionProps {
   notice?: string;
@@ -31,13 +31,13 @@ const HeroSection = ({ notice, noticeLink }: HeroSectionProps) => {
   }, []);
 
   if (loading || !post) {
-    return <></>;
+    return;
   }
 
   return (
     <div>
-      <div className="pb-4 lg:mb-2">
-        <div className="flex flex-wrap">
+      <div className="pb-4 lg:mb-2 scroll-smooth focus:scroll-auto md:scroll-auto group/item hover:scale-95 hover:duration-300 hover:delay-300 ">
+        <div className="flex flex-wrap rounded-2xl  group-hover/item:hover:bg-gradient-to-r from-slate-200 via-slate-300 to-slate-600 hover:delay-300 hover:shadow-2xl animate-flip-down animate-delay-700">
           <div className="w-full lg:w-1/2 lg:pr-12">
             <div className="flex justify-center">
               <Link href={"/posts/" + post._id.toString()}>
@@ -47,7 +47,7 @@ const HeroSection = ({ notice, noticeLink }: HeroSectionProps) => {
                   quality={100}
                   src={post.link}
                   alt="image"
-                  className="rounded-2xl object-contain aspect-video bg-gray-200"
+                  className="group/edit rounded-2xl w-auto object-contain aspect-video bg-gray-200 group-hover/item:bg-gradient-to-r from-slate-200 to-slate-300 hover:delay-200 animate-fade-right animate-delay-1000"
                 />
               </Link>
             </div>
@@ -55,7 +55,7 @@ const HeroSection = ({ notice, noticeLink }: HeroSectionProps) => {
           <div className="w-full lg:w-1/2  my-auto">
             <div className="flex flex-col">
               <div className="flex flex-row items-center justify-between">
-                <div className="py-4 font-extrabold text-md text-red-600 tracking-tight">
+                <div className="py-4 font-extrabold text-md text-red-600 tracking-tight animate-fade-left animate-once animate-duration-1000 animate-delay-1000 ">
                   Featured
                 </div>
                 <div>
@@ -63,17 +63,18 @@ const HeroSection = ({ notice, noticeLink }: HeroSectionProps) => {
                 </div>
               </div>
               <Link href={"/posts/" + post._id.toString()}>
-                <div className="text-4xl tracking-tight font-serif line-clamp-3 text-ellipsis">
+                <div className="text-4xl tracking-tight font-serif line-clamp-3 text-ellipsis animate-flip-up animate-once animate-duration-1000 animate-delay-1000">
                   {post.title}
                 </div>
-                <div className="my-2 font-light text-ellipsis line-clamp-2">
+                <div className=" my-2 font-light text-ellipsis line-clamp-2 animate-typing animate-delay-1000">
                   {post.description}
                   {". "}
                   <Link
                     href={"/posts/" + post._id.toString()}
-                    className="underline text-blue-700"
-                  >
-                    Read More
+                    className="group/edit invisible  text-black fon font-semibold group-hover/item:visible group-hover/item:animate-pulse group-hover/item:animate-iteration-infinite"
+                  ><span className="">
+                      Read More...
+                    </span>
                   </Link>
                 </div>
               </Link>

@@ -68,7 +68,7 @@ export const UserHeader = () => {
             height={50}
           />
         </Link>
-        <ul className="md:flex flex-row gap-8 justify-end hidden">
+        <ul className="md:flex flex-row gap-8 justify-end hidden ">
           {links.map((link) => (
             <li key={link.href}>
               <Link

@@ -13,7 +13,7 @@ const ibmPlexSerif = IBM_Plex_Serif({
 });
 
 export default function MangeMatchPostPage() {
-  const PAGE_LIMIT = 10;
+  const PAGE_LIMIT = 100;
   const [posts, setPosts] = useState<MatchPosts[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadmore, setLoadmore] = useState(true);

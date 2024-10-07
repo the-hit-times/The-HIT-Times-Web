@@ -42,7 +42,7 @@ const contactData = [
   },
 
   {
-    title: "Email",
+    title: "LinkedIn",
     icon: (
       <Image
         src="/socials/linkedin.png"

@@ -22,7 +22,7 @@ const AlumniForm = ({ alumniId }: AlumniFormProps) => {
     session_end: new Date().getFullYear(),
   });
 
-  const loadAlumni = async (alumniId: string) => {
+  const loadAlumni = async(alumniId: string) => {
     try {
       const response = await fetch(`/api/v1/alumnus/${alumniId}`);
       if (response.ok) {
