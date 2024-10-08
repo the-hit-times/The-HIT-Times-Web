@@ -22,7 +22,7 @@
     "firebase-admin": "^12.2.0",
     "heroicons": "^2.1.5",
     "html-react-parser": "^5.1.12",
-    "imgur": "^1.0.2",
+    "imgur": "^2.4.2",
     "mongodb": "^6.5.0",
     "mongoose": "^8.5.1",
     "next": "^14.2.14",
