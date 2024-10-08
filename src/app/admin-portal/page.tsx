@@ -48,6 +48,10 @@ const quickActions = [
     title: "Send a Notification",
     url: "/admin-portal/notify",
   },
+  {
+    title: "All Events",
+    url: "/admin-portal/events",
+  },
 ];
 
 export default function AdminPortal() {
