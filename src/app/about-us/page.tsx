@@ -52,7 +52,7 @@ const contactData = [
         className="invert"
       />
     ),
-    handle: "@the-hit-times",
+    handle: "@The_HIT_Times",
     link: "https://www.linkedin.com/company/the-hit-times/mycompany/",
   },
 ];
@@ -86,25 +86,26 @@ const AboutUs = () => {
     // main content section
     <div className="my-2">
       <div className="gap-8 flex flex-col">
-        <div className="grid grid-flow-row gap-4">
+        <div className="grid grid-flow-row gap-4 ">
           <h1
-            className={ibmPlexSerif.className + " text-5xl font-semibold my-8"}
+            className={ibmPlexSerif.className + " text-5xl font-semibold my-8 animate-fade-right animate duration-500 animate-delay-200"}
           >
             About Us
           </h1>
           <div className="flex flex-col gap-4 self-stretch">
+
             <Image
               src="/aboutusImage.jpg"
               alt="Aboutus Icon"
               height={314}
               width={1280}
               quality={100}
-              className="w-full object-cover"
+              className="w-full object-cover animate-fade-down animate duration-500 animate-delay-200"
             />
             <p
               className={
                 nunitoSans.className +
-                " text-justify text-lg font-normal text-gray-900"
+                " text-justify text-lg font-normal text-gray-900 animate-fade-up animate duration-500 animate-delay-200"
               }
             >
               Founded in the year of 2013, The HIT Times is only the second
@@ -129,12 +130,12 @@ const AboutUs = () => {
         </div>
         <div className="">
           <h2
-            className={ibmPlexSerif.className + " font-semibold text-2xl"}
+            className={ibmPlexSerif.className + " font-semibold text-2xl animate-fade-right animate duration-500 animate-delay-200"}
             id="contact-us"
           >
             Contact Us
           </h2>
-          <div className="grid sm:grid-flow-col grid-flow-row my-4">
+          <div className="grid sm:grid-flow-col grid-flow-row my-4 animate-flip-up animate duration-500 animate-delay-200">
             {contactData.map((contact) => (
               <ContactCard key={contact.handle} {...contact} />
             ))}
@@ -148,3 +149,74 @@ const AboutUs = () => {
 };
 
 export default AboutUs;
+          /*<div id="default-carousel" className="relative w-full" data-carousel="slide">
+    
+    <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
+
+        <div className="hidden duration-700 ease-in-out" data-carousel-item>
+            <Image src="/aboutusImage.jpg"
+              alt="Aboutus Icon"
+              height={314}
+              width={1280}
+              quality={100}
+              className="w-full object-cover"></Image>
+        </div>
+        <div className="hidden duration-700 ease-in-out" data-carousel-item>
+            <Image src="/aboutusImage.jpg"
+              alt="Aboutus Icon"
+              height={314}
+              width={1280}
+              quality={100}
+              className="w-full object-cover"></Image>
+        </div>
+        <div className="hidden duration-700 ease-in-out" data-carousel-item>
+            <Image src="/aboutusImage.jpg"
+              alt="Aboutus Icon"
+              height={314}
+              width={1280}
+              quality={100}
+              className="w-full object-cover"></Image>
+        </div>
+        <div className="hidden duration-700 ease-in-out" data-carousel-item>
+            <Image src="/aboutusImage.jpg"
+              alt="Aboutus Icon"
+              height={314}
+              width={1280}
+              quality={100}
+              className="w-full object-cover"></Image>
+        </div>
+        <div className="hidden duration-700 ease-in-out" data-carousel-item>
+            <Image src="/aboutusImage.jpg"
+              alt="Aboutus Icon"
+              height={314}
+              width={1280}
+              quality={100}
+              className="w-full object-cover"></Image>
+        </div>
+    </div>
+  
+    <div className="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
+        <button type="button" className="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
+        <button type="button" className="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
+        <button type="button" className="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
+        <button type="button" className="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 4" data-carousel-slide-to="3"></button>
+        <button type="button" className="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 5" data-carousel-slide-to="4"></button>
+    </div>
+    
+    <button type="button" className="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
+        <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+            <svg className="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+            </svg>
+            <span className="sr-only">Previous</span>
+        </span>
+    </button>
+    <button type="button" className="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
+        <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+            <svg className="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+            </svg>
+            <span className="sr-only">Next</span>
+        </span>
+    </button>
+</div>*/

@@ -23,7 +23,7 @@ export default function RootLayout({
     <SessionWrapper>
       <html lang="en">
         <body className={inter.className + " bg-body"}>
-          <div className="bg-white">
+          <div className="bg-slate-200">
             <div className="max-w-screen-2.5xl 2.5xl:mx-auto mx-4">
               <Header />
             </div>

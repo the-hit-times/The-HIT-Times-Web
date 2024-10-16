@@ -8,6 +8,8 @@ import { IBM_Plex_Serif, Nunito_Sans, Poppins } from "next/font/google";
 import { dropdownsToSections } from "@/components/weekly-portion/WeeklyPortion";
 import Article from "@/components/weekly-portion/Article";
 import { CircularLoader } from "@/components/common/loader/Loaders";
+import {motion} from "framer-motion";
+import {fadeIn} from "@/variants";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -28,7 +30,7 @@ export default function PostsPage({
 }: {
   params: { dropdown: string };
 }) {
-  const PAGE_LIMIT = 10;
+  const PAGE_LIMIT = 30;
   const [posts, setPosts] = useState<Posts[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadmore, setLoadmore] = useState(true);
@@ -89,18 +91,27 @@ export default function PostsPage({
       <h1
         className={
           ibmPlexSerif.className +
-          " text-zinc-800 sm:text-5xl text-3xl font-semibold py-8"
+          " text-zinc-800 sm:text-5xl text-3xl font-semibold py-8 animate-fade-right animate-once animate-duration-500 animate-delay-500"
         }
       >
         {pageTitle}
       </h1>
 
-      <div className="grid grid-flow-row md:grid-cols-3 gap-8 my-4">
+      <div className="grid grid-flow-row md:grid-cols-3 gap-8 my-4 scroll-smooth">
         {posts.map((post) => (
+        <motion.div
+        variants={fadeIn("left",0.2)}
+        initial= "hidden"
+        whileInView={"show"}
+        viewport={{once: false,amount:0.1}}
+        className="scroll-smooth"
+        >
           <Article key={post._id.toString()} article={post} />
+        
+        </motion.div>
         ))}
       </div>
-
+        
       {loading && <CircularLoader />}
     </div>
   );
