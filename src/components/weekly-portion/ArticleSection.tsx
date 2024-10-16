@@ -25,7 +25,7 @@ const ArticleSection: React.FC<ArticleSectionProps> = ({
   showAllLink,}) => {
   return (
     <div className="article-section">
-<<<<<<< HEAD
+
       <motion.div
       variants={fadeIn("right",0.2)}
       initial= "hidden"
@@ -33,9 +33,6 @@ const ArticleSection: React.FC<ArticleSectionProps> = ({
       viewport={{once: false,amount:0.1}}
 
        className="flex justify-between items-center mb-4 section-header  rounded-xl scroll-smooth">
-=======
-      <div className="flex justify-between items-center mb-4 section-header  rounded-xl scroll-smooth">
->>>>>>> c196b3cb002d02f8de4d6d1d46d942b05c841242
         <h2 className={poppins.className + " text-xl text-black font-bold animate-fade-right animate-once animate-duration-500 animate-delay-500"}>
           {heading}
         </h2>
@@ -49,18 +46,13 @@ const ArticleSection: React.FC<ArticleSectionProps> = ({
             </Link>    
           </span>
         </button>
-<<<<<<< HEAD
       </motion.div>
       <motion.div
       variants={fadeIn("left",0.2)}
       initial= "hidden"
       whileInView={"show"}
       viewport={{once: false,amount:0.1}}
-=======
-      </div>
-      <div
->>>>>>> c196b3cb002d02f8de4d6d1d46d942b05c841242
-        className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 section-content`}
+      className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 section-content`}
       >
         {articles.map((article, idx) => (
           <Article key={idx} article={article} />

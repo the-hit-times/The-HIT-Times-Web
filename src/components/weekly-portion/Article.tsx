@@ -19,7 +19,6 @@ const nunitoSans = Nunito_Sans({
 export default function Article({ article }: { article: Posts }) {
   return (
     <Link href={"/posts/" + article._id}>
-<<<<<<< HEAD
       <div
       /*variants={fadeIn("up",0.2)}
       initial= "hidden"
@@ -41,24 +40,7 @@ export default function Article({ article }: { article: Posts }) {
             {article.description}
           </p>
         </div>
-=======
-      <div className="group/item hover:scale-105 hover:duration-300 hover:delay-200 scroll-smooth">
-      <div className="h-full mt-1 hover:bg-gradient-to-r from-slate-100 to-violet-200 hover:duration-300 hover:delay-150 hover:shadow-2xl rounded-xl  animate-flip-up animate-duration-500 animate-delay-300 ">
-        <ArticleImage
-          src={article.link}
-          alt={article.title}
-          className="w-full aspect-video rounded-lg object-cover group-hover/item:scale-95 group-hover/item:duration-300"
-          width={500}
-          height={500}
-        />
-        <h3 className={ibmPlexSerif.className + " text-lg font-bold mt-2 text-ellipsis line-clamp-2 ml-3 mr-3 animate-fade-down animate delay-500 animate-duration-700 "}>
-          {article.title}
-        </h3>
-        <p className={nunitoSans.className + " text-gray-700 font-mono mt-1 text-ellipsis line-clamp-2 ml-3 mr-3 animate-fade-up animate delay-500 animate-duration-700 "}>
-          {article.description}
-        </p>
->>>>>>> c196b3cb002d02f8de4d6d1d46d942b05c841242
-      </div>
+
       </div>
     </Link>
   );
