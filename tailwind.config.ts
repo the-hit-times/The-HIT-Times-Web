@@ -20,7 +20,7 @@ const config: Config = {
         "body": "#f1f2f3",
       },
       screens: {
-        "2.5xl": "1366px",
+        "2.5xl": "1367px",
       },
 
       keyframes: {

@@ -1,12 +1,19 @@
 "use client";
-import { Bars3Icon, ArrowLeftIcon, ArrowUpCircleIcon, ArrowDownCircleIcon, ChevronUpIcon, ArrowRightIcon } from "@heroicons/react/24/solid";
+import {
+  Bars3Icon,
+  ArrowLeftIcon,
+  ArrowUpCircleIcon,
+  ArrowDownCircleIcon,
+  ChevronUpIcon,
+  ArrowRightIcon,
+} from "@heroicons/react/24/solid";
 import { useSession } from "next-auth/react";
 import { Nunito_Sans } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { signIn,signOut } from "next-auth/react"
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
+import { signIn, signOut } from "next-auth/react";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 //import { Session } from "next-auth";
 //import Home from "@/components/sign-in";
 
@@ -15,14 +22,14 @@ const links = [
     title: "Alumni",
     href: "/alumni",
   },
- //{
- //  title: "Tabloids",
- //  href: "/tabloids",
- //},
- //{
- //  title: "Notice",
- //  href: "/notice",
- // },
+  //{
+  //  title: "Tabloids",
+  //  href: "/tabloids",
+  //},
+  //{
+  //  title: "Notice",
+  //  href: "/notice",
+  // },
   {
     title: "Reportopolis",
     href: "/posts/category/10",
@@ -32,11 +39,11 @@ const links = [
     href: "/posts/category/09",
   },
   {
-   title: "Tabloids",
-   href: "/tabloids",
+    title: "Tabloids",
+    href: "/tabloids",
   },
   {
-    title: "My Bookmarks", 
+    title: "My Bookmarks",
     href: "/my-bookmarks",
   },
 ];
@@ -45,16 +52,16 @@ const links_2 = [
     title: "Alumni",
     href: "/alumni",
   },
- //{
- //  title: "Tabloids",
- //  href: "/tabloids",
- //},
- //{
- //  title: "Notice",
- //  href: "/notice",
- // },
+  //{
+  //  title: "Tabloids",
+  //  href: "/tabloids",
+  //},
+  //{
+  //  title: "Notice",
+  //  href: "/notice",
+  // },
   {
-    title: "My Bookmarks", 
+    title: "My Bookmarks",
     href: "/my-bookmarks",
   },
   {
@@ -105,8 +112,6 @@ const links_2 = [
     title: "Vernacular",
     href: "/posts/category/08",
   },
-  
-  
 ];
 /*export const UserProfile = (session: Session) => {
   return (
@@ -158,72 +163,74 @@ export default function signUp() {
   const [isOpen, setIsOpen] = useState(false);
   console.log("session: ", session);
 
-
   // checking if sessions exists
   if (session) {
     // rendering components for logged in users
     return (
       <div className=" relative flex flex-row items-center justify-center ">
         <div>
-          <button onClick={() => setIsOpen((prev) => !prev)}
-            className="inline-flex flex-row w-auto md:w-36  justify-center gap-x-1.5 rounded-md bg-white px-3 py-1 text-sm md:text-base font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-          >  
-            {!isOpen?(
-              <div className="sm:flex  w-9 h-8 relative hidden   ">
-                <Image src={session.user?.image as string}
+          <button
+            onClick={() => setIsOpen((prev) => !prev)}
+            className="inline-flex flex-row w-auto md:w-36 items-center justify-center gap-x-1.5 rounded-md bg-white px-3 py-1 text-sm md:text-base font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+          >
+            <div className="sm:flex  w-9 h-8 relative hidden   ">
+              <Image
+                src={session.user?.image as string}
                 fill
                 alt=""
-                className="object-cover rounded-full "/>
-                </div>
-                ):(
-                  <div className="hidden "></div>
-            )}
+                className="object-cover rounded-full "
+              />
+            </div>
             Account
-            {!isOpen ?(
-                <ChevronDownIcon aria-hidden="true" className="-mr-1 h-5 w-5 text-gray-400" />
-            ):(
-              <ChevronUpIcon aria-hidden="true" className="-mr-1 h-5 w-5 text-gray-400" />
-            )
-            }
+            {!isOpen ? (
+              <ChevronDownIcon
+                aria-hidden="true"
+                className="-mr-1 h-5 w-5 text-gray-400"
+              />
+            ) : (
+              <ChevronUpIcon
+                aria-hidden="true"
+                className="-mr-1 h-5 w-5 text-gray-400"
+              />
+            )}
           </button>
         </div>
         {isOpen && (
-          <div className=" absolute flex flex-col top-16 h-auto w-auto right-1 p-2 z-50 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5  "
-            >
-              <div className="  w-20 h-20 relative mb-1">
-                <Image
-                  src={session.user?.image as string}
-                  fill
-                  alt=""
-                  className="object-cover rounded-full "
-                />
-              </div>
-              <p className=" text-sm  hover:bg-slate-300 rounded-md p-2  ">
-                Welcome <span className="font-bold">{session.user?.name}</span>
-              </p>
-                <p className="text-sm hover:bg-slate-300 rounded-md p-2 mb-2 ">
-                  Signed In As <span className="font-bold">{session.user?.email}</span>
-                </p>
-                <button className="relative ml-2 px-2 py-1 overflow-hidden font-medium text-zinc-800 bg-gray-100 border border-gray-200 rounded-lg shadow-inner group"
-                   onClick={()=>signOut()}
-                >
-                  <span className="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-red-400 group-hover:w-full"></span>
-                  <span className="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-red-400 group-hover:w-full"></span>
-                  <span className="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-red-400 group-hover:h-full"></span>
-                  <span className="absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-red-400 group-hover:h-full"></span>
-                  <span className="absolute inset-0 w-full h-full duration-300 delay-300 bg-red-600 opacity-0 group-hover:opacity-100"></span>
-                  <span className="relative transition-colors duration-300 delay-200 group-hover:text-white font-semibold text-base ">
-                    Sign Out
-                  </span>
-                </button>
-            
+          <div className=" absolute flex flex-col top-16 h-auto w-auto right-1 p-2 z-50 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5  ">
+            <div className="  w-20 h-20 relative mb-1">
+              <Image
+                src={session.user?.image as string}
+                fill
+                alt=""
+                className="object-cover rounded-full "
+              />
             </div>
-          )}
-        
+            <p className=" text-sm  hover:bg-slate-300 rounded-md p-2  ">
+              Welcome <span className="font-bold">{session.user?.name}</span>
+            </p>
+            <p className="text-sm hover:bg-slate-300 rounded-md p-2 mb-2 ">
+              Signed In As{" "}
+              <span className="font-bold">{session.user?.email}</span>
+            </p>
+            <button
+              className="relative ml-2 px-2 py-1 overflow-hidden font-medium text-zinc-800 bg-gray-100 border border-gray-200 rounded-lg shadow-inner group"
+              onClick={() => signOut()}
+            >
+              <span className="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-red-400 group-hover:w-full"></span>
+              <span className="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-red-400 group-hover:w-full"></span>
+              <span className="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-red-400 group-hover:h-full"></span>
+              <span className="absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-red-400 group-hover:h-full"></span>
+              <span className="absolute inset-0 w-full h-full duration-300 delay-300 bg-red-600 opacity-0 group-hover:opacity-100"></span>
+              <span className="relative transition-colors duration-300 delay-200 group-hover:text-white font-semibold text-base ">
+                Sign Out
+              </span>
+            </button>
+          </div>
+        )}
       </div>
     );
   }
-    // rendering components for not logged in users
+  // rendering components for not logged in users
   return (
     /* 
     <div className='flex flex-row items-end justify-end w-auto h-9  '>
@@ -237,23 +244,23 @@ export default function signUp() {
 		  <span className='flex flex-col justify-center items-center h-full text-white font-medium text-base'>Sign In</span>
 	  </button>
   </div>*/
-  <div className="flex justify-center">
-          <button className="relative px-2 md:px-4 py-1 overflow-hidden font-medium text-zinc-800 bg-gray-100 border border-gray-200 rounded-lg shadow-inner group"
-            onClick={()=>signIn()}
-          >
-            <span className="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-gray-600 group-hover:w-full"></span>
-            <span className="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-gray-600 group-hover:w-full"></span>
-            <span className="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-gray-600 group-hover:h-full"></span>
-            <span className="absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-gray-600 group-hover:h-full"></span>
-            <span className="absolute inset-0 w-full h-full duration-300 delay-300 bg-gray-900 opacity-0 group-hover:opacity-100"></span>
-            <span className="relative transition-colors duration-300 delay-200 group-hover:text-white font-semibold text-base ">
-              Sign In
-            </span>
-          </button>
-        </div>
+    <div className="flex justify-center">
+      <button
+        className="relative px-2 md:px-4 py-1 overflow-hidden font-medium text-zinc-800 bg-gray-100 border border-gray-200 rounded-lg shadow-inner group"
+        onClick={() => signIn()}
+      >
+        <span className="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-gray-600 group-hover:w-full"></span>
+        <span className="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-gray-600 group-hover:w-full"></span>
+        <span className="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-gray-600 group-hover:h-full"></span>
+        <span className="absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-gray-600 group-hover:h-full"></span>
+        <span className="absolute inset-0 w-full h-full duration-300 delay-300 bg-gray-900 opacity-0 group-hover:opacity-100"></span>
+        <span className="relative transition-colors duration-300 delay-200 group-hover:text-white font-semibold text-base ">
+          Sign In
+        </span>
+      </button>
+    </div>
   );
 }
-
 
 const nunitoSans = Nunito_Sans({ subsets: ["latin"] });
 
@@ -267,12 +274,12 @@ export const UserHeader = () => {
 
   return (
     <header>
-      <nav className="grid grid-flow-col  items-center py-2 min-h-16">
+      <nav className="flex flex-row items-center justify-between py-2 min-h-16">
         <Link href={"/"}>
           <Image
             src="/header/hit_logo_black.webp"
             alt="The HIT Times"
-            className="sm:w-fit w-32 ml-4 "
+            className="sm:w-fit w-32"
             width={100}
             height={50}
           />
@@ -284,7 +291,6 @@ export const UserHeader = () => {
                 className={
                   nunitoSans.className +
                   " text-zinc-800 text-base font-semibold hover:text-violet-700 "
-                  
                 }
                 href={link.href}
               >
@@ -293,41 +299,41 @@ export const UserHeader = () => {
             </li>
           ))}
         </ul>
-        
-        <div className=" flex justify-end"/*md:hidden */>
+
+        <div className=" flex justify-end" /*md:hidden */>
           {signUp()}
           <button
             onClick={() => setShowDropdown(!showDropdown)}
             className="text-zinc-800 text-2xl ml-2"
-          > 
+          >
             <Bars3Icon className="size-10 hover:rounded-full hover:bg-gray-100 p-1" />
           </button>
         </div>
       </nav>
       {showDropdown && (
-        <div className=" fixed top-0 right-0 animate-fade-left bg-gradient-to-b from-slate-400 via-slate-200 to-slate-400 w-1/5 h-screen z-50 min-w-72 scroll-smooth "/*md:hidden */>
-          <div
-            className="flex relative w-auto mt-4 flex-row "
-          >
-          <Link href={"/"}>
-          <Image
-            src="/header/hit_logo_black.webp"
-            alt="The HIT Times"
-            className="sm:w-fit w-40 p-2 ml-4 border border-black "
-            width={100}
-            height={50}
-          />
-          </Link> 
-          <button
-            onClick={() => setShowDropdown(!showDropdown &&
-              <div className="animate-fade-right"></div>
-            )
-            }
-            className="ml-20 "
-          >
-            <ArrowRightIcon className="size-10 rounded-full bg-gray-100 p-2 mr-2 " />
-          </button>
-          
+        <div
+          className=" fixed top-0 right-0 animate-fade-left bg-gradient-to-b from-slate-400 via-slate-200 to-slate-400 w-1/5 h-screen z-50 min-w-72 scroll-smooth " /*md:hidden */
+        >
+          <div className="flex relative w-auto mt-4 flex-row ">
+            <Link href={"/"}>
+              <Image
+                src="/header/hit_logo_black.webp"
+                alt="The HIT Times"
+                className="sm:w-fit w-40 p-2 ml-4 border border-black "
+                width={100}
+                height={50}
+              />
+            </Link>
+            <button
+              onClick={() =>
+                setShowDropdown(
+                  !showDropdown && <div className="animate-fade-right"></div>
+                )
+              }
+              className="ml-20 "
+            >
+              <ArrowRightIcon className="size-10 rounded-full bg-gray-100 p-2 mr-2 " />
+            </button>
           </div>
           <ul className="grid grid-flow-row gap-4 py-4 px-2">
             <li>
@@ -353,7 +359,7 @@ export const UserHeader = () => {
                   href={link.href}
                 >
                   {link.title}
-                </Link>                
+                </Link>
               </li>
             ))}
             <hr />
