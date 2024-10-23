@@ -1,13 +1,43 @@
 import { Alumni } from "@/models/Alumnus";
 import Image from "next/image";
 import Link from "next/link";
+function formatImageSrc(src: string): string {
+  // Check if the src is empty or not a string
+  if (!src || typeof src !== "string") {
+    return "/no-image.png"; // Return a default image or an empty string
+  }
+
+  // Check if the src starts with a leading slash or is an absolute URL
+  if (
+    src.startsWith("/") ||
+    src.startsWith("http://") ||
+    src.startsWith("https://")
+  ) {
+    return src;
+  }
+
+  // Prepend a leading slash to relative URLs
+  return `/${src}`;
+}
+
+const extractImageUrl = (url: string): string => {
+  const googleDriveMatch = url.match(
+    /https:\/\/drive\.google\.com\/(?:file\/d\/|open\?id=)([^\/&]+)/
+  );
+
+  const extractedUrl = googleDriveMatch
+    ? `https://drive.google.com/uc?export=view&id=${googleDriveMatch[1]}`
+    : url;
+
+  return formatImageSrc(extractedUrl);
+};
 
 const AlumniCard: React.FC<Alumni> = ({ name, profile_image, position, linkedin }) => {
   return (
     <Link href={linkedin ?? ""}>
       <div className="flex flex-col items-center w-32 animate-fade-up animate-duration-500 animate-delay-200">
         <Image
-          src={profile_image}
+          src={extractImageUrl(profile_image)}
           alt={`${name} Profile Image`}
           width={80}
           height={80}

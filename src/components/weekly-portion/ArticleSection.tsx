@@ -24,7 +24,7 @@ const ArticleSection: React.FC<ArticleSectionProps> = ({
   articles,
   showAllLink,}) => {
   return (
-    <div className="article-section">
+    <div className="article-section  scroll-smooth">
 
       <motion.div
       variants={fadeIn("right",0.2)}
@@ -52,7 +52,7 @@ const ArticleSection: React.FC<ArticleSectionProps> = ({
       initial= "hidden"
       whileInView={"show"}
       viewport={{once: false,amount:0.1}}
-      className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 section-content`}
+      className={`grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-3 gap-4 section-content scroll-smooth`}
       >
         {articles.map((article, idx) => (
           <Article key={idx} article={article} />

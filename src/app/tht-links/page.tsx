@@ -155,7 +155,7 @@ const THT_Links = () => {
       <div className="gap-8 flex flex-col mt-5">
         <div className="">
           <h2
-            className={ibmPlexSerif.className +" font-semibold  ml-20  text-2xl animate-fade-right animate duration-500 animate-delay-200 text-violet-100 w-60 px-2 bg-gradient-to-r from-slate-800 to-neutral-700 rounded-full "}
+            className={ibmPlexSerif.className +" font-semibold  ml-12 md:ml-20  text-2xl animate-fade-right animate duration-500 animate-delay-200 text-violet-100 w-60 px-2 bg-gradient-to-r from-slate-800 to-neutral-700 rounded-full "}
             id="tht-links"
           >
             Our Social handles 

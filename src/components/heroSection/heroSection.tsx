@@ -36,8 +36,8 @@ const HeroSection = ({ notice, noticeLink }: HeroSectionProps) => {
 
   return (
     <div>
-      <div className="pb-4 lg:mb-2 scroll-smooth focus:scroll-auto md:scroll-auto group/item hover:scale-95 hover:duration-300 hover:delay-300 ">
-        <div className="flex flex-wrap rounded-2xl  group-hover/item:hover:bg-gradient-to-r from-slate-200 via-slate-300 to-slate-600 hover:delay-300 group-hover/item:shadow-2xl animate-flip-down animate-delay-700">
+      <div className="pb-4 lg:mb-2 scroll-smooth focus:scroll-auto md:scroll-auto group/item relative hover:scale-95 hover:duration-300 hover:delay-300 ">
+        <div className="relative flex flex-wrap  rounded-2xl  group-hover/item:hover:bg-gradient-to-r from-slate-200 via-slate-300 to-slate-600 hover:delay-300 group-hover/item:shadow-2xl animate-flip-down animate-delay-700">
           <div className="w-full lg:w-1/2 lg:pr-12">
             <div className="flex justify-center">
               <Link href={"/posts/" + post._id.toString()}>
