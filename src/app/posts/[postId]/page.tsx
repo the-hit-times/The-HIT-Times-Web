@@ -154,6 +154,7 @@ const PostInfoPage = ({ params }: { params: { postId: string } }) => {
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 my-4">
             {relatedPosts?.map((post) => (
             <motion.div
+            key={post._id.toString()}
             variants={fadeIn("right",0.2)}
             initial= "hidden"
             whileInView={"show"}

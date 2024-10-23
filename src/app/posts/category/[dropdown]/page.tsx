@@ -100,6 +100,7 @@ export default function PostsPage({
       <div className="grid grid-flow-row md:grid-cols-3 gap-8 my-4 scroll-smooth">
         {posts.map((post) => (
         <motion.div
+        key={post._id.toString()}
         variants={fadeIn("left",0.2)}
         initial= "hidden"
         whileInView={"show"}

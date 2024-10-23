@@ -157,9 +157,9 @@ export const SignOut = (session: Session) => {
               Sign out
             </button></>*/
 
-export default function signUp() {
+export default function SignUpButton() {
   // extracting data from usesession as session
-  const { data: session } = useSession();
+  const { data: session } = useSession(); 
   const [isOpen, setIsOpen] = useState(false);
   console.log("session: ", session);
 
@@ -301,7 +301,7 @@ export const UserHeader = () => {
         </ul>
 
         <div className=" flex justify-end" /*md:hidden */>
-          {signUp()}
+          <SignUpButton />
           <button
             onClick={() => setShowDropdown(!showDropdown)}
             className="text-zinc-800 text-2xl ml-2"
