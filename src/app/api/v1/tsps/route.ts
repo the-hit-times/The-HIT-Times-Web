@@ -26,7 +26,11 @@ export async function POST(request: NextRequest) {
         console.log(data);
 
         const tsp = await TspModel.create(data);
-        return NextResponse.json({ success: true }, { status: 201 });
+        return NextResponse.json({
+            success: true
+        }, {
+            status: 201
+        });
     } catch (error: any) {
 
         return NextResponse.json({

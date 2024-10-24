@@ -1,10 +1,9 @@
 "use client"
-import MDXPage from "@/app/page";
 import { ArrowDownCircleIcon } from "@heroicons/react/24/solid";
 import { IBM_Plex_Serif, Nunito_Sans, Poppins } from "next/font/google";
 import Link from "next/link";
 
-const formUrl = "https://docs.google.com/spreadsheets/d/1gPJ290iKyX3Tyi9BsgsTve7akUtX0Befleh70kgkoAM/edit#gid=0";
+const formUrl = "/api/v1/tsps/exportform";
 
 const ibmPlexSerif = IBM_Plex_Serif({
     subsets: ["latin"],
