@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -63,47 +63,82 @@ export default function TSPForm() {
     return interestParams;
   }
 
-  const onSubmit = (formData: SheetData) => {
+  const onSubmit = async (formData: SheetData) => {
     setIsSubmitted(true)
-    createGoogleSheet(formData)
-    console.log("form submitted", formData)
-    let interestParams: String = getInterestsNo(formData)
-    router.replace(`/forms/tsp-form/${interestParams}`)
+    //  createGoogleSheet(formData)
+    const isUploaded = await postSheet(formData)
+    if (isUploaded) {
+      console.log("form submitted", formData)
+      let interestParams: String = getInterestsNo(formData)
+      router.replace(`/forms/tsp-form/${interestParams}`)
+    }else{
+      console.log("Unable to submit", formData)
+    }
+
   }
 
-
-
-
-  const createGoogleSheet = async (formData: SheetData): Promise<void> => {
-    const url = 'https://sheetdb.io/api/v1/srs2qf40a6fqa';
-
+  const postSheet = async (formData: SheetData): Promise<boolean> => {
+    const url = '/api/v1/tsps';
     try {
       const response = await fetch(url, {
         method: 'POST',
         headers: {
-          Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          data: [
-            formData
-          ]
-        }),
+        body: JSON.stringify(formData),
       });
 
-      if (!response.ok) {
+      if (response.status != 201) {
         toast.error("Something went wrong");
         throw new Error(`HTTP error! status: ${response.status}`);
-      }else{
+      } else {
         toast.success("Submitted successfully")
       }
 
       const data: any = await response.json();
       console.log(data);
+      return true;
     } catch (error) {
-      toast.error("Something went wrong");
+      setIsSubmitted(false)
+      toast.error("Try submitting again");
+      return false;
     }
   };
+
+
+
+  /*
+  
+    const createGoogleSheet = async (formData: SheetData): Promise<void> => {
+      const url = 'https://sheetdb.io/api/v1/srs2qf40a6fqa';
+  
+      try {
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            data: [
+              formData
+            ]
+          }),
+        });
+  
+        if (!response.ok) {
+          toast.error("Something went wrong");
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }else{
+          toast.success("Submitted successfully")
+        }
+  
+        const data: any = await response.json();
+        console.log(data);
+      } catch (error) {
+        toast.error("Something went wrong");
+      }
+    }; */
 
 
 
