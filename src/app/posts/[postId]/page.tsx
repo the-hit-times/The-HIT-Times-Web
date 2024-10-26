@@ -12,6 +12,8 @@ import { notFound } from "next/navigation";
 import { CircularLoader } from "@/components/common/loader/Loaders";
 import ArticleImage from "@/components/weekly-portion/ArticleImage";
 import Article from "@/components/weekly-portion/Article";
+import {motion} from "framer-motion";
+import {fadeIn} from "@/variants";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -96,12 +98,13 @@ const PostInfoPage = ({ params }: { params: { postId: string } }) => {
   return (
     <div>
       <main>
-        <div className="before:absolute before:bg-indigo-950 before:w-full before:h-1/3 before:-z-10 before:left-0">
+        <div className="before:absolute before:bg-indigo-950 before:w-full before:h-1/3 before:-z-10 before:left-0  animate-fade-down animate-delay-200">
           {/* <div className="absolute top-0 left-0 right-0 -z-10 w-full h-2/3  lg:h-1/2 bg-indigo-950"></div> */}
           <h1
             className={
               ibmPlexSerif.className +
-              " text-2xl text-center text-white sm:text-4xl font-semibold py-8 w-fit mx-auto"
+              " text-2xl text-center text-white sm:text-4xl font-semibold py-8 w-fit mx-auto animate-flip-down animate-duration-500 animate-delay-500 "
+
             }
           >
             {postinfo.title}
@@ -111,7 +114,7 @@ const PostInfoPage = ({ params }: { params: { postId: string } }) => {
             alt="image"
             width={500}
             height={423}
-            className="object-contain mx-auto w-full aspect-video "
+            className="object-contain mx-auto w-full  aspect-video animate-fade-up animate-duration-500 animate-delay-500 "
           />
         </div>
 
@@ -124,10 +127,10 @@ const PostInfoPage = ({ params }: { params: { postId: string } }) => {
               <div
                 className={poppins.className + " flex flex-row gap-8 text-sm "}
               >
-                <p className="text-gray-800 font-medium">
+                <p className="text-gray-800 font-medium animate-fade-right animate-delay-200 ">
                   {getRelativeTime(postinfo.createdAt)}
                 </p>
-                <p className="text-gray-500">
+                <p className="text-gray-500 animate-fade-left animate-delay-200 ">
                   {calculateReadTime(postinfo.htmlBody ?? postinfo.body)}
                 </p>
               </div>
@@ -138,7 +141,7 @@ const PostInfoPage = ({ params }: { params: { postId: string } }) => {
             <div
               className={
                 nunitoSans.className +
-                " text-gray-700 text-lg prose-a:text-blue-800 text-justify"
+                " text-gray-700 text-lg prose-a:text-blue-800 text-justify animate-fade-up animate-delay-200 "
               }
             >
               {parse(postinfo.htmlBody ?? postinfo.body)}
@@ -147,10 +150,18 @@ const PostInfoPage = ({ params }: { params: { postId: string } }) => {
         </div>
 
         <div className="mt-8">
-          <h3 className={poppins.className + " font-medium"}>Related Topics</h3>
+          <h3 className={poppins.className + " font-bold font-serif"}>Related Topics</h3>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 my-4">
             {relatedPosts?.map((post) => (
+            <motion.div
+            key={post._id.toString()}
+            variants={fadeIn("right",0.2)}
+            initial= "hidden"
+            whileInView={"show"}
+            viewport={{once: false,amount:0.1}}
+            >
               <Article key={post._id.toString()} article={post} />
+            </motion.div>
             ))}
           </div>
         </div>

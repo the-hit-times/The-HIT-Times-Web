@@ -8,6 +8,7 @@ import { IBM_Plex_Serif, Nunito_Sans } from "next/font/google";
 import { CircularLoader } from "@/components/common/loader/Loaders";
 import { Alumni } from "@/models/Alumnus";
 import ArticleImage from "@/components/weekly-portion/ArticleImage";
+import { ALL } from "dns";
 
 const ibmPlexSerif = IBM_Plex_Serif({
   subsets: ["latin"],
@@ -20,7 +21,7 @@ const nunitoSans = Nunito_Sans({
 });
 
 export default function AlumniPage() {
-  const PAGE_LIMIT = 10;
+  const PAGE_LIMIT = 1000;
   const [alumni, setAlumni] = useState<Alumni[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadmore, setLoadmore] = useState(true);
@@ -93,7 +94,7 @@ export default function AlumniPage() {
         </Link>
       </div>
 
-      <div className="grid grid-flow-row md:grid-cols-3 gap-2 my-4">
+      <div className="grid grid-flow-row d md:grid-cols-3 gap-2 my-4">
         {alumni.map((alum) => (
           <div
             key={alum._id.toString()}

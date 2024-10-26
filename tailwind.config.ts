@@ -7,6 +7,7 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/docs/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/*.tsx",
+    "./src/*.{html,js}",
   ],
   theme: {
     extend: {
@@ -19,10 +20,38 @@ const config: Config = {
         "body": "#f1f2f3",
       },
       screens: {
-        "2.5xl": "1366px",
+        "2.5xl": "1367px",
       },
+
+      keyframes: {
+        typing: {
+          "0%": {
+            width: "0%",
+            visibility: "hidden"
+          },
+          "100%": {
+            width: "100%"
+          }  
+        },
+        blink: {
+          "50%": {
+            borderColor: "transparent"
+          },
+          "100%": {
+            borderColor: "black"
+          }  
+        }
+      },
+      animation: {
+        typing: "typing 2s steps(20), blink .7s infinite"
+      },
+      
+
+
     },
   },
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [require("@tailwindcss/typography"), require('tailwindcss-animated'),]
+
+
 };
 export default config;

@@ -21,7 +21,7 @@ const nunitoSans = Nunito_Sans({
 });
 
 export default function PostsPage() {
-  const PAGE_LIMIT = 10;
+  const PAGE_LIMIT = 1000;
   const [posts, setPosts] = useState<Posts[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadmore, setLoadmore] = useState(true);

@@ -65,11 +65,11 @@ const WeeklyPortion: React.FC = () => {
 
   return (
     <Suspense fallback={<CircularLoader />}>
-      <div className="grid grid-flow-row gap-8">
+      <div className="grid grid-flow-row gap-8 ">
         {sections.map((section) => (
           <ArticleSection
             key={section.heading}
-            heading={section.heading}
+            heading={section.heading }
             articles={section.articles}
             showAllLink={section.showAllLink}
           />
