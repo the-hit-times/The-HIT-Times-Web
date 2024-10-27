@@ -49,8 +49,8 @@ const quickActions = [
     url: "/admin-portal/notify",
   },
   {
-    title: "All Events",
-    url: "/admin-portal/events",
+    title: "All Notices",
+    url: "/admin-portal/notices",
   },
 ];
 

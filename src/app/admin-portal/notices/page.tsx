@@ -2,6 +2,7 @@
 import { ArrowDownCircleIcon } from "@heroicons/react/24/solid";
 import { IBM_Plex_Serif, Nunito_Sans, Poppins } from "next/font/google";
 import Link from "next/link";
+import { toast } from "react-toastify";
 
 const formUrl = "/api/v1/tsps/exportform";
 
@@ -23,12 +24,60 @@ const nunitoSans = Nunito_Sans({
 
 const EventsPage = () => {
 
-    function publishTSP(): void {
-        
+    async function publishTSP(): Promise<any>  {
+        const url = '/api/v1/notice';
+        const notice = {
+            noticeTitle: "Join TSP 24-25",
+            noticeLink: "/forms/tsp-form"
+        }
+        try {
+            const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(notice),
+            });
+
+            if (response.status != 201) {
+                toast.error("Something went wrong");
+                throw new Error(`HTTP error! status: ${response.status}`);
+            } else {
+                toast.success("Published successfully")
+            }
+
+            const data: any = await response.json();
+        } catch (error) {
+            toast.error("Try submitting again");
+        }
     }
 
-    function removeTSP(): void {
-        
+    async function removeTSP(): Promise<any> {
+        const url = '/api/v1/notice';
+        const notice = {
+            noticeTitle: "stop",
+            noticeLink: "stop"
+        }
+        try {
+            const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(notice),
+            });
+
+            if (response.status != 201) {
+                toast.error("Something went wrong");
+                throw new Error(`HTTP error! status: ${response.status}`);
+            } else {
+                toast.success("Removed successfully")
+            }
+
+            const data: any = await response.json();
+        } catch (error) {
+            toast.error("Try removing again");
+        }
     }
 
 

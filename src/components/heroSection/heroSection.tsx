@@ -12,9 +12,11 @@ interface HeroSectionProps {
   noticeLink?: string;
 }
 
-const HeroSection = ({ notice, noticeLink }: HeroSectionProps) => {
+const HeroSection = () => {
   const [post, setPost] = useState<Posts | null>(null);
   const [loading, setLoading] = useState(true);
+  const [notice, setNotice] = useState({noticeTitle:"",noticeLink:""});
+  const { noticeTitle, noticeLink} = notice;
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -22,6 +24,10 @@ const HeroSection = ({ notice, noticeLink }: HeroSectionProps) => {
         const res = await fetch("/api/v1/posts/featured");
         const data = await res.json();
         setPost(data);
+        const res2 = await fetch("/api/v1/notice");
+        let notice = await res2.json();
+        notice = notice.reverse()
+        setNotice(notice[0]);
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -82,13 +88,13 @@ const HeroSection = ({ notice, noticeLink }: HeroSectionProps) => {
           </div>
         </div>
       </div>
-      {notice && (
+      {noticeTitle!="stop" && (
         <div className="py-3 px-3 w-full bg-red-600 flex items-center justify-center">
           <h1 className="bg-white text-center text-red-600 font-semibold py-3 px-5 rounded-md">
             Latest Notice
           </h1>
           <p className="text-white font-sans ml-3 lg:ml-6">
-            {notice}
+            {noticeTitle}
             {noticeLink && (
               <Link href={noticeLink} className="underline text-sky-200 ml-2">
                 Learn More
