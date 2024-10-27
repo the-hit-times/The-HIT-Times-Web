@@ -33,8 +33,6 @@ export default function RecCommonForm() {
         other_position: string[]  //4
     }
 
-    const positionNo: String[] = ["writing", "drawing", "designing", "videoEditing", "technology", "photography"]
-
 
     const router = useRouter()
     const [isSubmitted, setIsSubmitted] = useState(false)

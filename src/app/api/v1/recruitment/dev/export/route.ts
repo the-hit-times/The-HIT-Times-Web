@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
       { label: "Why Joining THT", value: "why_join_THT" },
 
         //according to role
-      { label: "Q1_tech", value: "Q1_tech" },
+      { label: "Programming languages", value: "Q1_tech" },
       { label: "Q2_tech", value: "Q2_tech" },
       { label: "Q3_tech", value: "Q3_tech" },
       { label: "Q4_tech", value: "Q4_tech" },

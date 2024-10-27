@@ -92,7 +92,7 @@ export default function DevForm() {
         }
         formData.Q3_tech = all;
 
-        formData.Q12_tech = await uploadFile(formData.Q12_tech)
+        formData.Q12_tech = await uploadFile(formData.Q12_tech) //generate link
         const isUploaded = await postSheet(formData)
         
         // router.push(`./roles/${formData.position}`)

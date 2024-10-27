@@ -60,7 +60,7 @@ const developerSchema = new mongoose.Schema<developersData>(
         year: {
             type: String,
             required: true,
-            enum: ["1st Year", "2nd Year"]
+            // enum: ["1st Year", "2nd Year"]
         },
         phone: {
             type: String,
