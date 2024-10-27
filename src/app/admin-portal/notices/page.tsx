@@ -122,6 +122,21 @@ const EventsPage = () => {
                     </span>
                 </button>
             </Link>
+
+            <Link href={'http://localhost:3000/api/v1/recruitment/dev/export'} className="m-5">
+                <button>
+                    <span className="flex flex-row bg-slate-200 p-5 rounded-xl mb-96">
+                        <div className={poppins.className +
+                            " text-xl font-bold text-emerald-500 text-center pr-2"
+                        }>
+                            Developers Recruitment Data
+                        </div>
+                        <div>
+                            <ArrowDownCircleIcon width={30} className="text-emerald-500" />
+                        </div>
+                    </span>
+                </button>
+            </Link>
         </div>
     )
 }
