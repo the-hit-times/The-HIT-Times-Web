@@ -1,25 +1,25 @@
 import dbConnect from "@/lib/dbConnect";
-import DeveloperForms from "@/models/Roles/DeveloperForms";
+import CartoonistForms from "@/models/Roles/CartoonistForms";
 import { Parser } from "@json2csv/plainjs";
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   const token = await getToken({
-     req: request,
-     secret: process.env.NEXTAUTH_SECRET,
+    req: request,
+    secret: process.env.NEXTAUTH_SECRET,
   });
 
-   if (token === null || token?.role !== "admin") {
-     return Response.json(
-       { success: false, msg: "Unauthorized" },
-       { status: 401 }
-     );
-}
+  if (token === null || token?.role !== "admin") {
+    return Response.json(
+      { success: false, msg: "Unauthorized" },
+      { status: 401 }
+    );
+  }
 
   try {
     await dbConnect();
-    const formData = await DeveloperForms.find({});
+    const formData = await CartoonistForms.find({});
     const csvFields = [
         //common
       { label: "ID", value: "id" },
@@ -36,25 +36,23 @@ export async function GET(request: NextRequest) {
       { label: "Opinion about Ragging", value: "ragging_opinion" },
       { label: "Why Joining THT", value: "why_join_THT" },
 
-        //specific fields for developer
-      { label: "Programming languages", value: "Q1_tech" },
-      { label: "Other Programming languages", value: "Q2_tech" },
-      { label: "Technologies", value: "Q3_tech" },
-      { label: "Other Technologies", value: "Q4_tech" },
-      { label: "Familiar with Git and GitHub", value: "Q5_tech" },
-      { label: "GitHub link", value: "Q6_tech" },
-      { label: "Opinions on best Website/Application", value: "Q7_tech" },
-      { label: "Coding competency(1 to 5)", value: "Q8_tech" },
-      { label: "A website is a better option for THT or an application", value: "Q9_tech" },
-      { label: "Why do you like to code", value: "Q10_tech" },
-      { label: "Project link", value: "Q11_tech" },
-      { label: "Resume", value: "Q12_tech" },
+        //according to role
+      { label: "Fav Anime/Cartoon/comic", value: "Q1_cartoon" },
+      { label: "Graph theory Opinion", value: "Q2_cartoon" },
+      { label: "Suggestions in the paper", value: "Q3_cartoon" },
+      { label: "Why like making Art", value: "Q4_cartoon" },
+      { label: "Like cartooning or Doodling", value: "Q5_cartoon" },
+      { label: "ArtWork_1", value: "Q6_cartoon" },
+      { label: "ArtWork_2", value: "Q7_cartoon" },
+      { label: "ArtWork_3", value: "Q8_cartoon" },
+      { label: "ArtWork_4", value: "Q9_cartoon" },
+      { label: "ArtWork_5", value: "Q10_cartoon" },
     ];
 
     const csvParser = new Parser({ fields: csvFields });
     const csvData = csvParser.parse(formData);
 
-    const fileName = "developers_form_Data_2024.csv";
+    const fileName = "cartoonist_form_Data_2024.csv";
     return new NextResponse(csvData, {
       status: 200,
       headers: {

@@ -1,25 +1,25 @@
 import dbConnect from "@/lib/dbConnect";
-import DeveloperForms from "@/models/Roles/DeveloperForms";
+import PhotographerForms from "@/models/Roles/PhotographerForms";
 import { Parser } from "@json2csv/plainjs";
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
-  const token = await getToken({
+   const token = await getToken({
      req: request,
      secret: process.env.NEXTAUTH_SECRET,
-  });
+   });
 
    if (token === null || token?.role !== "admin") {
      return Response.json(
        { success: false, msg: "Unauthorized" },
        { status: 401 }
      );
-}
+   }
 
   try {
     await dbConnect();
-    const formData = await DeveloperForms.find({});
+    const formData = await PhotographerForms.find({});
     const csvFields = [
         //common
       { label: "ID", value: "id" },
@@ -36,25 +36,26 @@ export async function GET(request: NextRequest) {
       { label: "Opinion about Ragging", value: "ragging_opinion" },
       { label: "Why Joining THT", value: "why_join_THT" },
 
-        //specific fields for developer
-      { label: "Programming languages", value: "Q1_tech" },
-      { label: "Other Programming languages", value: "Q2_tech" },
-      { label: "Technologies", value: "Q3_tech" },
-      { label: "Other Technologies", value: "Q4_tech" },
-      { label: "Familiar with Git and GitHub", value: "Q5_tech" },
-      { label: "GitHub link", value: "Q6_tech" },
-      { label: "Opinions on best Website/Application", value: "Q7_tech" },
-      { label: "Coding competency(1 to 5)", value: "Q8_tech" },
-      { label: "A website is a better option for THT or an application", value: "Q9_tech" },
-      { label: "Why do you like to code", value: "Q10_tech" },
-      { label: "Project link", value: "Q11_tech" },
-      { label: "Resume", value: "Q12_tech" },
+        //specific fields for Photographer
+      { label: "Camera model", value: "Q1_photo" },
+      { label: "software for Editing", value: "Q2_photo" },
+      { label: "Technologies", value: "Q3_photo" },
+      { label: "Experience(years)", value: "Q4_photo" },
+      { label: "Tell us in brief what you like most about photography", value: "Q5_photo" },
+      { label: "any photographers you follow or those who inspire you.", value: "Q6_photo" },
+      { label: "How do you think, as a photographer at THT, you can influence the atmosphere of the college?", value: "Q7_photo" },
+      { label: "Do you hold any experience in short film making or video making? If yes, specify the software you use for final editing and production.", value: "Q8_photo" },
+      { label: "photo", value: "Q9_photo" },
+      { label: "photo", value: "Q10_photo" },
+      { label: "photo", value: "Q11_photo" },
+      { label: "photo", value: "Q12_photo" },
+      { label: "photo", value: "Q13_photo" },
     ];
 
     const csvParser = new Parser({ fields: csvFields });
     const csvData = csvParser.parse(formData);
 
-    const fileName = "developers_form_Data_2024.csv";
+    const fileName = "photographers_form_Data_2025.csv";
     return new NextResponse(csvData, {
       status: 200,
       headers: {

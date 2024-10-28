@@ -1,6 +1,8 @@
 "use client"
 import CommonFields from '@/components/formcomponents/CommonFields';
+import FileUploader from '@/components/formcomponents/FileUploader';
 import FormInput from '@/components/formcomponents/FormInput';
+import  uploadFile from '@/lib/uploadFile';
 import { IBM_Plex_Serif, Nunito_Sans, Poppins } from 'next/font/google';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -25,11 +27,14 @@ const nunitoSans = Nunito_Sans({
 });
 
 
-export default function DevForm() {
+export default function CartoonistForm() {
 
     const searchParams = useSearchParams()
 
-    type PRSheetData = {
+    console.log("got", searchParams.get('name') ," ",searchParams.get('roll')," ",searchParams.get('other'));
+    
+
+    type CartoonistSheetData = {
         name: string              //1 ....from prev page
         roll: string              //2 ....from prev page
         position: string          //3 ....from prev page
@@ -43,72 +48,93 @@ export default function DevForm() {
         ragging_opinion: string   //11
         why_join_THT: string      //12 ....end of common fields
 
-        Q1_pr: string             // public speaking skills(1 to 5)
-        Q2_pr: string             // How will you contribute to the team as a PR?
-        Q3_pr: string             // When doing PR work, what are the key features you have that will come in handy?
-        Q4_pr: string             // How do you think, as a PR at THT, you can influence the atmosphere of the college?
+        Q1_cartoon: string              // 
+        Q2_cartoon: string           // 
+        Q3_cartoon: string              // 
+        Q4_cartoon: string           // 
+        Q5_cartoon: string           //
+        Q6_cartoon: any           //  ppt/pdf/link
+        Q7_cartoon: any           //  ppt/pdf/link
+        Q8_cartoon: any           //  ppt/pdf/link
+        Q9_cartoon: any           //  ppt/pdf/link
+        Q10_cartoon: any          //  ppt/pdf/link
+
     }
 
 
     const router = useRouter()
     const [isSubmitted, setIsSubmitted] = useState(false)
 
-    const form = useForm<PRSheetData>();
+    const form = useForm<CartoonistSheetData>();
     const { register, handleSubmit } = form;
 
 
-    const onSubmit = async (formData: PRSheetData) => {
+    const onSubmit = async (formData: CartoonistSheetData) => {
         setIsSubmitted(true)
 
         formData.name = searchParams.get('name')!
         formData.roll = searchParams.get('roll')!
-        formData.position = "public-relations"
+        formData.position = "Cartoonist"
         formData.other_position = searchParams.get('other')!
 
+        //array to string 
+        /*let all="|";
+        if(formData.Q1_cartoon){
+            (formData.Q1_cartoon).forEach((str: string)=> all+=str+'|')
+        }
+        formData.Q1_cartoon = all;
+
+        all="|";
+        if(formData.Q3_cartoon){
+            (formData.Q3_cartoon).forEach((str: string)=> all+=str+'|')
+        }
+        formData.Q3_cartoon = all;*/
+
+        formData.Q6_cartoon = await uploadFile(formData.Q6_cartoon) //generate link
+        formData.Q7_cartoon = await uploadFile(formData.Q7_cartoon) //generate link
+        formData.Q8_cartoon = await uploadFile(formData.Q8_cartoon) //generate link
+        formData.Q9_cartoon = await uploadFile(formData.Q9_cartoon) //generate link
+        formData.Q10_cartoon = await uploadFile(formData.Q10_cartoon) //generate link
         const isUploaded = await postSheet(formData)
         
-        if(isUploaded) {
-            // router.push(`./roles/${formData.position}`)
-            console.log("form submitted", formData)
-        }
-        
+        // router.push(`./roles/${formData.position}`)
+        console.log("form submitted", formData)
         setIsSubmitted(false)
     }
 
-    const postSheet = async (formData: PRSheetData): Promise<boolean> => {
-        const url = '/api/v1/recruitment/pr';
+    const postSheet = async (formData: CartoonistSheetData): Promise<boolean> => {
+        const url = '/api/v1/recruitment/cartoonist';
         try {
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData),
-                });
-            
-            if (response.status != 201) {
-                toast.error("Something went wrong");
-                throw new Error(`HTTP error! status: ${response.status}`);
-            } else {
-                toast.success("Submitted successfully")
-            }
+          const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+          });
     
-            const data: any = await response.json();
-            console.log(data);
-            return true;
+          if (response.status != 201) {
+            toast.error("Something went wrong");
+            throw new Error(`HTTP error! status: ${response.status}`);
+          } else {
+            toast.success("Submitted successfully")
+          }
+    
+          const data: any = await response.json();
+          console.log(data);
+          return true;
         } catch (error) {
-            setIsSubmitted(false)
-            toast.error("Try submitting again");
-            return false;
+          setIsSubmitted(false)
+          toast.error("Try submitting again");
+          return false;
         }
-    };
+      };
 
 
     function refreshPage(): void {
         router.push("/recruitment");
-        // router.push("./common");
         toast.success("Kindly Fill Again")
-    }
+    }   
 
     return (
         <div className="min-h-screen bg-gray-200">
@@ -144,12 +170,12 @@ export default function DevForm() {
                 <div className='bg-white shadow-md rounded-lg mt-4'>
                     <div className='bg-purple-800 rounded-t-lg py-3 px-8'>
                         <p className={poppins.className + ' text-lg font-normal text-white'}>
-                            Public Relations and Management
+                        Cartoonist/Digital Artist Section
                         </p>
                     </div>
                     <div className="py-5 px-6 sm:px-6 lg:px-8 flex flex-col">
                         <div className={poppins.className + ' text-sm'}>
-                            Answer all questions as truthfully as possible so that we can help you better.
+                        Answer all questions as truthfully as possible so that we can help you better.  You don't have to be a professional. All cartoonists start out doodling in their back pages. If you think you can do it, we are sure you can.
                         </div>
                     </div>
                 </div>
@@ -159,48 +185,25 @@ export default function DevForm() {
 
                     <CommonFields register = {register} />
 
-                    <div className='flex flex-row bg-white shadow-md rounded-lg mb-4'>
-                        {/* <div className='bg-blue-400 w-4 lg:w-5 rounded-l-3xl'></div> */}
-                        <div className="py-5 px-6 lg:px-8 flex flex-col">
-                            <label htmlFor="Q1_pr" className={poppins.className + " text-gray-900 text-md mb-4"}>
-                                On a scale of one to five how would you rate your public speaking skills?
-                            <span className='text-md text-red-600 pl-1'>*</span>
-                            </label>
-                            <div className='flex flex-row mb-3 text-sm'>
-                                <input className='' value="1" type='radio' id="Q1_pr" {...register("Q1_pr")} /><span className='w-2'></span>1
-                            </div>
-                            <div className='flex flex-row mb-3 text-sm'>
-                                <input className='' value="2" type='radio' id="Q1_pr" {...register("Q1_pr")} /><span className='w-2'></span>2
-                            </div>
-                            <div className='flex flex-row mb-3 text-sm'>
-                                <input className='' value="3" type='radio' id="Q1_pr" {...register("Q1_pr")} /><span className='w-2'></span>3
-                            </div>
-                            <div className='flex flex-row mb-3 text-sm'>
-                                <input className='' value="4" type='radio' id="Q1_pr" {...register("Q1_pr")} /><span className='w-2'></span>4
-                            </div>
-                            <div className='flex flex-row mb-1 text-sm'>
-                                <input className='' value="5" type='radio' id="Q1_pr" {...register("Q1_pr")} /><span className='w-2'></span>5
-                            </div>
-                        </div>
+                    <FormInput title='What are your favourite cartoon/anime series or comic strips?' id='Q1_cartoon' isRequired={true} register={register}/>
+                    
+                    <FormInput title='What is your opinion on the Graph Theory portion of The HIT Times?' id='Q2_cartoon' isRequired={false} register={register}/>
+
+                    <FormInput title='How would you suggest we introduce more caricatures or cartoons in the paper going forward?' id='Q3_cartoon' isRequired={false} register={register}/>
+                    
+                    <FormInput title='Why do you like making art?' id='Q4_cartoon' isRequired={false} register={register}/>
+
+                    <FormInput title='Do you like Cartooning or Doodling? ' id='Q5_cartoon' isRequired={false} register={register}/>
+
+                    <div  className='bg-white shadow-md rounded-lg mb-5 p-3'>
+                        <p className={poppins.className + " text-gray-900 text-md mb-2 font-bold px-7 pt-5"}>If you want to share any of your original works, feel free to upload it here.</p>
+                        <p  className={poppins.className + " text-gray-900 text-sm  px-7"}>Please make sure that the works you upload are your original. Also make sure that the files you upload are less than 5 MB in size.</p>
+                        <FileUploader  id='Q6_cartoon' register={register} />
+                        <FileUploader id='Q7_cartoon' register={register} />
+                        <FileUploader id='Q8_cartoon' register={register} />
+                        <FileUploader id='Q9_cartoon' register={register} />
+                        <FileUploader  id='Q10_cartoon' register={register} />  
                     </div>
-
-                    <FormInput 
-                        title='How will you contribute to the team as a PR?' 
-                        id='Q2_pr' 
-                        isRequired={true} 
-                        register={register}/>
-
-                    <FormInput 
-                        title='When doing PR work, what are the key features you have that will come in handy?' 
-                        id='Q3_pr' 
-                        isRequired={true} 
-                        register={register}/>
-
-                    <FormInput 
-                        title='How do you think, as a PR at THT, you can influence the atmosphere of the college?' 
-                        id='Q4_pr' 
-                        isRequired={true} 
-                        register={register}/>
 
                     {
                         isSubmitted ?
@@ -225,3 +228,5 @@ export default function DevForm() {
         </div>
     )
 }
+
+

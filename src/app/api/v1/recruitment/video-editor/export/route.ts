@@ -1,4 +1,4 @@
-// File: src/app/api/v1/recruitment/video-editor/export/route.ts
+    // File: src/app/api/v1/recruitment/video-editor/export/route.ts
 
 import dbConnect from "@/lib/dbConnect";
 import VideoEditorForms from "@/models/Roles/VideoEditorForms";
@@ -8,17 +8,17 @@ import { getToken } from "next-auth/jwt";
 
 
 export async function GET(request: NextRequest) {
-    //   const token = await getToken({
-  //   req: request,
-  //   secret: process.env.NEXTAUTH_SECRET,
-  // });
+       const token = await getToken({
+       req: request,
+       secret: process.env.NEXTAUTH_SECRET,
+     });
 
-  // if (token === null || token?.role !== "admin") {
-  //   return Response.json(
-  //     { success: false, msg: "Unauthorized" },
-  //     { status: 401 }
-  //   );
-  // }
+     if (token === null || token?.role !== "admin") {
+       return Response.json(
+         { success: false, msg: "Unauthorized" },
+         { status: 401 }
+       );
+     }
     try {
         await dbConnect();
         const formData = await VideoEditorForms.find().lean();
