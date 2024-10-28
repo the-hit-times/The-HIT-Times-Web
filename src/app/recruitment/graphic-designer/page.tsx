@@ -127,7 +127,7 @@ export default function GdForm() {
     };
 
     const refreshPage = (): void => {
-        router.push("./common");
+        // router.push("./common");
         toast.success("Kindly Fill Again");
     };
 
