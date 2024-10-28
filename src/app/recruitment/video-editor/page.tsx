@@ -33,7 +33,8 @@ type VeSheetData = {
     phone: string;
     email: string;
 
-    Q5_ve: string[];      // What software do you use?
+    Q5_ve: any;           // What software do you use?
+    Q5_ve_other: string;  //other softwares
     Q6_ve: string;        // What is your favourite editing style/effect in video editing?
     Q7_ve: string;        // What are your favourite movie scenes and why?
     Q8_ve: string;        // What videos do you suggest we can start creating to put up on our Instagram page?
@@ -42,22 +43,22 @@ type VeSheetData = {
     Q11_ve: string;       // If you want to share any of your original works, feel free to share the link here
 };
 
-type VeSheetDataToSend = Omit<VeSheetData, 'Q5_ve'> & {
-    Q5_ve: string; // Convert array to string
-};
+// type VeSheetDataToSend = Omit<VeSheetData, 'Q5_ve'> & {
+//     Q5_ve: string; // Convert array to string
+// };
 
 export default function VeForm() {
     const searchParams = useSearchParams();
     const router = useRouter();
     const [isSubmitted, setIsSubmitted] = useState(false);
 
-    const { register, handleSubmit, setValue, getValues, watch, formState: { errors } } = useForm<VeSheetData>({
+    const { register, handleSubmit, watch, formState: { errors } } = useForm<VeSheetData>({
         defaultValues: {
             Q5_ve: [],
         }
     });
 
-    const watchedQ5_ve = watch("Q5_ve");
+    // const watchedQ5_ve = watch("Q5_ve");
 
     const onSubmit = async (formData: VeSheetData) => {
         setIsSubmitted(true);
@@ -69,27 +70,31 @@ export default function VeForm() {
         formData.other_position = searchParams.get('other') || '';
 
         // Convert Q5_ve array to string
-        const Q5_ve_string = formData.Q5_ve?.join('|') || '';
+        let all="|";
+        if(formData.Q5_ve){
+            (formData.Q5_ve).forEach((str: string)=> all+=str+'|')
+        }
+        formData.Q5_ve = all;
 
         // Prepare data to send to backend
-        const dataToSend: VeSheetDataToSend = {
-            ...formData,
-            Q5_ve: Q5_ve_string,
-            Q11_ve: formData.Q11_ve || '',
-        };
+        // const dataToSend: VeSheetDataToSend = {
+        //     ...formData,
+        //     Q5_ve: Q5_ve_string,
+        //     Q11_ve: formData.Q11_ve || '',
+        // };
 
-        console.log("Data to send to backend:", dataToSend);
+        console.log("Data to send to backend:", formData);
 
         // Post form data
-        const isUploaded = await postSheet(dataToSend);
+        const isUploaded = await postSheet(formData);
 
         if (isUploaded) {
-            console.log("Form submitted", dataToSend);
+            console.log("Form submitted", formData);
         }
         setIsSubmitted(false);
     };
 
-    const postSheet = async (formData: VeSheetDataToSend): Promise<boolean> => {
+    const postSheet = async (formData: VeSheetData): Promise<boolean> => {
         const url = '/api/v1/recruitment/video-editor';
         try {
             const response = await fetch(url, {
@@ -123,15 +128,15 @@ export default function VeForm() {
         toast.success("Kindly Fill Again");
     };
 
-    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
-        const currentValues = getValues("Q5_ve") || [];
-        const updatedValues = event.target.checked
-            ? [...currentValues, value]
-            : currentValues.filter((item) => item !== value);
+    // const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     const value = event.target.value;
+    //     const currentValues = getValues("Q5_ve") || [];
+    //     const updatedValues = event.target.checked
+    //         ? [...currentValues, value]
+    //         : currentValues.filter((item) => item !== value);
 
-        setValue("Q5_ve", updatedValues, { shouldValidate: true });
-    };
+    //     setValue("Q5_ve", updatedValues, { shouldValidate: true });
+    // };
 
     return (
         <div className="min-h-screen bg-gray-200">
@@ -187,27 +192,26 @@ export default function VeForm() {
                                 <span className="text-md text-red-600 pl-1">*</span>
                             </span>
                             {["Adobe Premiere Pro", "Filmora Video Editor", "Adobe After Effects", "Da Vinci Resolve", "Other"].map((software, index) => (
-                                <label key={index} htmlFor={`Q5_ve_${index}`} className="flex items-center mb-3 text-sm">
+                                <label key={index} htmlFor={`Q5_ve`} className="flex items-center mb-3 text-sm">
                                     <input
                                         className="form-checkbox h-4 w-4 text-purple-600"
                                         value={software}
                                         type="checkbox"
                                         id={`Q5_ve_${index}`}
-                                        onChange={handleCheckboxChange}
-                                        checked={watchedQ5_ve?.includes(software) || false}
+                                        {...register("Q5_ve")}
                                     />
                                     <span className="ml-2">{software}</span>
                                 </label>
                             ))}
-                            <label htmlFor="Q5_ve_Other" className="text-gray-700 text-sm mb-1">
+                            <label htmlFor="Q5_ve_other" className="text-gray-700 text-sm mb-1">
                                 Other: (Please specify)
                             </label>
                             <input
                                 className="border-b border-gray-300 focus:outline-none focus:border-purple-600 focus:border-b-2 py-1 focus:placeholder-purple-400"
                                 placeholder="Your Answer"
                                 type="text"
-                                id="Q5_ve_Other"
-                                {...register("Q5_ve")}
+                                id="Q5_ve_other"
+                                {...register("Q5_ve_other")}
                             />
                             {errors.Q5_ve && <span className="text-red-500 text-xs">Please select at least one software.</span>}
                         </div>

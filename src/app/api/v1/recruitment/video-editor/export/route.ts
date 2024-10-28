@@ -41,6 +41,7 @@ export async function GET(request: NextRequest) {
 
             // Video Editor Specific Questions
             { label: "What software do you use?", value: "Q5_ve" },
+            { label: "Other editing softwares", value: "Q5_ve_other" },
             { label: "What is your favourite editing style/effect in video editing?", value: "Q6_ve" },
             { label: "What are your favourite movie scenes and why?", value: "Q7_ve" },
             { label: "What videos do you suggest we can start creating to put up on our Instagram page?", value: "Q8_ve" },

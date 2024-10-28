@@ -20,7 +20,8 @@ type videoEditorData = {
     why_join_THT: string;
 
     // Video Editor Specific Questions
-    Q5_ve: string[];             // What software do you use?
+    Q5_ve: string;             // What software do you use?
+    Q5_ve_other: string;         // other softwares
     Q6_ve: string;               // What is your favourite editing style/effect in video editing?
     Q7_ve: string;               // What are your favourite movie scenes and why?
     Q8_ve: string;               // What videos do you suggest we can start creating to put up on our Instagram page?
@@ -84,8 +85,12 @@ const videoEditorSchema = new mongoose.Schema<videoEditorData>(
             type: String,
         },
         Q5_ve: {
-            type: [String],
+            type: String,
             required: true
+        },
+        Q5_ve_other: {
+            type: String,
+            required: false
         },
         Q6_ve: {
             type: String,
