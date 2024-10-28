@@ -52,14 +52,14 @@ export default function DevForm() {
         Q2_tech: string           // other programming languages
         Q3_tech: any              // technologies
         Q4_tech: string           // other technologies
-        Q5_tech: string           //
-        Q6_tech: string           //
-        Q7_tech: string           //
-        Q8_tech: string           //
-        Q9_tech: string           //
-        Q10_tech: string          //
-        Q11_tech: string          //
-        Q12_tech: any             // ppt/pdf/link
+        Q5_tech: string           // familiar with Git and GitHub
+        Q6_tech: string           // GitHub link
+        Q7_tech: string           // opinions on best website/application
+        Q8_tech: string           // competency at coding(1 to 5)
+        Q9_tech: string           // a website is a better option for THT or an application
+        Q10_tech: string          // why do you like to code
+        Q11_tech: string          // link of any project
+        Q12_tech: any             // Resume (ppt/pdf -> link)
 
     }
 
@@ -92,7 +92,8 @@ export default function DevForm() {
         }
         formData.Q3_tech = all;
 
-        formData.Q12_tech = await uploadFile(formData.Q12_tech) //generate link
+        formData.Q12_tech = formData.Q12_tech ? await uploadFile(formData.Q12_tech) : ''; //generate link
+
         const isUploaded = await postSheet(formData)
         
         // router.push(`./roles/${formData.position}`)
@@ -130,7 +131,7 @@ export default function DevForm() {
 
 
     function refreshPage(): void {
-        router.push("./common");
+        // router.push("./common");
         toast.success("Kindly Fill Again")
     }
 

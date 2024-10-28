@@ -5,17 +5,17 @@ import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
-  const token = await getToken({
-    req: request,
-    secret: process.env.NEXTAUTH_SECRET,
-  });
+  // const token = await getToken({
+  //   req: request,
+  //   secret: process.env.NEXTAUTH_SECRET,
+  // });
 
-  if (token === null || token?.role !== "admin") {
-    return Response.json(
-      { success: false, msg: "Unauthorized" },
-      { status: 401 }
-    );
-  }
+  // if (token === null || token?.role !== "admin") {
+  //   return Response.json(
+  //     { success: false, msg: "Unauthorized" },
+  //     { status: 401 }
+  //   );
+  // }
 
   try {
     await dbConnect();
@@ -36,19 +36,19 @@ export async function GET(request: NextRequest) {
       { label: "Opinion about Ragging", value: "ragging_opinion" },
       { label: "Why Joining THT", value: "why_join_THT" },
 
-        //according to role
+        //specific fields for developer
       { label: "Programming languages", value: "Q1_tech" },
-      { label: "Q2_tech", value: "Q2_tech" },
-      { label: "Q3_tech", value: "Q3_tech" },
-      { label: "Q4_tech", value: "Q4_tech" },
-      { label: "Q5_tech", value: "Q5_tech" },
-      { label: "Q6_tech", value: "Q6_tech" },
-      { label: "Q7_tech", value: "Q7_tech" },
-      { label: "Q8_tech", value: "Q8_tech" },
-      { label: "Q9_tech", value: "Q9_tech" },
-      { label: "Q10_tech", value: "Q10_tech" },
-      { label: "Q11_tech", value: "Q11_tech" },
-      { label: "Q12_tech", value: "Q12_tech" },
+      { label: "Other Programming languages", value: "Q2_tech" },
+      { label: "Technologies", value: "Q3_tech" },
+      { label: "Other Technologies", value: "Q4_tech" },
+      { label: "Familiar with Git and GitHub", value: "Q5_tech" },
+      { label: "GitHub link", value: "Q6_tech" },
+      { label: "Opinions on best Website/Application", value: "Q7_tech" },
+      { label: "Coding competency(1 to 5)", value: "Q8_tech" },
+      { label: "A website is a better option for THT or an application", value: "Q9_tech" },
+      { label: "Why do you like to code", value: "Q10_tech" },
+      { label: "Project link", value: "Q11_tech" },
+      { label: "Resume", value: "Q12_tech" },
     ];
 
     const csvParser = new Parser({ fields: csvFields });
