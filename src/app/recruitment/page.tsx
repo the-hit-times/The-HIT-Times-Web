@@ -111,11 +111,11 @@ export default function RecCommonForm() {
                         {/* <div className='bg-blue-400 w-4 lg:w-5 rounded-l-3xl'></div> */}
                         <div className="py-5 px-6 lg:px-8 flex flex-col">
                             <label htmlFor="dept" className={poppins.className + " text-gray-900 text-md mb-2"}>
-                                What is the primary position you wish to apply for?
+                                {"What is the primary position you wish to apply for?"}
                                 <span className='text-md text-red-600 pl-1'>*</span>
                             </label>
                             <p className={poppins.className + " text-gray-900 text-sm mb-4"}>
-                                Select the position describing what you do best. In case you are not sure of what you can or want to do, select what interests you most. We encourage you to approach us through our Instagram page and ask what any specific position will entail. If you can apply for more than one position, fill the others in on the next question. If you don't have any skills and want to apply as a Trainee Scholar, select the last option.
+                                {"Select the position describing what you do best. In case you are not sure of what you can or want to do, select what interests you most. We encourage you to approach us through our Instagram page and ask what any specific position will entail. If you can apply for more than one position, fill the others in on the next question. If you don't have any skills and want to apply as a Trainee Scholar, select the last option."}
                             </p>
                             <div className='flex flex-row mb-3 text-sm'>
                                 <input className='' value="content-writer" type='radio' id="position" {...register("position")} /><span className='w-2'></span>Content Writer/ Editor (Good english is a must)

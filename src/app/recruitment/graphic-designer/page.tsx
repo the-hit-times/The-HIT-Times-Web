@@ -1,5 +1,3 @@
-// File: src/app/recruitment/graphic-designer/page.tsx
-
 "use client";
 import CommonFields from '@/components/formcomponents/CommonFields';
 import FormInput from '@/components/formcomponents/FormInput';
@@ -180,7 +178,7 @@ export default function GdForm() {
                     </div>
                     <div className="py-5 px-6 sm:px-6 lg:px-8 flex flex-col">
                         <p className={poppins.className + ' text-sm'}>
-                            Answer all questions as truthfully as possible so that we can help you better. A graphic designer's ability to adapt to the needs of a project depends very much on their awareness of the world around them and their ability to understand what will work and if it won't, why it will not. We want to figure out what level you are at.
+                            {"Answer all questions as truthfully as possible so that we can help you better. A graphic designer's ability to adapt to the needs of a project depends very much on their awareness of the world around them and their ability to understand what will work and if it won't, why it will not. We want to figure out what level you are at."}
                         </p>
                     </div>
                 </div>
