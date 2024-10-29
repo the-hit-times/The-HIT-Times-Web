@@ -116,7 +116,7 @@ const EventsPage = () => {
       </div>
       <div className="mt-6 flex-auto ">
         <Link
-          href={"http://localhost:3000/api/v1/recruitment/dev/export"}
+          href={"/api/v1/recruitment/dev/export"}
           className="my-6 mr-6"
         >
           <button>
@@ -136,7 +136,7 @@ const EventsPage = () => {
           </button>
         </Link>
         <Link
-          href={"http://localhost:3000/api/v1/recruitment/cartoonist/export"}
+          href={"/api/v1/recruitment/cartoonist/export"}
           className="my-6 mr-6"
         >
           <button>
@@ -156,7 +156,7 @@ const EventsPage = () => {
           </button>
         </Link>
         <Link
-          href={"http://localhost:3000/api/v1/recruitment/photographer/export"}
+          href={"/api/v1/recruitment/photographer/export"}
           className="my-6 mr-6"
         >
           <button>
@@ -176,7 +176,7 @@ const EventsPage = () => {
           </button>
         </Link>
         <Link
-          href={"http://localhost:3000/api/v1/recruitment/cw/export"}
+          href={"/api/v1/recruitment/cw/export"}
           className="my-6 mr-6"
         >
           <button>
@@ -196,7 +196,7 @@ const EventsPage = () => {
           </button>
         </Link>
         <Link
-          href={"http://localhost:3000/api/v1/recruitment/pr/export"}
+          href={"/api/v1/recruitment/pr/export"}
           className="my-6 mr-6"
         >
           <button>
@@ -216,7 +216,7 @@ const EventsPage = () => {
           </button>
         </Link>
         <Link
-          href={"http://localhost:3000/api/v1/recruitment/video-editor/export"}
+          href={"/api/v1/recruitment/video-editor/export"}
           className="my-6 mr-6"
         >
           <button>
@@ -236,7 +236,7 @@ const EventsPage = () => {
           </button>
         </Link>
         <Link
-          href={"http://localhost:3000/api/v1/recruitment/gd/export"}
+          href={"/api/v1/recruitment/gd/export"}
           className="my-6 mr-6"
         >
           <button>
