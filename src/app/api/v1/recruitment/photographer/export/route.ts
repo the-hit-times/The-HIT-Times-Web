@@ -5,17 +5,17 @@ import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
-   const token = await getToken({
-     req: request,
-     secret: process.env.NEXTAUTH_SECRET,
-   });
+    const token = await getToken({
+      req: request,
+      secret: process.env.NEXTAUTH_SECRET,
+    });
 
-   if (token === null || token?.role !== "admin") {
-     return Response.json(
-       { success: false, msg: "Unauthorized" },
-       { status: 401 }
-     );
-   }
+    if (token === null || token?.role !== "admin") {
+      return Response.json(
+        { success: false, msg: "Unauthorized" },
+        { status: 401 }
+      );
+    }
 
   try {
     await dbConnect();
@@ -38,11 +38,11 @@ export async function GET(request: NextRequest) {
 
         //specific fields for Photographer
       { label: "Camera model", value: "Q1_photo" },
-      { label: "software for Editing", value: "Q2_photo" },
-      { label: "Technologies", value: "Q3_photo" },
+      { label: "Softwares for Editing", value: "Q2_photo" },
+      { label: "Other Softwares for Editing", value: "Q3_photo" },
       { label: "Experience(years)", value: "Q4_photo" },
       { label: "Tell us in brief what you like most about photography", value: "Q5_photo" },
-      { label: "any photographers you follow or those who inspire you.", value: "Q6_photo" },
+      { label: "Any photographers you follow or those who inspire you.", value: "Q6_photo" },
       { label: "How do you think, as a photographer at THT, you can influence the atmosphere of the college?", value: "Q7_photo" },
       { label: "Do you hold any experience in short film making or video making? If yes, specify the software you use for final editing and production.", value: "Q8_photo" },
       { label: "photo", value: "Q9_photo" },

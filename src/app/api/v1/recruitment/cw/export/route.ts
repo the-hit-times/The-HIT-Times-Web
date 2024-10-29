@@ -3,8 +3,6 @@ import ContentWriterForms from "@/models/Roles/ContentWriterForm";
 import { Parser } from "@json2csv/plainjs";
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
-import { lazy } from "react";
-
 
 export async function GET(request: NextRequest) {
     const token = await getToken({
@@ -36,18 +34,18 @@ export async function GET(request: NextRequest) {
             { label: "Why Joining THT", value: "why_join_THT" },
 
             //according to role
-            { label: "rate your english language ability", value: "Q1_cw" },
-            { label: "rate your creativityw", value: "Q2_cw" },
-            { label: "one essay Informal Formal", value: "Q3_cw" },
-            { label: "inspired you to start writing ", value: "Q4_cw" },
-            { label: "importance to hobbies", value: "Q5_cw" },
-            { label: "favourite authors and favourite books", value: "Q6_cw" },
-            { label: "change in your perception or mentality(Book,Movies)", value: "Q7_cw" },
-            { label: "favorite quote", value: "Q8_cw" },
-            { label: "comfortable researching and writing articles", value: "Q9_cw" },
-            { label: "How do you think, as a content writer", value: "Q10_cw" },
-            { label: "If you were a THT member, what new content would you suggest", value: "Q11_cw" },
-            { label: "share any of your original writings", value: "Q12_cw" },
+            { label: "Rate your English language ability(1 to 10)", value: "Q1_cw" },
+            { label: "Rate your Creativity(1 to 10)", value: "Q2_cw" },
+            { label: "One essay Informal/Formal", value: "Q3_cw" },
+            { label: "What inspired you to start writing and why?", value: "Q4_cw" },
+            { label: "Why do you think one should give importance to hobbies?", value: "Q5_cw" },
+            { label: "Favorite authors and Favorite books", value: "Q6_cw" },
+            { label: "A change in your perception or mentality as a whole?(Book,Movies,Series/Story line/Characterization)", value: "Q7_cw" },
+            { label: "Favorite Quote", value: "Q8_cw" },
+            { label: "Are you comfortable researching and writing articles on subjects you do not know very well?", value: "Q9_cw" },
+            { label: "As a content writer at THT, how you can influence the atmosphere of the college?", value: "Q10_cw" },
+            { label: "If you were a THT member, what new content would you suggest we publish?", value: "Q11_cw" },
+            { label: "Share any of your Original Writings", value: "Q12_cw" },
         ];
         const csvParser = new Parser({ fields: csvFields });
         const csvData = csvParser.parse(formData);
