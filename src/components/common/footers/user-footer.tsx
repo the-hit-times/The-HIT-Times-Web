@@ -9,7 +9,7 @@ import Link from "next/link";
 export const UserFooter = () => {
   const { data: session } = useSession();
   return (
-    <footer className="text-white-300 grid md:grid-flow-col grid-flow-row gap-8">
+    <footer className="text-white-300 grid md:grid-flow-col grid-flow-row gap-8 items-start">
       <div className="flex flex-col">
         <Image
           src="/tht_logo_white.png"
@@ -22,54 +22,37 @@ export const UserFooter = () => {
         </div>
       </div>
 
-      <div className="text-white-300">
-        <ul className="flex flex-col">
-          <li>
-            <Link
-              href={"/privacy-policy"}
-              className="text-white px-5 hover:text-gray-400 text-sm"
-            >
-              Privacy Policy
-            </Link>
-          </li>
-          <li>
-            <Link
-              href={"/terms-of-service"}
-              className="text-white px-5 hover:text-gray-400 text-sm"
-            >
-              Terms Of Service
-            </Link>
-          </li>
-        </ul>
+      <div className="text-white-300 flex flex-col ">
+        <Link
+          href={"/privacy-policy"}
+          className="text-white hover:underline text-sm"
+        >
+          Privacy Policy
+        </Link>
+
+        <Link
+          href={"/terms-of-service"}
+          className="text-white hover:underline text-sm"
+        >
+          Terms Of Service
+        </Link>
       </div>
 
-      <div className="text-white-300">
-        <ul className="flex flex-col">
-          <li>
-            <Link
-              href={"/about-us"}
-              className="text-white px-5 hover:text-gray-400 text-sm"
-            >
-              About
-            </Link>
-          </li>
-          <li>
-            <Link
-              href={"/about-us#contact-us"}
-              className="text-white px-5 hover:text-gray-400 text-sm"
-            >
-              Contact
-            </Link>
-          </li>
-          <li>
-            <Link
-              href={"/alumni"}
-              className="text-white px-5 hover:text-gray-400 text-sm"
-            >
-              Alumni
-            </Link>
-          </li>
-        </ul>
+      <div className="text-white-300 flex flex-col">
+        <Link href={"/about-us"} className="text-white hover:underline text-sm">
+          About
+        </Link>
+
+        <Link
+          href={"/about-us#contact-us"}
+          className="text-white hover:underline text-sm"
+        >
+          Contact
+        </Link>
+
+        <Link href={"/alumni"} className="text-white hover:underline text-sm">
+          Alumni
+        </Link>
       </div>
 
       <div className="flex flex-col ">
@@ -110,18 +93,16 @@ export const UserFooter = () => {
         </div>
       </div>
 
-      <div className="text-white">
-        <ul className="flex flex-col">
-          <li>Install our app!</li>
-          <Link href="https://play.google.com/store/apps/details?id=com.thehittimes.tht">
-            <Image
-              src="/google-play-badge.png"
-              width={150}
-              height={30}
-              alt="Play Store App Icon"
-            />
-          </Link>
-        </ul>
+      <div className="text-white flex flex-col">
+        <h1>Install our app!</h1>
+        <Link href="https://play.google.com/store/apps/details?id=com.thehittimes.tht">
+          <Image
+            src="/google-play-badge.png"
+            width={150}
+            height={30}
+            alt="Play Store App Icon"
+          />
+        </Link>
       </div>
     </footer>
   );

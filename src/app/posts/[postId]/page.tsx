@@ -12,8 +12,8 @@ import { notFound } from "next/navigation";
 import { CircularLoader } from "@/components/common/loader/Loaders";
 import ArticleImage from "@/components/weekly-portion/ArticleImage";
 import Article from "@/components/weekly-portion/Article";
-import {motion} from "framer-motion";
-import {fadeIn} from "@/variants";
+import { motion } from "framer-motion";
+import { fadeIn } from "@/variants";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -103,8 +103,7 @@ const PostInfoPage = ({ params }: { params: { postId: string } }) => {
           <h1
             className={
               ibmPlexSerif.className +
-              " text-2xl text-center text-white sm:text-4xl font-semibold py-8 w-fit mx-auto animate-flip-down animate-duration-500 animate-delay-500 "
-
+              " text-xl text-center text-white sm:text-4xl font-semibold py-8 w-fit mx-auto animate-flip-down animate-duration-200 animate-delay-200 "
             }
           >
             {postinfo.title}
@@ -123,7 +122,7 @@ const PostInfoPage = ({ params }: { params: { postId: string } }) => {
             <MainPostIcons post={postinfo} />
           </div>
           <div className="flex flex-col gap-4 flex-1">
-            <div className=" flex flex-row justify-between">
+            <div className=" flex flex-row justify-between items-center">
               <div
                 className={poppins.className + " flex flex-row gap-8 text-sm "}
               >
@@ -149,21 +148,22 @@ const PostInfoPage = ({ params }: { params: { postId: string } }) => {
           </div>
         </div>
 
-        <div className="mt-8">
-          <h3 className={poppins.className + " font-bold font-serif"}>Related Topics</h3>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 my-4">
-            {relatedPosts?.map((post) => (
-            <motion.div
-            key={post._id.toString()}
-            variants={fadeIn("right",0.2)}
-            initial= "hidden"
+        <div className="my-8">
+          <h3 className={poppins.className + " font-bold font-serif mx-2"}>
+            Related Topics
+          </h3>
+          <motion.div
+            variants={fadeIn("right", 0.2)}
+            initial="hidden"
             whileInView={"show"}
-            viewport={{once: false,amount:0.1}}
-            >
-              <Article key={post._id.toString()} article={post} />
-            </motion.div>
-            ))}
-          </div>
+            viewport={{ once: false, amount: 0.1 }}
+          >
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 my-4">
+              {relatedPosts?.map((post) => (
+                <Article key={post._id.toString()} article={post} />
+              ))}
+            </div>
+          </motion.div>
         </div>
       </main>
     </div>
