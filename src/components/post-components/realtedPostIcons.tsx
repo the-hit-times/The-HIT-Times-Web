@@ -63,7 +63,7 @@ const RelatedPostIcons = ({ post, direction }: RelatedPostIconsProps) => {
   };
 
   return (
-    <div className={ direction ?? "flex-row "}>
+    <div className={`flex gap-4 ${direction ?? "flex-row"}`}>
       <button
         className="p-2 rounded-full hover:bg-gray-200"
         onClick={handleShare}

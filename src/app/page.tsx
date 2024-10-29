@@ -4,7 +4,7 @@ import WeeklyPortion from "@/components/weekly-portion/WeeklyPortion";
 
 export default function MDXPage() {
   return (
-    <div className="my-4">
+    <div className="flex flex-col gap-4 my-8">
       <HeroSection notice="Join TSP 24-25" noticeLink="/forms/tsp-form"/>
       <WeeklyPortion />
     </div>
