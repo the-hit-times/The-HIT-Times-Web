@@ -229,7 +229,7 @@ export default function GdForm() {
                                 How do you rate your graphics designing skills?
                                 <span className="text-md text-red-600 pl-1">*</span>
                             </span>
-                            <div className="flex flex-row mb-3 text-sm">
+                            <div className="flex flex-col gap-2 my-3 text-sm">
                                 {Array.from({ length: 10 }, (_, i) => (
                                     <label key={i} htmlFor={`Q7_gd_${i + 1}`} className="flex items-center mr-2">
                                         <input
@@ -239,7 +239,7 @@ export default function GdForm() {
                                             id={`Q7_gd_${i + 1}`}
                                             {...register("Q7_gd", { required: true })}
                                         />
-                                        <span className="ml-1">{i + 1}</span>
+                                        <span className="ml-2"></span>{i + 1}
                                     </label>
                                 ))}
                             </div>
@@ -254,7 +254,7 @@ export default function GdForm() {
                                 On a scale of 1-10, how comfortable are you with learning to use a new design software?
                                 <span className="text-md text-red-600 pl-1">*</span>
                             </span>
-                            <div className="flex flex-row mb-3 text-sm">
+                            <div className="flex flex-col gap-2 my-3 text-sm">
                                 {Array.from({ length: 10 }, (_, i) => (
                                     <label key={i} htmlFor={`Q8_gd_${i + 1}`} className="flex items-center mr-2">
                                         <input
@@ -264,7 +264,7 @@ export default function GdForm() {
                                             id={`Q8_gd_${i + 1}`}
                                             {...register("Q8_gd", { required: true })}
                                         />
-                                        <span className="ml-1">{i + 1}</span>
+                                        <span className="ml-2"></span>{i + 1}
                                     </label>
                                 ))}
                             </div>

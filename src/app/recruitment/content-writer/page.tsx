@@ -76,26 +76,12 @@ export default function CwForm() {
         formData.position = "content-writer"
         formData.other_position = searchParams.get('other')!
 
-        //array to string 
-        let all="|";
-        // if(formData.Q1_tech){
-        //     (formData.Q1_tech).forEach((str: string)=> all+=str+'|')
-        // }
-        // formData.Q1_tech = all;
-
-        // all="|";
-        // if(formData.Q3_tech){
-        //     (formData.Q3_tech).forEach((str: string)=> all+=str+'|')
-        // }
-        // formData.Q3_tech = all;
-
         formData.Q3_cw = await uploadFile(formData.Q3_cw) //generate link
-        // const isUploaded = await postSheet(formData)
 
         formData.Q12_cw = await uploadFile(formData.Q12_cw) //generate link
+
         const isUploaded = await postSheet(formData)
         
-        // router.push(`./roles/${formData.position}`)
         console.log("form submitted", formData)
         setIsSubmitted(false)
     }
@@ -103,30 +89,30 @@ export default function CwForm() {
     const postSheet = async (formData: CwSheetData): Promise<boolean> => {
         const url = '/api/v1/recruitment/cw';
         try {
-          const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-          });
-    
-          if (response.status != 201) {
-            toast.error("Something went wrong");
-            throw new Error(`HTTP error! status: ${response.status}`);
-          } else {
-            toast.success("Submitted successfully")
-          }
-    
-          const data: any = await response.json();
-          console.log(data);
-          return true;
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+        
+            if (response.status != 201) {
+                toast.error("Something went wrong");
+                throw new Error(`HTTP error! status: ${response.status}`);
+            } else {
+                toast.success("Submitted successfully")
+            }
+        
+            const data: any = await response.json();
+            console.log(data);
+            return true;
         } catch (error) {
-          setIsSubmitted(false)
-          toast.error("Try submitting again");
-          return false;
+            setIsSubmitted(false)
+            toast.error("Try submitting again");
+            return false;
         }
-      };
+    };
 
 
     function refreshPage(): void {
@@ -177,8 +163,11 @@ export default function CwForm() {
                         </div>
                     </div>
                 </div>
+
                 <form className='mt-4' onSubmit={handleSubmit(onSubmit)}>
+
                     <CommonFields register = {register} />
+
                     <div className=' bg-white shadow-md rounded-lg mb-4'>
                         {/* <div className='bg-blue-400 w-4 lg:w-5 rounded-l-3xl'></div> */}
                         <div className="py-5 px-6 lg:px-8 flex flex-col">
@@ -226,7 +215,7 @@ export default function CwForm() {
                         </div>
                         </div>
                         <div className=' bg-white shadow-md rounded-lg mb-4'>
-                           <div className="py-5 px-6 lg:px-8 flex flex-col">
+                            <div className="py-5 px-6 lg:px-8 flex flex-col">
                             <label htmlFor="Q2_cw" className={poppins.className + " text-gray-900 text-md mb-4"}>
                             On a scale of 10, how would you rate your creativity?
                             <span className='text-md text-red-600 pl-1'>*</span>
@@ -270,6 +259,68 @@ export default function CwForm() {
                             </p>
                             </div>
                         </div>
+
+                    <div className='bg-white shadow-md rounded-lg pt-3 mb-4'>
+                        {/* <div className='bg-blue-400 w-0.5 lg:w-1 rounded-l-3xl'></div> */}
+                        <div className="px-6 lg:px-8 flex flex-col">
+                            <label htmlFor="name" className={poppins.className + " text-gray-900 text-md mb-2"}>
+                                Write any one essay from each of the following sections 
+                            </label>
+                            <div className={poppins.className + " text-gray-900 text-sm mb-4"}>
+                                One from the informal(creative and out of the box) and the other from the formal(facts and formally structured) section. Two essays in total should be attempted. 
+                            </div>
+                            <div className={poppins.className + " text-gray-900 text-sm mb-4"}>
+                                <p className='font-semibold'>1. Informal:</p>
+                                <p>a. The Evolution of Space Exploration: From Apollo to Mars Missions</p>
+                                <p>b. Blockchain Technology Beyond Cryptocurrencies: Applications in Various Industries.</p>
+                                <p>c. The biggest regret in your life. </p>
+                                <p>d. A story beginning with the sentences:</p>
+                                <p>"The map found in an ancient attic didn't lead to treasure, but rather to a parallel universe...."</p>
+                            </div>
+                            <div className={poppins.className + " text-gray-900 text-sm mb-4"}>
+                                <p className='font-semibold'> 2. Formal:</p>
+                                <p>a. Write a review on any recent Sport event that you have watched.</p>
+                                <p>b. The healthcare sector requires the foremost attention given the resurge in COVID-19 cases.</p>
+                                <p>c. Write a review of any recent technological development.</p>
+                                <p>d. What do you regard as a more important thing: People's privacy or national security?</p>
+                                <p>e. Write a summary of any recent event that has led to changes in the global economy.</p>
+                            </div>
+                            <div className={poppins.className + " text-gray-900 text-sm mb-4"}>
+                                <p className='font-medium'>Your essays should:</p>
+                                <p>• Not exceed 250 words. </p>
+                                <p>• Not contain any form of lewd, vulgar or abusive remark. It would immediately lead to disqualification.</p>
+                                <p>• Not be a product of plagiarism. They will be subjected to several filters and markers to ensure it.</p>
+                                <p>• Not refer to political issues or sensitive subjects.</p>
+                            </div>
+                            <div className={poppins.className + " text-gray-900 text-sm font-semibold mb-4"}>
+                                Attach the assignments below in pdf or doc format (hand written or typed)
+                            </div>
+                            <div className='flex justify-center items-center flex-col' >
+                                <div className="mb-4 mx-auto">
+                                    <label
+                                    className="block mb-2 text-sm font-medium text-black"
+                                    htmlFor="file_input"
+                                    >
+                                        Upload file
+                                    </label>
+                                    <input {...register("Q3_cw")}
+                                    className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" /* dark:text-gray-400  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400*/
+                                    aria-describedby="file_input_help"
+                                    id="file_input"
+                                    type="file"
+                                    />
+                                    <p
+                                    className="mt-1 text-sm text-gray-500 "
+                                    id="file_input_help"
+                                    >
+                                        Upload 1 supported file. Max 5 MB.
+                                    </p>
+                                <div/>
+                            <div/>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
                         
 
                     
@@ -303,11 +354,10 @@ export default function CwForm() {
 
                     <FormInput title='If you were a THT member, what new content would you suggest we publish?' id='Q11_cw' isRequired={true} register={register}/>
                     
-                    <div  className='bg-white shadow-lg rounded-xl p-3 mb-5 '>
-                        <FileUploader title='Upload your Resume(optional)' id='Q3_cw' register={register}/>
+                    <div  className='bg-white shadow-md rounded-lg mb-4'>
                         <p className={poppins.className + " text-gray-900 text-md mb-2 font-bold px-7 pt-5"}>If you want to share any of your original works, feel free to upload it here.</p>
                         <p  className={poppins.className + " text-gray-900 text-sm  px-7"}>Please make sure that the works you upload are your original. Also make sure that the files you upload are less than 5 MB in size.</p>
-                        <FileUploader id='Q12_cw' register={register}/>
+                        <FileUploader id='Q12_cw' instruction='SVG, PNG, JPG ,MS Word or GIF (MAX. 5 Mb ).' register={register}/>
                     </div>
 
                     

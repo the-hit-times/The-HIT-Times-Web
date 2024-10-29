@@ -12,18 +12,17 @@ const poppins = Poppins({
 interface FileUploaderProps {
     title?: string;
     subtitle?: string;
+    instruction?: string;
     id?: any;
     register?: UseFormRegister<any>
   }
 
-const FileUploader = ({ title, subtitle, id, register }: FileUploaderProps) => {
+const FileUploader = ({ title, subtitle, instruction, id, register }: FileUploaderProps) => {
     
     if(register)
   return (
     <div>
-
-
-                <div className='flex flex-row bg-white'>
+                <div className='flex flex-row bg-white rounded-lg pt-3 mb-4 shadow-md'>
                     {/* <div className='bg-blue-400 w-0.5 lg:w-1 rounded-l-3xl'></div> */}
                     <div className="px-6 lg:px-8 flex flex-col">
                         <label htmlFor="name" className={poppins.className + " text-gray-900 text-md mb-2"}>
@@ -53,7 +52,7 @@ const FileUploader = ({ title, subtitle, id, register }: FileUploaderProps) => {
                                 className="mt-1 text-sm text-gray-500 "
                                 id="file_input_help"
                               >
-                                SVG, PNG, JPG ,MS Word or GIF (MAX. 5 Mb ).
+                                {instruction ? instruction : 'SVG, PNG, JPG ,MS Word or GIF (MAX. 5 Mb ).'}
                               </p>
                             <div/>
                           <div/>

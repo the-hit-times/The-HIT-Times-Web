@@ -7,7 +7,6 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { signIn, useSession } from "next-auth/react";
 
 
 const poppins = Poppins({
@@ -34,7 +33,6 @@ export default function RecCommonForm() {
         other_position: string[]  //4
     }
 
-    const { data: session } = useSession(); 
     
 
     const router = useRouter()
@@ -60,7 +58,7 @@ export default function RecCommonForm() {
         router.refresh()
         toast.success("Kindly Fill Again")
     }
-    if(session){
+
     return (
         <div className="min-h-screen bg-gray-200">
             <div className="max-w-3xl mx-auto">
@@ -106,6 +104,7 @@ export default function RecCommonForm() {
                 <form className='mt-4' onSubmit={handleSubmit(onSubmit)}>
 
                     <FormInput title='Name' id='name' isRequired={true} register={register}/>
+                    
                     <FormInput title='Roll Number (In the format-24/ME/001)' id='roll' isRequired={true} register={register}/>
 
                     <div className='flex flex-row bg-white shadow-md rounded-lg mb-4'>
@@ -207,7 +206,6 @@ export default function RecCommonForm() {
             </div>
         </div>
     )
-    }
     /*else{
         return(
             <div className='flex flex-col h-screen w-full bg-slate-50 items-center justify-center'>

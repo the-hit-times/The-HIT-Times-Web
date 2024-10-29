@@ -231,7 +231,7 @@ export default function PhotographyForm() {
                             </label>
                             <p className={poppins.className + " flex flex-row text-gray-900 text-md mb-3"}>
                             <div className='flex flex-row  text-sm'>
-                                <input className='' value="-1" type='radio' id="Q8_tech" {...register("Q4_photo")} /><span className='w-2'></span>
+                                <input className='' value="<1" type='radio' id="Q8_tech" {...register("Q4_photo")} /><span className='w-2'></span>
                             </div>
                                 Less than a year
                             </p>

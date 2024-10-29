@@ -317,9 +317,7 @@ export default function DevForm() {
 
                     <FormInput title='Provide link of any project if you have made.' id='Q11_tech' isRequired={false} register={register}/>
 
-                    <div className='bg-white shadow-md rounded-lg mb-5 p-3'>
-                        <FileUploader title='Upload your Resume(optional)' id='Q12_tech' register={register}/>
-                    </div>
+                    <FileUploader title='Upload your Resume(optional)' instruction='PPt, PDF, PNG, JPG or MS Word(MAX. 5 Mb )' id='Q12_tech' register={register}/>
 
                     {
                         isSubmitted ?
