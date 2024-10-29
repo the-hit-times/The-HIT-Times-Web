@@ -82,7 +82,10 @@ export default function CwForm() {
 
         const isUploaded = await postSheet(formData)
         
-        console.log("form submitted", formData)
+        if(isUploaded) {
+            router.push(`./success/${formData.position}`)
+            console.log("form submitted", formData)
+        }
         setIsSubmitted(false)
     }
 

@@ -97,8 +97,10 @@ export default function PhotographyForm() {
         formData.Q13_photo = await uploadFile(formData.Q13_photo) //generate link
         const isUploaded = await postSheet(formData)
         
-        // router.push(`./roles/${formData.position}`)
-        console.log("form submitted", formData)
+        if(isUploaded) {
+            router.push(`./success/${formData.position}`)
+            console.log("form submitted", formData)
+        }
         setIsSubmitted(false)
     }
 

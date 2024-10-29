@@ -91,9 +91,9 @@ export default function GdForm() {
         // Post form data
         const isUploaded = await postSheet(dataToSend);
 
-        if (isUploaded) {
-            console.log("Form submitted", dataToSend);
-            //router.push(`./roles/${formData.position}`)
+        if(isUploaded) {
+            router.push(`./success/${formData.position}`)
+            console.log("form submitted", formData)
         }
         setIsSubmitted(false);
     };

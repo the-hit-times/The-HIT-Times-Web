@@ -68,7 +68,7 @@ export default function DevForm() {
         const isUploaded = await postSheet(formData)
         
         if(isUploaded) {
-            // router.push(`./roles/${formData.position}`)
+            router.push(`./success/${formData.position}`)
             console.log("form submitted", formData)
         }
         
