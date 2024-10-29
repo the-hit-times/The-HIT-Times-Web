@@ -27,14 +27,14 @@ const nunitoSans = Nunito_Sans({
 });
 
 
-export default function DevForm() {
+export default function PhotographyForm() {
 
     const searchParams = useSearchParams()
 
     console.log("got", searchParams.get('name') ," ",searchParams.get('roll')," ",searchParams.get('other'));
     
 
-    type DevSheetData = {
+    type PhotographySheetData = {
         name: string              //1 ....from prev page
         roll: string              //2 ....from prev page
         position: string          //3 ....from prev page
@@ -48,18 +48,19 @@ export default function DevForm() {
         ragging_opinion: string   //11
         why_join_THT: string      //12 ....end of common fields
 
-        Q1_tech: any              // programming languages
-        Q2_tech: string           // other programming languages
-        Q3_tech: any              // technologies
-        Q4_tech: string           // other technologies
-        Q5_tech: string           // familiar with Git and GitHub
-        Q6_tech: string           // GitHub link
-        Q7_tech: string           // opinions on best website/application
-        Q8_tech: string           // competency at coding(1 to 5)
-        Q9_tech: string           // a website is a better option for THT or an application
-        Q10_tech: string          // why do you like to code
-        Q11_tech: string          // link of any project
-        Q12_tech: any             // Resume (ppt/pdf -> link)
+        Q1_photo: string            //
+        Q2_photo: any              // 
+        Q3_photo: string              // 
+        Q4_photo: string           // Experience(1 to 5)
+        Q5_photo: string           // 
+        Q6_photo: string              // 
+        Q7_photo: string           // 
+        Q8_photo: string           //
+        Q9_photo: any           //  ppt/pdf/link
+        Q10_photo: any           //  ppt/pdf/link
+        Q11_photo: any           //  ppt/pdf/link
+        Q12_photo: any           //  ppt/pdf/link
+        Q13_photo: any          //  ppt/pdf/link
 
     }
 
@@ -67,33 +68,36 @@ export default function DevForm() {
     const router = useRouter()
     const [isSubmitted, setIsSubmitted] = useState(false)
 
-    const form = useForm<DevSheetData>();
+    const form = useForm<PhotographySheetData>();
     const { register, handleSubmit } = form;
 
 
-    const onSubmit = async (formData: DevSheetData) => {
+    const onSubmit = async (formData: PhotographySheetData) => {
         setIsSubmitted(true)
 
         formData.name = searchParams.get('name')!
         formData.roll = searchParams.get('roll')!
-        formData.position = "developer"
+        formData.position = "photographer"
         formData.other_position = searchParams.get('other')!
 
         //array to string 
         let all="|";
-        if(formData.Q1_tech){
-            (formData.Q1_tech).forEach((str: string)=> all+=str+'|')
+        if(formData.Q2_photo){
+            (formData.Q2_photo).forEach((str: string)=> all+=str+'|')
         }
-        formData.Q1_tech = all;
-
+        formData.Q2_photo = all;
+        /*
         all="|";
-        if(formData.Q3_tech){
-            (formData.Q3_tech).forEach((str: string)=> all+=str+'|')
+        if(formData.Q3_cartoon){
+            (formData.Q3_cartoon).forEach((str: string)=> all+=str+'|')
         }
-        formData.Q3_tech = all;
+        formData.Q3_cartoon = all;*/
 
-        formData.Q12_tech = formData.Q12_tech ? await uploadFile(formData.Q12_tech) : ''; //generate link
-
+        formData.Q9_photo = await uploadFile(formData.Q9_photo) //generate link
+        formData.Q10_photo = await uploadFile(formData.Q10_photo) //generate link
+        formData.Q11_photo = await uploadFile(formData.Q11_photo) //generate link
+        formData.Q12_photo = await uploadFile(formData.Q12_photo) //generate link
+        formData.Q13_photo = await uploadFile(formData.Q13_photo) //generate link
         const isUploaded = await postSheet(formData)
         
         // router.push(`./roles/${formData.position}`)
@@ -101,8 +105,8 @@ export default function DevForm() {
         setIsSubmitted(false)
     }
 
-    const postSheet = async (formData: DevSheetData): Promise<boolean> => {
-        const url = '/api/v1/recruitment/dev';
+    const postSheet = async (formData: PhotographySheetData): Promise<boolean> => {
+        const url = '/api/v1/recruitment/photographer';
         try {
           const response = await fetch(url, {
             method: 'POST',
@@ -133,7 +137,7 @@ export default function DevForm() {
     function refreshPage(): void {
         router.push("/recruitment");
         toast.success("Kindly Fill Again")
-    }
+    }   
 
     return (
         <div className="min-h-screen bg-gray-200">
@@ -169,12 +173,12 @@ export default function DevForm() {
                 <div className='bg-white shadow-md rounded-lg mt-4'>
                     <div className='bg-purple-800 rounded-t-lg py-3 px-8'>
                         <p className={poppins.className + ' text-lg font-normal text-white'}>
-                            Developer Section
+                        Photographer Section
                         </p>
                     </div>
                     <div className="py-5 px-6 sm:px-6 lg:px-8 flex flex-col">
                         <div className={poppins.className + ' text-sm'}>
-                            Answer all questions as truthfully as possible so that we can help you better. A developers ability to adapt to the needs of a project depends very much on their awareness of the world around them and their ability to understand what will work and if it won't, why it will not. We want to figure out what level you are at. 
+                        Answer all questions as truthfully as possible so that we can help you better. 
                         </div>
                     </div>
                 </div>
@@ -184,141 +188,96 @@ export default function DevForm() {
 
                     <CommonFields register = {register} />
 
-                    <div className='flex flex-row bg-white shadow-md rounded-lg mb-4'>
-                        {/* <div className='bg-blue-400 w-1 lg:w-1.5 rounded-l-3xl'></div> */}
-                        <div className="py-5 px-6 lg:px-8 flex flex-col">
-                            <label htmlFor="Q1_Q2_tech" className={poppins.className + " text-gray-900 text-md mb-4"}>
-                                What programming languages do you know/ use extensively?
-                                <span className='text-md text-red-600 pl-1'>*</span>
-                            </label>
-                            <div className='flex flex-row mb-3 text-sm'>
-                                <input className='' value="JS/TS" type='checkbox' id="Q1_tech" {...register("Q1_tech")} /><span className='w-2'></span>JavaScript/TypeScript
-                            </div>
-                            <div className='flex flex-row mb-3 text-sm'>
-                                <input className='' value="Dart" type='checkbox' id="Q1_tech" {...register("Q1_tech")} /><span className='w-2'></span>Dart
-                            </div>
-                            <div className='flex flex-row mb-3 text-sm'>
-                                <input className='' value="Java/Kotlin" type='checkbox' id="Q1_tech" {...register("Q1_tech")} /><span className='w-2'></span>Java/Kotlin
-                            </div>
-                            <div className='flex flex-row mb-3 text-sm'>
-                                <input className='' value="Python" type='checkbox' id="Q1_tech" {...register("Q1_tech")} /><span className='w-2'></span>Python
-                            </div>
-                            <div className='flex flex-row mb-3 text-sm'>
-                                <input className='' value="HTML+CSS" type='checkbox' id="Q1_tech" {...register("Q1_tech")} /><span className='w-2'></span>HTML + CSS
-                            </div>
-                            <div className='flex flex-row mb-3 text-sm'>
-                                <input className='' value="Other" type='checkbox' id="Q1_tech" {...register("Q1_tech")} /><span className='w-2'></span>Other: (Fill Below)
-                            </div>
-                            <input className='border-b border-gray-300 focus:outline-none focus:border-purple-600 focus:border-b-2 py-1 focus:placeholder-purple-400' placeholder="Your Answer" type='text' id='Q2_tech' {...register("Q2_tech")} />
-                        </div>
-                    </div>
+                    <FormInput title='What camera do you own? (Specify the model)' id='Q1_photo' isRequired={true} register={register}/>
 
                     <div className='flex flex-row bg-white shadow-md rounded-lg mb-4'>
                         {/* <div className='bg-blue-400 w-1 lg:w-1.5 rounded-l-3xl'></div> */}
                         <div className="py-5 px-6 lg:px-8 flex flex-col">
-                            <label htmlFor="Q3_Q4_tech" className={poppins.className + " text-gray-900 text-md mb-4"}>
-                                Which technology are you familiar with?
-                            <span className='text-md text-red-600 pl-1'>*</span>
+                            <label htmlFor="Q2_Q3_photo" className={poppins.className + " text-gray-900 text-md mb-4"}>
+                                Which software do you use for editing your clicks?
+                                {/*<span className='text-md text-red-600 pl-1'>*</span>*/}
                             </label>
                             <div className='flex flex-row mb-3 text-sm'>
-                                <input className='' value="MongoDB" type='checkbox' id="Q3_tech" {...register("Q3_tech")} /><span className='w-2'></span>MongoDB
+                                <input className='' value="Adobe Photoshop" type='checkbox' id="Q2_photo" {...register("Q2_photo")} /><span className='w-2'></span>Adobe Photoshop
                             </div>
                             <div className='flex flex-row mb-3 text-sm'>
-                                <input className='' value="Flutter" type='checkbox' id="Q3_tech" {...register("Q3_tech")} /><span className='w-2'></span>Flutter
+                                <input className='' value="GIMP" type='checkbox' id="Q2_photo" {...register("Q2_photo")} /><span className='w-2'></span>GIMP
                             </div>
                             <div className='flex flex-row mb-3 text-sm'>
-                                <input className='' value="Firebase" type='checkbox' id="Q3_tech" {...register("Q3_tech")} /><span className='w-2'></span>Firebase
+                                <input className='' value="Adobe Lightroom" type='checkbox' id="Q2_photo" {...register("Q2_photo")} /><span className='w-2'></span>Adobe Lightroom
                             </div>
                             <div className='flex flex-row mb-3 text-sm'>
-                                <input className='' value="Node" type='checkbox' id="Q3_tech" {...register("Q3_tech")} /><span className='w-2'></span>Node
+                                <input className='' value="Snapseed" type='checkbox' id="Q2_photo" {...register("Q2_photo")} /><span className='w-2'></span>Snapseed
                             </div>
                             <div className='flex flex-row mb-3 text-sm'>
-                                <input className='' value="Express" type='checkbox' id="Q3_tech" {...register("Q3_tech")} /><span className='w-2'></span>Express
+                                <input className='' value="Picsart" type='checkbox' id="Q2_photo" {...register("Q2_photo")} /><span className='w-2'></span>Picsart
                             </div>
                             <div className='flex flex-row mb-3 text-sm'>
-                                <input className='' value="NextJS" type='checkbox' id="Q3_tech" {...register("Q3_tech")} /><span className='w-2'></span>Next JS
+                                <input className='' value="Adobe Photoshop Express" type='checkbox' id="Q2_photo" {...register("Q2_photo")} /><span className='w-2'></span>Adobe Photoshop Express
                             </div>
                             <div className='flex flex-row mb-3 text-sm'>
-                                <input className='' value="ReactJS" type='checkbox' id="Q3_tech" {...register("Q3_tech")} /><span className='w-2'></span>React JS
+                                <input className='' value="Other" type='checkbox' id="Q2_photo" {...register("Q2_photo")} /><span className='w-2'></span>Other: (Fill Below)
                             </div>
-                            <div className='flex flex-row mb-3 text-sm'>
-                                <input className='' value="AI/ML" type='checkbox' id="Q3_tech" {...register("Q3_tech")} /><span className='w-2'></span>AI/ML
-                            </div>
-                            <div className='flex flex-row mb-3 text-sm'>
-                                <input className='' value="Other" type='checkbox' id="Q3_tech" {...register("Q3_tech")} /><span className='w-2'></span>Other: (Fill Below)
-                            </div>
-                            <input className='border-b border-gray-300 focus:outline-none focus:border-purple-600 focus:border-b-2 py-1 focus:placeholder-purple-400' placeholder="Your Answer" type='text' id='Q4_tech' {...register("Q4_tech")} />
+                            <input className='border-b border-gray-300 focus:outline-none focus:border-purple-600 focus:border-b-2 py-1 focus:placeholder-purple-400' placeholder="Your Answer" type='text' id='Q3_photo' {...register("Q3_photo")} />
                         </div>
                     </div>
-
-                    <div className='flex flex-row bg-white shadow-md rounded-lg mb-4'>
-                        {/* <div className='bg-blue-400 w-0.5 lg:w-1 rounded-l-3xl'></div> */}
-                        <div className="py-5 px-6 lg:px-8 flex flex-col">
-                            <label htmlFor="Q5_tech" className={poppins.className + " text-gray-900 text-md mb-1"}>
-                                Are you familiar with Git and GitHub?
-                                <span className='text-md text-red-600 pl-1'>*</span>
-                            </label>
-                            <div className='flex flex-row mb-3 text-sm'>
-                                <input className='' value="yes" type='radio' id="Q5_tech" {...register("Q5_tech")} /><span className='w-2'></span>Yes
-                            </div>
-                            <div className='flex flex-row text-sm'>
-                                <input className='' value="no" type='radio' id="Q5_tech" {...register("Q5_tech")} /><span className='w-2'></span>No
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <FormInput title='Provide your GitHub link (if available)' id='Q6_tech' isRequired={false} register={register}/>
-
-                    <FormInput 
-                        title='Which websites/applications in your opinion are the best and why?' 
-                        subtitle='By best, we mean using some criteria. Efficiency of code, UI, back end, ease of use etc. all may be considered as criiteria.'
-                        id='Q7_tech' 
-                        isRequired={false} 
-                        register={register}/>
 
                     <div className='flex flex-row bg-white shadow-md rounded-lg mb-4'>
                         {/* <div className='bg-blue-400 w-4 lg:w-5 rounded-l-3xl'></div> */}
                         <div className="py-5 px-6 lg:px-8 flex flex-col">
-                            <label htmlFor="Q8_tech" className={poppins.className + " text-gray-900 text-md mb-4"}>
-                                Grade your competency at coding from a scale of 1 to 5.
+                            <label htmlFor="Q4_photo" className={poppins.className + " text-gray-900 text-md mb-4"}>
+                                How many years have you been doing photography?
                             <span className='text-md text-red-600 pl-1'>*</span>
                             </label>
-                            <p className={poppins.className + " text-gray-900 text-md mb-1"}>
-                                Basic
+                            <p className={poppins.className + " flex flex-row text-gray-900 text-md mb-3"}>
+                            <div className='flex flex-row  text-sm'>
+                                <input className='' value="-1" type='radio' id="Q8_tech" {...register("Q4_photo")} /><span className='w-2'></span>
+                            </div>
+                                Less than a year
                             </p>
+                            
                             <div className='flex flex-row mb-3 text-sm'>
-                                <input className='' value="1" type='radio' id="Q8_tech" {...register("Q8_tech")} /><span className='w-2'></span>1
+                                <input className='' value="1" type='radio' id="Q8_tech" {...register("Q4_photo")} /><span className='w-2'></span>1
                             </div>
                             <div className='flex flex-row mb-3 text-sm'>
-                                <input className='' value="2" type='radio' id="Q8_tech" {...register("Q8_tech")} /><span className='w-2'></span>2
+                                <input className='' value="2" type='radio' id="Q8_tech" {...register("Q4_photo")} /><span className='w-2'></span>2
                             </div>
                             <div className='flex flex-row mb-3 text-sm'>
-                                <input className='' value="3" type='radio' id="Q8_tech" {...register("Q8_tech")} /><span className='w-2'></span>3
+                                <input className='' value="3" type='radio' id="Q8_tech" {...register("Q4_photo")} /><span className='w-2'></span>3
                             </div>
                             <div className='flex flex-row mb-3 text-sm'>
-                                <input className='' value="4" type='radio' id="Q8_tech" {...register("Q8_tech")} /><span className='w-2'></span>4
+                                <input className='' value="4" type='radio' id="Q8_tech" {...register("Q4_photo")} /><span className='w-2'></span>4
                             </div>
                             <div className='flex flex-row mb-1 text-sm'>
-                                <input className='' value="5" type='radio' id="Q8_tech" {...register("Q8_tech")} /><span className='w-2'></span>5
+                                <input className='' value="5" type='radio' id="Q8_tech" {...register("Q4_photo")} /><span className='w-2'></span>5
                             </div>
-                            <p className={poppins.className + " text-gray-900 text-md"}>
-                                Hacker
+                            <p className={poppins.className + " flex flex-row text-gray-900 text-md "}>
+                            <div className='flex flex-row  text-sm'>
+                                <input className='' value="5+" type='radio' id="Q8_tech" {...register("Q4_photo")} /><span className='w-2'></span>
+                            </div>
+                                More Than 5 years
                             </p>
                         </div>
                     </div>
+                    
+                    <FormInput title='Tell us in brief what you like most about photography' id='Q5_photo' isRequired={true} register={register}/>
 
-                    <FormInput 
-                        title='Given the demographic in HIT, would you say a website is a better option for The HIT Times or an application? Give us your reasons for leaning either way.' 
-                        id='Q9_tech' 
-                        isRequired={true} 
-                        register={register}/>
+                    <FormInput title='Tell us a bit about any photographers you follow or those who inspire you.' subtitle='If you have other inspirations, feel free to tell us about those as well.' id='Q6_photo' isRequired={false} register={register}/>
+                    
+                    <FormInput title='How do you think, as a photographer at THT, you can influence the atmosphere of the college?' id='Q7_photo' isRequired={false} register={register}/>
 
-                    <FormInput title='Why do you like to code?' id='Q10_tech' isRequired={false} register={register}/>
+                    <FormInput title='Do you hold any experience in short film making or video making? If yes, specify the software you use for final editing and production.' id='Q8_photo' isRequired={false} register={register}/>
 
-                    <FormInput title='Provide link of any project if you have made.' id='Q11_tech' isRequired={false} register={register}/>
-
-                    <div className='bg-white shadow-md rounded-lg mb-5 p-3'>
-                        <FileUploader title='Upload your Resume(optional)' id='Q12_tech' register={register}/>
+                    <div  className='bg-white shadow-md rounded-lg mb-5 p-3'>
+                        <p className={poppins.className + " text-gray-900 text-md mb-2 font-bold px-7 pt-5"}>If you want to share any of your original works, feel free to upload it here.
+                        <span className='text-md text-red-600 pl-1'>*</span>
+                        </p>
+                        <p  className={poppins.className + " text-gray-900 text-sm  px-7"}>Please make sure that the works you upload are your original. Also make sure that the files you upload are less than 5 MB in size.</p>
+                        <FileUploader  id='Q9_photo' register={register} />
+                        <FileUploader id='Q10_photo' register={register} />
+                        <FileUploader id='Q11_photo' register={register} />
+                        <FileUploader id='Q12_photo' register={register} />
+                        <FileUploader  id='Q13_photo' register={register} />  
                     </div>
 
                     {
@@ -344,3 +303,5 @@ export default function DevForm() {
         </div>
     )
 }
+
+

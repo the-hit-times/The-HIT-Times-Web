@@ -23,9 +23,9 @@ const FileUploader = ({ title, subtitle, id, register }: FileUploaderProps) => {
     <div>
 
 
-                <div className='flex flex-row bg-white shadow-md rounded-lg mb-4'>
+                <div className='flex flex-row bg-white'>
                     {/* <div className='bg-blue-400 w-0.5 lg:w-1 rounded-l-3xl'></div> */}
-                    <div className="py-5 px-6 lg:px-8 flex flex-col">
+                    <div className="px-6 lg:px-8 flex flex-col">
                         <label htmlFor="name" className={poppins.className + " text-gray-900 text-md mb-2"}>
                             {title}
                         </label>
@@ -53,7 +53,7 @@ const FileUploader = ({ title, subtitle, id, register }: FileUploaderProps) => {
                                 className="mt-1 text-sm text-gray-500 "
                                 id="file_input_help"
                               >
-                                SVG, PNG, JPG or GIF (MAX. 5 Mb ).
+                                SVG, PNG, JPG ,MS Word or GIF (MAX. 5 Mb ).
                               </p>
                             <div/>
                           <div/>

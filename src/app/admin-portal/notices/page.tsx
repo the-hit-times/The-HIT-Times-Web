@@ -82,7 +82,7 @@ const EventsPage = () => {
 
 
     return (
-        <div>
+        <div className="flex flex-col w-screen">
             <div className="my-5">
                 <h2 className={ibmPlexSerif.className + " text-zinc-800 text-5xl font-semibold py-8"}>Control event forms</h2>
                 <div className="grid grid-flow-row grid-cols-2 gap-4">
@@ -110,7 +110,7 @@ const EventsPage = () => {
             </div>
             <Link href={formUrl}>
                 <button>
-                    <span className="flex flex-row bg-slate-200 p-5 rounded-xl mb-96">
+                    <span className="flex flex-row bg-slate-200 p-5 rounded-xl ">
                         <div className={poppins.className +
                             " text-xl font-bold text-emerald-500 text-center pr-2"
                         }>
@@ -122,10 +122,10 @@ const EventsPage = () => {
                     </span>
                 </button>
             </Link>
-
-            <Link href={'http://localhost:3000/api/v1/recruitment/dev/export'} className="m-5">
+            <div className="mt-6 flex-auto ">
+            <Link href={'http://localhost:3000/api/v1/recruitment/dev/export'} className="my-6 mr-6">
                 <button>
-                    <span className="flex flex-row bg-slate-200 p-5 rounded-xl mb-96">
+                    <span className="flex flex-row bg-slate-200 p-5 rounded-xl my-6">
                         <div className={poppins.className +
                             " text-xl font-bold text-emerald-500 text-center pr-2"
                         }>
@@ -137,6 +137,91 @@ const EventsPage = () => {
                     </span>
                 </button>
             </Link>
+            <Link href={'http://localhost:3000/api/v1/recruitment/cartoonist/export'} className="my-6 mr-6">
+                <button>
+                    <span className="flex flex-row bg-slate-200 p-5 rounded-xl my-6">
+                        <div className={poppins.className +
+                            " text-xl font-bold text-emerald-500 text-center pr-2"
+                        }>
+                            Cartoonist Recruitment Data
+                        </div>
+                        <div>
+                            <ArrowDownCircleIcon width={30} className="text-emerald-500" />
+                        </div>
+                    </span>
+                </button>
+            </Link>
+            <Link href={'http://localhost:3000/api/v1/recruitment/photographer/export'} className="my-6 mr-6">
+                <button>
+                    <span className="flex flex-row bg-slate-200 p-5 rounded-xl my-6">
+                        <div className={poppins.className +
+                            " text-xl font-bold text-emerald-500 text-center pr-2"
+                        }>
+                            Photographers Recruitment Data
+                        </div>
+                        <div>
+                            <ArrowDownCircleIcon width={30} className="text-emerald-500" />
+                        </div>
+                    </span>
+                </button>
+            </Link>
+            <Link href={'http://localhost:3000/api/v1/recruitment/cw/export'} className="my-6 mr-6">
+                <button>
+                    <span className="flex flex-row bg-slate-200 p-5 rounded-xl my-6">
+                        <div className={poppins.className +
+                            " text-xl font-bold text-emerald-500 text-center pr-2"
+                        }>
+                            Content Writers Recruitment Data
+                        </div>
+                        <div>
+                            <ArrowDownCircleIcon width={30} className="text-emerald-500" />
+                        </div>
+                    </span>
+                </button>
+            </Link>
+            <Link href={'http://localhost:3000/api/v1/recruitment/pr/export'} className="my-6 mr-6">
+                <button>
+                    <span className="flex flex-row bg-slate-200 p-5 rounded-xl my-6">
+                        <div className={poppins.className +
+                            " text-xl font-bold text-emerald-500 text-center pr-2"
+                        }>
+                            PR Recruitment Data
+                        </div>
+                        <div>
+                            <ArrowDownCircleIcon width={30} className="text-emerald-500" />
+                        </div>
+                    </span>
+                </button>
+            </Link>
+            <Link href={'http://localhost:3000/api/v1/recruitment/video-editor/export'} className="my-6 mr-6">
+                <button>
+                    <span className="flex flex-row bg-slate-200 p-5 rounded-xl my-6">
+                        <div className={poppins.className +
+                            " text-xl font-bold text-emerald-500 text-center pr-2"
+                        }>
+                            video Editor Recruitment Data
+                        </div>
+                        <div>
+                            <ArrowDownCircleIcon width={30} className="text-emerald-500" />
+                        </div>
+                    </span>
+                </button>
+            </Link>
+            <Link href={'http://localhost:3000/api/v1/recruitment/gd/export'} className="my-6 mr-6">
+                <button>
+                    <span className="flex flex-row bg-slate-200 p-5 rounded-xl my-6">
+                        <div className={poppins.className +
+                            " text-xl font-bold text-emerald-500 text-center pr-2"
+                        }>
+                            Graphics-Designer Recruitment Data
+                        </div>
+                        <div>
+                            <ArrowDownCircleIcon width={30} className="text-emerald-500" />
+                        </div>
+                    </span>
+                </button>
+            </Link>
+            </div>
         </div>
     )
 }

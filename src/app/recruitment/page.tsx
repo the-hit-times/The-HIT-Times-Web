@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { signIn, useSession } from "next-auth/react";
 
 
 const poppins = Poppins({
@@ -33,6 +34,8 @@ export default function RecCommonForm() {
         other_position: string[]  //4
     }
 
+    const { data: session } = useSession(); 
+    
 
     const router = useRouter()
     const [isSubmitted, setIsSubmitted] = useState(false)
@@ -57,14 +60,14 @@ export default function RecCommonForm() {
         router.refresh()
         toast.success("Kindly Fill Again")
     }
-
+    if(session){
     return (
         <div className="min-h-screen bg-gray-200">
             <div className="max-w-3xl mx-auto">
                 <div className="relative mb-2 lg:mb-3 rounded-b-lg overflow-hidden">
                     <Image
-                        src="/rec-header.png"
-                        alt="Recruitment Form 2K24"
+                        src="https://res.cloudinary.com/dvw5qhccb/image/upload/v1730133636/rec-header.png_reznpj.jpg"
+                        alt="Recruitment Form 2K25"
                         width={1500}
                         height={100}
                     />
@@ -75,7 +78,7 @@ export default function RecCommonForm() {
                     <div className="pt-3 px-4 sm:px-6 lg:px-8">
                         <header>
                             <div className={poppins.className + ' text-3xl lg:text-4xl font-medium text-black'}>
-                                Recruitment Form 2K24
+                                Recruitment Form 2K25
                             </div>
                         </header>
                         <div className='h-0.5 lg:h-1 mt-2 bg-purple-800'></div>
@@ -122,6 +125,9 @@ export default function RecCommonForm() {
                                 <input className='' value="cartoonist" type='radio' id="position" {...register("position")} /><span className='w-2'></span>Cartoonist/Digital Artist (Classical art knowledge is required)
                             </div>
                             <div className='flex flex-row mb-3 text-sm'>
+                                <input className='' value="developer" type='radio' id="position" {...register("position")} /><span className='w-2'></span>Developer
+                            </div>
+                            <div className='flex flex-row mb-3 text-sm'>
                                 <input className='' value="graphic-designer" type='radio' id="position" {...register("position")} /><span className='w-2'></span>Graphic Designer
                             </div>
                             <div className='flex flex-row mb-3 text-sm'>
@@ -133,9 +139,7 @@ export default function RecCommonForm() {
                             <div className='flex flex-row mb-3 text-sm'>
                                 <input className='' value="video-editor" type='radio' id="position" {...register("position")} /><span className='w-2'></span>Video Editor
                             </div>
-                            <div className='flex flex-row mb-3 text-sm'>
-                                <input className='' value="developer" type='radio' id="position" {...register("position")} /><span className='w-2'></span>Developer
-                            </div>
+                        
                             {/* <div className='flex flex-row mb-3 text-sm'>
                                 <input className='' value="none" type='radio' id="position" {...register("position")} /><span className='w-2'></span>Currently none, but eager to learn and join Trainee Scholars Program 2025. (You won't receive any screening or interview calls this year.)
                             </div> */}
@@ -203,4 +207,15 @@ export default function RecCommonForm() {
             </div>
         </div>
     )
+    }
+    /*else{
+        return(
+            <div className='flex flex-col h-screen w-full bg-slate-50 items-center justify-center'>
+                Please Kindly signIn 
+                <button className='bg-emerald-900 px-4 py-2 rounded-lg shadow-lg text-xl font-serif text-white' onClick={signIn()} >
+                    Sign In
+                </button>
+            </div>
+        )
+    }*/
 }

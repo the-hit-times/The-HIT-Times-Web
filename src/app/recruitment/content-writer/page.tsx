@@ -130,7 +130,7 @@ export default function CwForm() {
 
 
     function refreshPage(): void {
-        router.push("./common");
+        router.push("/recruitment");
         toast.success("Kindly Fill Again")
     }
 
@@ -140,8 +140,8 @@ export default function CwForm() {
             <div className="max-w-3xl mx-auto">
             <div className="relative mb-2 lg:mb-3 rounded-b-lg overflow-hidden">
                     <Image
-                        src="/rec-header.png"
-                        alt="Recruitment Form 2K24"
+                        src="https://res.cloudinary.com/dvw5qhccb/image/upload/v1730133636/rec-header.png_reznpj.jpg"
+                        alt="Recruitment Form 2K25"
                         width={1500}
                         height={100}
                     />
@@ -152,7 +152,7 @@ export default function CwForm() {
                     <div className="pt-3 px-4 sm:px-6 lg:px-8">
                         <header>
                             <div className={poppins.className + ' text-3xl lg:text-4xl font-medium text-black'}>
-                                Recruitment Form 2K24
+                                Recruitment Form 2K25
                             </div>
                         </header>
                         <div className='h-0.5 lg:h-1 mt-2 bg-purple-800'></div>
@@ -270,15 +270,14 @@ export default function CwForm() {
                             </p>
                             </div>
                         </div>
-                        <FileUploader title='Upload your Resume(optional)' id='Q3_cw' register={register}/>
+                        
 
                     
                     <FormInput title='What inspired you to start writing and why?' id='Q4_cw' isRequired={false} register={register}/>
 
                     <FormInput title='Why do you think one should give importance to hobbies?' id='Q5_cw' isRequired={false} register={register}/>
 
-                    <FormInput title='Who are your favourite authors and what are your favourite books? Why?
-' id='Q6_cw' isRequired={true} register={register}/>
+                    <FormInput title='Who are your favourite authors and what are your favourite books? Why?' id='Q6_cw' isRequired={true} register={register}/>
 
                     <FormInput title='Do you have a book, a movie or a series story line/ characterization that brought about a change in your perception or mentality as a whole?' id='Q7_cw' isRequired={false} register={register}/>
 
@@ -303,8 +302,15 @@ export default function CwForm() {
                     <FormInput title='How do you think, as a content writer at THT, you can influence the atmosphere of the college?' id='Q10_cw' isRequired={true} register={register}/>
 
                     <FormInput title='If you were a THT member, what new content would you suggest we publish?' id='Q11_cw' isRequired={true} register={register}/>
+                    
+                    <div  className='bg-white shadow-lg rounded-xl p-3 mb-5 '>
+                        <FileUploader title='Upload your Resume(optional)' id='Q3_cw' register={register}/>
+                        <p className={poppins.className + " text-gray-900 text-md mb-2 font-bold px-7 pt-5"}>If you want to share any of your original works, feel free to upload it here.</p>
+                        <p  className={poppins.className + " text-gray-900 text-sm  px-7"}>Please make sure that the works you upload are your original. Also make sure that the files you upload are less than 5 MB in size.</p>
+                        <FileUploader id='Q12_cw' register={register}/>
+                    </div>
 
-                    <FileUploader title='If you want to share any of your original writings, feel free to upload it here.' subtitle='Please make sure that the writings you upload are your original work. Also make sure that the files you upload are less than 10 MB in size.' id='Q12_cw' register={register}/>
+                    
 
                     {
                         isSubmitted ?

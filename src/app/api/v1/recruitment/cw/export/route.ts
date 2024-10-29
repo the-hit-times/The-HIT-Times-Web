@@ -52,7 +52,7 @@ export async function GET(request: NextRequest) {
         const csvParser = new Parser({ fields: csvFields });
         const csvData = csvParser.parse(formData);
     
-        const fileName = "developers_form_Data_2024.csv";
+        const fileName = "Content_Writer_form_Data_2024.csv";
         return new NextResponse(csvData, {
           status: 200,
           headers: {

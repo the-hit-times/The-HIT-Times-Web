@@ -124,6 +124,7 @@ export default function VeForm() {
     };
 
     const refreshPage = (): void => {
+        router.push("/recruitment");
         // router.push("./common");
         toast.success("Kindly Fill Again");
     };
@@ -143,8 +144,8 @@ export default function VeForm() {
             <div className="max-w-3xl mx-auto">
                 <div className="relative mb-2 lg:mb-3 rounded-b-lg overflow-hidden">
                     <Image
-                        src="/rec-header.png"
-                        alt="Recruitment Form 2K24"
+                        src="https://res.cloudinary.com/dvw5qhccb/image/upload/v1730133636/rec-header.png_reznpj.jpg"
+                        alt="Recruitment Form 2K25"
                         width={1500}
                         height={100}
                     />
@@ -154,7 +155,7 @@ export default function VeForm() {
                     <div className="pt-3 px-4 sm:px-6 lg:px-8">
                         <header>
                             <div className={poppins.className + ' text-3xl lg:text-4xl font-medium text-black'}>
-                                Recruitment Form 2K24
+                                Recruitment Form 2K25
                             </div>
                         </header>
                         <div className="h-0.5 lg:h-1 mt-2 bg-purple-800"></div>
