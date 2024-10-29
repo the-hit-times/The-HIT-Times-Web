@@ -136,28 +136,29 @@ export default function DevForm() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-200">
-            <div className="max-w-3xl mx-auto">
+        <div className="min-h-screen bg-[url('/tht-background.jpg')]  md:rounded-2xl">
+            <div className="max-w-4xl mx-auto">
                 <div className="relative mb-2 lg:mb-3 rounded-b-lg overflow-hidden">
                     <Image
                         src="https://res.cloudinary.com/dvw5qhccb/image/upload/v1730133636/rec-header.png_reznpj.jpg"
                         alt="Recruitment Form 2K25"
                         width={1500}
                         height={100}
+                        className='border  border-white mt-2 rounded-lg'
                     />
                 </div>
-                <div className='h-2 lg:h-3 w-full bg-purple-950'></div>
-                <div className='flex flex-row bg-white shadow-md rounded-b-sm'>
+                <div className='h-2 lg:h-3 w-full bg-purple-700 rounded-xl'></div>
+                <div className='flex flex-row bg-transparent shadow-md rounded-b-sm'>
                     {/* <div className='bg-blue-400 w-5 rounded-bl-3xl'></div> */}
                     <div className="pt-3 px-4 sm:px-6 lg:px-8">
                         <header>
-                            <div className={poppins.className + ' text-3xl lg:text-4xl font-medium text-black'}>
+                            <div className={poppins.className + ' text-3xl lg:text-4xl font-medium text-white'}>
                                 Recruitment Form 2K25
                             </div>
                         </header>
-                        <div className='h-0.5 lg:h-1 mt-2 bg-purple-800'></div>
+                        <div className='h-0.5 lg:h-1 mt-2 bg-purple-800 '></div>
                         <div>
-                            <p className="py-4 text-xs sm:text-sm">
+                            <p className="py-4 text-xs sm:text-sm text-white">
                                 Carefully read each and every description under the sections and take your time to tell us about yourself, it will help us know you better. Some sections have a lot of questions and not all of them are marked as required but we will be giving preference to the people who show the tenacity to answer all questions. Use of proper grammar and form is expected (Spelling mistakes will be pardoned but not SMS lingo). If your replies are abusive or do not meet minimum standards of acceptability, your entry is liable to be disqualified.
                             </p>
                             <hr/>
@@ -166,14 +167,14 @@ export default function DevForm() {
                     </div>
                 </div>
 
-                <div className='bg-white shadow-md rounded-lg mt-4'>
+                <div className='bg-white bg-opacity-15 rounded-lg mt-4'>
                     <div className='bg-purple-800 rounded-t-lg py-3 px-8'>
                         <p className={poppins.className + ' text-lg font-normal text-white'}>
                             Developer Section
                         </p>
                     </div>
                     <div className="py-5 px-6 sm:px-6 lg:px-8 flex flex-col">
-                        <div className={poppins.className + ' text-sm'}>
+                        <div className={poppins.className + ' text-sm text-white'}>
                             Answer all questions as truthfully as possible so that we can help you better. A developers ability to adapt to the needs of a project depends very much on their awareness of the world around them and their ability to understand what will work and if it won't, why it will not. We want to figure out what level you are at. 
                         </div>
                     </div>
@@ -184,84 +185,84 @@ export default function DevForm() {
 
                     <CommonFields register = {register} />
 
-                    <div className='flex flex-row bg-white shadow-md rounded-lg mb-4'>
+                    <div className='flex flex-row bg-white bg-opacity-15 shadow-md rounded-lg mb-4'>
                         {/* <div className='bg-blue-400 w-1 lg:w-1.5 rounded-l-3xl'></div> */}
                         <div className="py-5 px-6 lg:px-8 flex flex-col">
-                            <label htmlFor="Q1_Q2_tech" className={poppins.className + " text-gray-900 text-md mb-4"}>
+                            <label htmlFor="Q1_Q2_tech" className={poppins.className + " text-white text-md mb-4"}>
                                 What programming languages do you know/ use extensively?
                                 <span className='text-md text-red-600 pl-1'>*</span>
                             </label>
-                            <div className='flex flex-row mb-3 text-sm'>
+                            <div className='flex flex-row mb-3 text-sm  text-slate-300'>
                                 <input className='' value="JS/TS" type='checkbox' id="Q1_tech" {...register("Q1_tech")} /><span className='w-2'></span>JavaScript/TypeScript
                             </div>
-                            <div className='flex flex-row mb-3 text-sm'>
+                            <div className='flex flex-row mb-3 text-sm  text-slate-300'>
                                 <input className='' value="Dart" type='checkbox' id="Q1_tech" {...register("Q1_tech")} /><span className='w-2'></span>Dart
                             </div>
-                            <div className='flex flex-row mb-3 text-sm'>
+                            <div className='flex flex-row mb-3 text-sm  text-slate-300'>
                                 <input className='' value="Java/Kotlin" type='checkbox' id="Q1_tech" {...register("Q1_tech")} /><span className='w-2'></span>Java/Kotlin
                             </div>
-                            <div className='flex flex-row mb-3 text-sm'>
+                            <div className='flex flex-row mb-3 text-sm  text-slate-300'>
                                 <input className='' value="Python" type='checkbox' id="Q1_tech" {...register("Q1_tech")} /><span className='w-2'></span>Python
                             </div>
-                            <div className='flex flex-row mb-3 text-sm'>
+                            <div className='flex flex-row mb-3 text-sm  text-slate-300'>
                                 <input className='' value="HTML+CSS" type='checkbox' id="Q1_tech" {...register("Q1_tech")} /><span className='w-2'></span>HTML + CSS
                             </div>
-                            <div className='flex flex-row mb-3 text-sm'>
+                            <div className='flex flex-row mb-3 text-sm  text-slate-300'>
                                 <input className='' value="Other" type='checkbox' id="Q1_tech" {...register("Q1_tech")} /><span className='w-2'></span>Other: (Fill Below)
                             </div>
-                            <input className='border-b border-gray-300 focus:outline-none focus:border-purple-600 focus:border-b-2 py-1 focus:placeholder-purple-400' placeholder="Your Answer" type='text' id='Q2_tech' {...register("Q2_tech")} />
+                            <input className='border-b border-gray-300 bg-transparent text-white focus:outline-none focus:border-purple-600 focus:border-b-2 py-1 focus:placeholder-purple-400' placeholder="Your Answer" type='text' id='Q2_tech' {...register("Q2_tech")} />
                         </div>
                     </div>
 
-                    <div className='flex flex-row bg-white shadow-md rounded-lg mb-4'>
+                    <div className='flex flex-row bg-white bg-opacity-15 shadow-md rounded-lg mb-4'>
                         {/* <div className='bg-blue-400 w-1 lg:w-1.5 rounded-l-3xl'></div> */}
                         <div className="py-5 px-6 lg:px-8 flex flex-col">
-                            <label htmlFor="Q3_Q4_tech" className={poppins.className + " text-gray-900 text-md mb-4"}>
+                            <label htmlFor="Q3_Q4_tech" className={poppins.className + " text-white text-md mb-4"}>
                                 Which technology are you familiar with?
                             <span className='text-md text-red-600 pl-1'>*</span>
                             </label>
-                            <div className='flex flex-row mb-3 text-sm'>
+                            <div className='flex flex-row mb-3 text-sm  text-slate-300'>
                                 <input className='' value="MongoDB" type='checkbox' id="Q3_tech" {...register("Q3_tech")} /><span className='w-2'></span>MongoDB
                             </div>
-                            <div className='flex flex-row mb-3 text-sm'>
+                            <div className='flex flex-row mb-3 text-sm  text-slate-300'>
                                 <input className='' value="Flutter" type='checkbox' id="Q3_tech" {...register("Q3_tech")} /><span className='w-2'></span>Flutter
                             </div>
-                            <div className='flex flex-row mb-3 text-sm'>
+                            <div className='flex flex-row mb-3 text-sm  text-slate-300'>
                                 <input className='' value="Firebase" type='checkbox' id="Q3_tech" {...register("Q3_tech")} /><span className='w-2'></span>Firebase
                             </div>
-                            <div className='flex flex-row mb-3 text-sm'>
+                            <div className='flex flex-row mb-3 text-sm  text-slate-300'>
                                 <input className='' value="Node" type='checkbox' id="Q3_tech" {...register("Q3_tech")} /><span className='w-2'></span>Node
                             </div>
-                            <div className='flex flex-row mb-3 text-sm'>
+                            <div className='flex flex-row mb-3 text-sm  text-slate-300'>
                                 <input className='' value="Express" type='checkbox' id="Q3_tech" {...register("Q3_tech")} /><span className='w-2'></span>Express
                             </div>
-                            <div className='flex flex-row mb-3 text-sm'>
+                            <div className='flex flex-row mb-3 text-sm  text-slate-300'>
                                 <input className='' value="NextJS" type='checkbox' id="Q3_tech" {...register("Q3_tech")} /><span className='w-2'></span>Next JS
                             </div>
-                            <div className='flex flex-row mb-3 text-sm'>
+                            <div className='flex flex-row mb-3 text-sm  text-slate-300'>
                                 <input className='' value="ReactJS" type='checkbox' id="Q3_tech" {...register("Q3_tech")} /><span className='w-2'></span>React JS
                             </div>
-                            <div className='flex flex-row mb-3 text-sm'>
+                            <div className='flex flex-row mb-3 text-sm  text-slate-300'>
                                 <input className='' value="AI/ML" type='checkbox' id="Q3_tech" {...register("Q3_tech")} /><span className='w-2'></span>AI/ML
                             </div>
-                            <div className='flex flex-row mb-3 text-sm'>
+                            <div className='flex flex-row mb-3 text-sm  text-slate-300'>
                                 <input className='' value="Other" type='checkbox' id="Q3_tech" {...register("Q3_tech")} /><span className='w-2'></span>Other: (Fill Below)
                             </div>
-                            <input className='border-b border-gray-300 focus:outline-none focus:border-purple-600 focus:border-b-2 py-1 focus:placeholder-purple-400' placeholder="Your Answer" type='text' id='Q4_tech' {...register("Q4_tech")} />
+                            <input className='border-b border-gray-300 bg-transparent text-white focus:outline-none focus:border-purple-600 focus:border-b-2 py-1 focus:placeholder-purple-400' placeholder="Your Answer" type='text' id='Q4_tech' {...register("Q4_tech")} />
                         </div>
                     </div>
 
-                    <div className='flex flex-row bg-white shadow-md rounded-lg mb-4'>
+                    <div className='flex flex-row bg-white bg-opacity-15 shadow-md rounded-lg mb-4'>
                         {/* <div className='bg-blue-400 w-0.5 lg:w-1 rounded-l-3xl'></div> */}
                         <div className="py-5 px-6 lg:px-8 flex flex-col">
-                            <label htmlFor="Q5_tech" className={poppins.className + " text-gray-900 text-md mb-1"}>
+                            <label htmlFor="Q5_tech" className={poppins.className + " text-white text-md mb-1"}>
                                 Are you familiar with Git and GitHub?
                                 <span className='text-md text-red-600 pl-1'>*</span>
                             </label>
-                            <div className='flex flex-row mb-3 text-sm'>
+                            <div className='flex flex-row mb-3 text-sm text-slate-300'>
                                 <input className='' value="yes" type='radio' id="Q5_tech" {...register("Q5_tech")} /><span className='w-2'></span>Yes
                             </div>
-                            <div className='flex flex-row text-sm'>
+                            <div className='flex flex-row text-sm text-slate-300'>
                                 <input className='' value="no" type='radio' id="Q5_tech" {...register("Q5_tech")} /><span className='w-2'></span>No
                             </div>
                         </div>
@@ -276,32 +277,32 @@ export default function DevForm() {
                         isRequired={false} 
                         register={register}/>
 
-                    <div className='flex flex-row bg-white shadow-md rounded-lg mb-4'>
+                    <div className='flex flex-row bg-white bg-opacity-15 shadow-md rounded-lg mb-4'>
                         {/* <div className='bg-blue-400 w-4 lg:w-5 rounded-l-3xl'></div> */}
                         <div className="py-5 px-6 lg:px-8 flex flex-col">
-                            <label htmlFor="Q8_tech" className={poppins.className + " text-gray-900 text-md mb-4"}>
+                            <label htmlFor="Q8_tech" className={poppins.className + " text-white text-md mb-4"}>
                                 Grade your competency at coding from a scale of 1 to 5.
                             <span className='text-md text-red-600 pl-1'>*</span>
                             </label>
-                            <p className={poppins.className + " text-gray-900 text-md mb-1"}>
+                            <p className={poppins.className + " text-slate-300 text-md mb-1"}>
                                 Basic
                             </p>
-                            <div className='flex flex-row mb-3 text-sm'>
+                            <div className='flex flex-row mb-3 text-sm text-slate-300'>
                                 <input className='' value="1" type='radio' id="Q8_tech" {...register("Q8_tech")} /><span className='w-2'></span>1
                             </div>
-                            <div className='flex flex-row mb-3 text-sm'>
+                            <div className='flex flex-row mb-3 text-sm text-slate-300'>
                                 <input className='' value="2" type='radio' id="Q8_tech" {...register("Q8_tech")} /><span className='w-2'></span>2
                             </div>
-                            <div className='flex flex-row mb-3 text-sm'>
+                            <div className='flex flex-row mb-3 text-sm text-slate-300'>
                                 <input className='' value="3" type='radio' id="Q8_tech" {...register("Q8_tech")} /><span className='w-2'></span>3
                             </div>
-                            <div className='flex flex-row mb-3 text-sm'>
+                            <div className='flex flex-row mb-3 text-sm text-slate-300'>
                                 <input className='' value="4" type='radio' id="Q8_tech" {...register("Q8_tech")} /><span className='w-2'></span>4
                             </div>
-                            <div className='flex flex-row mb-1 text-sm'>
+                            <div className='flex flex-row mb-1 text-sm text-slate-300'>
                                 <input className='' value="5" type='radio' id="Q8_tech" {...register("Q8_tech")} /><span className='w-2'></span>5
                             </div>
-                            <p className={poppins.className + " text-gray-900 text-md"}>
+                            <p className={poppins.className + " text-slate-300 text-md"}>
                                 Hacker
                             </p>
                         </div>
@@ -317,7 +318,7 @@ export default function DevForm() {
 
                     <FormInput title='Provide link of any project if you have made.' id='Q11_tech' isRequired={false} register={register}/>
 
-                    <div className='bg-white shadow-md rounded-lg mb-5 p-3'>
+                    <div className='bg-white bg-opacity-15 shadow-md rounded-lg mb-5 p-3'>
                         <FileUploader title='Upload your Resume(optional)' id='Q12_tech' register={register}/>
                     </div>
 
@@ -335,12 +336,38 @@ export default function DevForm() {
                             </div>
                             :
                             <div className='flex flex-row justify-between pb-6'>
-                                <button className="bg-purple-500 py-1 px-5 rounded-md text-white">Submit</button>
-                                <div onClick={refreshPage} className={poppins.className +' text-purple-800 text-md hover:cursor-pointer'}>Clear form</div>
+                                <button className=" relative bg-purple-500 py-1 px-5 rounded-md text-white overflow-hidden font-medium border-purple-500 hover:border-green-600 shadow-inner group">
+                                    <span className="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-green-400 group-hover:w-full"></span>
+                                    <span className="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-green-400 group-hover:w-full"></span>
+                                    <span className="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-green-400 group-hover:h-full"></span>
+                                    <span className="absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-green-400 group-hover:h-full"></span>
+                                    <span className="absolute inset-0 w-full h-full duration-300 delay-300 bg-green-600 opacity-0 group-hover:opacity-100"></span>
+                                    <span className="relative transition-colors duration-300 delay-200 group-hover:text-white font-semibold text-base ">
+                                        Submit
+                                    </span>
+                                </button>
+                                <button onClick={refreshPage} className={poppins.className +" relative bg-transparent py-1 px-1 rounded-md text-purple-700 overflow-hidden font-medium border-purple-500 hover:border-green-600 shadow-inner group"}>
+                                    <span className="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-red-400 group-hover:w-full"></span>
+                                    <span className="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-red-400 group-hover:w-full"></span>
+                                    <span className="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-red-400 group-hover:h-full"></span>
+                                    <span className="absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-red-400 group-hover:h-full"></span>
+                                    <span className="absolute inset-0 w-full h-full duration-300 delay-300 bg-red-600 opacity-0 group-hover:opacity-100"></span>
+                                    <span className="relative transition-colors duration-300 delay-200 group-hover:text-white font-semibold text-base ">
+                                        Clear Form
+                                    </span>
+                                </button>
+                                {/*<div onClick={refreshPage} className={poppins.className +' text-purple-800 text-md hover:cursor-pointer'}>Clear form</div>*/}
                             </div>
+                            
                     }
                 </form>
             </div>
         </div>
     )
 }
+/*<div className='flex flex-row justify-between pb-6'>
+                                <button className="bg-purple-500 py-1 px-5 rounded-md text-white"
+                                    >Submit
+                                </button>
+                                <div onClick={refreshPage} className={poppins.className +' text-purple-800 text-md hover:cursor-pointer'}>Clear form</div>
+                            </div>*/

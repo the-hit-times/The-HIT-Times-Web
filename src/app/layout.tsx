@@ -29,7 +29,7 @@ export default function RootLayout({
             </div>
           </div>
 
-          <div className="max-w-screen-2.5xl 2.5xl:mx-auto mx-4 overflow-x-hidden sm:overflow-x-visible overflow-y-visible scroll-smooth">
+          <div className="max-w-screen-2.5xl 2.5xl:mx-auto  sm:mx-4 overflow-x-hidden sm:overflow-x-visible overflow-y-visible scroll-smooth">
               {children}
           </div>
 

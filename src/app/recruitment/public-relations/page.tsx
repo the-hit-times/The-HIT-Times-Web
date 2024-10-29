@@ -111,7 +111,7 @@ export default function DevForm() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-200">
+        <div className="min-h-screen bg-[url('/tht-background.jpg')]  md:rounded-2xl">
             <div className="max-w-3xl mx-auto">
                 <div className="relative mb-2 lg:mb-3 rounded-b-lg overflow-hidden">
                     <Image
@@ -119,20 +119,21 @@ export default function DevForm() {
                         alt="Recruitment Form 2K25"
                         width={1500}
                         height={100}
+                        className='border  border-white mt-2 rounded-lg'
                     />
                 </div>
-                <div className='h-2 lg:h-3 w-full bg-purple-950'></div>
-                <div className='flex flex-row bg-white shadow-md rounded-b-sm'>
+                <div className='h-2 lg:h-3 w-full bg-purple-700 rounded-xl'></div>
+                <div className='flex flex-row bg-transparent shadow-md rounded-b-sm'>
                     {/* <div className='bg-blue-400 w-5 rounded-bl-3xl'></div> */}
                     <div className="pt-3 px-4 sm:px-6 lg:px-8">
                         <header>
-                            <div className={poppins.className + ' text-3xl lg:text-4xl font-medium text-black'}>
+                            <div className={poppins.className + ' text-3xl lg:text-4xl font-medium text-white'}>
                                 Recruitment Form 2K25
                             </div>
                         </header>
-                        <div className='h-0.5 lg:h-1 mt-2 bg-purple-800'></div>
+                        <div className='h-0.5 lg:h-1 mt-2 bg-purple-800 '></div>
                         <div>
-                            <p className="py-4 text-xs sm:text-sm">
+                            <p className="py-4 text-xs sm:text-sm text-white">
                                 Carefully read each and every description under the sections and take your time to tell us about yourself, it will help us know you better. Some sections have a lot of questions and not all of them are marked as required but we will be giving preference to the people who show the tenacity to answer all questions. Use of proper grammar and form is expected (Spelling mistakes will be pardoned but not SMS lingo). If your replies are abusive or do not meet minimum standards of acceptability, your entry is liable to be disqualified.
                             </p>
                             <hr/>
@@ -141,14 +142,14 @@ export default function DevForm() {
                     </div>
                 </div>
 
-                <div className='bg-white shadow-md rounded-lg mt-4'>
+                <div className='bg-white bg-opacity-15 shadow-md rounded-lg mt-4'>
                     <div className='bg-purple-800 rounded-t-lg py-3 px-8'>
                         <p className={poppins.className + ' text-lg font-normal text-white'}>
                             Public Relations and Management
                         </p>
                     </div>
                     <div className="py-5 px-6 sm:px-6 lg:px-8 flex flex-col">
-                        <div className={poppins.className + ' text-sm'}>
+                        <div className={poppins.className + ' text-sm text-white'}>
                             Answer all questions as truthfully as possible so that we can help you better.
                         </div>
                     </div>
@@ -159,26 +160,26 @@ export default function DevForm() {
 
                     <CommonFields register = {register} />
 
-                    <div className='flex flex-row bg-white shadow-md rounded-lg mb-4'>
+                    <div className='flex flex-row bg-white bg-opacity-15 shadow-md rounded-lg mb-4'>
                         {/* <div className='bg-blue-400 w-4 lg:w-5 rounded-l-3xl'></div> */}
                         <div className="py-5 px-6 lg:px-8 flex flex-col">
-                            <label htmlFor="Q1_pr" className={poppins.className + " text-gray-900 text-md mb-4"}>
+                            <label htmlFor="Q1_pr" className={poppins.className + " text-white text-md mb-4"}>
                                 On a scale of one to five how would you rate your public speaking skills?
                             <span className='text-md text-red-600 pl-1'>*</span>
                             </label>
-                            <div className='flex flex-row mb-3 text-sm'>
+                            <div className='flex flex-row mb-3 text-sm text-slate-300'>
                                 <input className='' value="1" type='radio' id="Q1_pr" {...register("Q1_pr")} /><span className='w-2'></span>1
                             </div>
-                            <div className='flex flex-row mb-3 text-sm'>
+                            <div className='flex flex-row mb-3 text-sm text-slate-300'>
                                 <input className='' value="2" type='radio' id="Q1_pr" {...register("Q1_pr")} /><span className='w-2'></span>2
                             </div>
-                            <div className='flex flex-row mb-3 text-sm'>
+                            <div className='flex flex-row mb-3 text-sm text-slate-300'>
                                 <input className='' value="3" type='radio' id="Q1_pr" {...register("Q1_pr")} /><span className='w-2'></span>3
                             </div>
-                            <div className='flex flex-row mb-3 text-sm'>
+                            <div className='flex flex-row mb-3 text-sm text-slate-300'>
                                 <input className='' value="4" type='radio' id="Q1_pr" {...register("Q1_pr")} /><span className='w-2'></span>4
                             </div>
-                            <div className='flex flex-row mb-1 text-sm'>
+                            <div className='flex flex-row mb-1 text-sm text-slate-300'>
                                 <input className='' value="5" type='radio' id="Q1_pr" {...register("Q1_pr")} /><span className='w-2'></span>5
                             </div>
                         </div>
@@ -216,9 +217,28 @@ export default function DevForm() {
                             </div>
                             :
                             <div className='flex flex-row justify-between pb-6'>
-                                <button className="bg-purple-500 py-1 px-5 rounded-md text-white">Submit</button>
-                                <div onClick={refreshPage} className={poppins.className +' text-purple-800 text-md hover:cursor-pointer'}>Clear form</div>
-                            </div>
+                            <button className=" relative bg-purple-500 py-1 px-5 rounded-md text-white overflow-hidden font-medium border-purple-500 hover:border-green-600 shadow-inner group">
+                                <span className="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-green-400 group-hover:w-full"></span>
+                                <span className="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-green-400 group-hover:w-full"></span>
+                                <span className="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-green-400 group-hover:h-full"></span>
+                                <span className="absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-green-400 group-hover:h-full"></span>
+                                <span className="absolute inset-0 w-full h-full duration-300 delay-300 bg-green-600 opacity-0 group-hover:opacity-100"></span>
+                                <span className="relative transition-colors duration-300 delay-200 group-hover:text-white font-semibold text-base ">
+                                    Submit
+                                </span>
+                            </button>
+                            <button onClick={refreshPage} className={poppins.className +" relative bg-transparent py-1 px-1 rounded-md text-purple-700 overflow-hidden font-medium border-purple-500 hover:border-green-600 shadow-inner group"}>
+                                <span className="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-red-400 group-hover:w-full"></span>
+                                <span className="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-red-400 group-hover:w-full"></span>
+                                <span className="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-red-400 group-hover:h-full"></span>
+                                <span className="absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-red-400 group-hover:h-full"></span>
+                                <span className="absolute inset-0 w-full h-full duration-300 delay-300 bg-red-600 opacity-0 group-hover:opacity-100"></span>
+                                <span className="relative transition-colors duration-300 delay-200 group-hover:text-white font-semibold text-base ">
+                                    Clear Form
+                                </span>
+                            </button>
+                            {/*<div onClick={refreshPage} className={poppins.className +' text-purple-800 text-md hover:cursor-pointer'}>Clear form</div>*/}
+                        </div>
                     }
                 </form>
             </div>
