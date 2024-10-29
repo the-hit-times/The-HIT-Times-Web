@@ -15,8 +15,9 @@ interface HeroSectionProps {
 const HeroSection = () => {
   const [post, setPost] = useState<Posts | null>(null);
   const [loading, setLoading] = useState(true);
-  const [notice, setNotice] = useState({noticeTitle:"",noticeLink:""});
-  const { noticeTitle, noticeLink} = notice;
+  const [notice, setNotice] = useState({ noticeTitle: "", noticeLink: "" });
+  const [isNoticeEmpty, setNoticeEmpty] = useState(false);
+  const { noticeTitle, noticeLink } = notice;
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -26,8 +27,13 @@ const HeroSection = () => {
         setPost(data);
         const res2 = await fetch("/api/v1/notice");
         let notice = await res2.json();
-        notice = notice.reverse()
-        setNotice(notice[0]);
+        notice = notice.reverse();
+
+        if (notice.length > 0) {
+          setNotice(notice[0]);
+        } else {
+          setNoticeEmpty(true);
+        }
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -87,7 +93,7 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
-      {notice && (
+      {!isNoticeEmpty && (
         <div className="py-3 px-3 w-full bg-red-600 flex items-center justify-center rounded-xl">
           <h1 className="bg-white text-center text-red-600 font-semibold py-3 px-5 rounded-md">
             Latest Notice
