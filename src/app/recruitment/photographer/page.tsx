@@ -31,9 +31,6 @@ export default function PhotographyForm() {
 
     const searchParams = useSearchParams()
 
-    console.log("got", searchParams.get('name') ," ",searchParams.get('roll')," ",searchParams.get('other'));
-    
-
     type PhotographySheetData = {
         name: string              //1 ....from prev page
         roll: string              //2 ....from prev page
@@ -108,30 +105,31 @@ export default function PhotographyForm() {
     const postSheet = async (formData: PhotographySheetData): Promise<boolean> => {
         const url = '/api/v1/recruitment/photographer';
         try {
-          const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-          });
-    
-          if (response.status != 201) {
-            toast.error("Something went wrong");
-            throw new Error(`HTTP error! status: ${response.status}`);
-          } else {
-            toast.success("Submitted successfully")
-          }
-    
-          const data: any = await response.json();
-          console.log(data);
-          return true;
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+        
+            const data: any = await response.json();
+            
+            if (response.status != 201) {
+                toast.error(data.msg || "Something went wrong");
+                throw new Error(`HTTP error! status: ${response.status}`);
+            } else {
+                toast.success("Submitted successfully")
+            }
+            
+            console.log(data);
+            return true;
         } catch (error) {
-          setIsSubmitted(false)
-          toast.error("Try submitting again");
-          return false;
+            setIsSubmitted(false)
+            toast.error("Try submitting again");
+            return false;
         }
-      };
+    };
 
 
     function refreshPage(): void {
@@ -229,12 +227,12 @@ export default function PhotographyForm() {
                                 How many years have you been doing photography?
                             <span className='text-md text-red-600 pl-1'>*</span>
                             </label>
-                            <p className={poppins.className + " flex flex-row text-gray-900 text-md mb-3"}>
+                            <div className={poppins.className + " flex flex-row text-gray-900 text-md mb-3"}>
                             <div className='flex flex-row  text-sm'>
                                 <input className='' value="<1" type='radio' id="Q8_tech" {...register("Q4_photo")} /><span className='w-2'></span>
                             </div>
                                 Less than a year
-                            </p>
+                            </div>
                             
                             <div className='flex flex-row mb-3 text-sm'>
                                 <input className='' value="1" type='radio' id="Q8_tech" {...register("Q4_photo")} /><span className='w-2'></span>1
@@ -251,12 +249,12 @@ export default function PhotographyForm() {
                             <div className='flex flex-row mb-1 text-sm'>
                                 <input className='' value="5" type='radio' id="Q8_tech" {...register("Q4_photo")} /><span className='w-2'></span>5
                             </div>
-                            <p className={poppins.className + " flex flex-row text-gray-900 text-md "}>
+                            <div className={poppins.className + " flex flex-row text-gray-900 text-md "}>
                             <div className='flex flex-row  text-sm'>
                                 <input className='' value="5+" type='radio' id="Q8_tech" {...register("Q4_photo")} /><span className='w-2'></span>
                             </div>
                                 More Than 5 years
-                            </p>
+                            </div>
                         </div>
                     </div>
                     

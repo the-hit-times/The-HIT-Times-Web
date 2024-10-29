@@ -85,15 +85,16 @@ export default function DevForm() {
                     },
                     body: JSON.stringify(formData),
                 });
+
+                const data: any = await response.json();
             
             if (response.status != 201) {
-                toast.error("Something went wrong");
+                toast.error(data.msg || "Something went wrong");
                 throw new Error(`HTTP error! status: ${response.status}`);
             } else {
                 toast.success("Submitted successfully")
             }
     
-            const data: any = await response.json();
             console.log(data);
             return true;
         } catch (error) {

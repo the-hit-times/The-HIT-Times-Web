@@ -31,9 +31,6 @@ export default function CartoonistForm() {
 
     const searchParams = useSearchParams()
 
-    console.log("got", searchParams.get('name') ," ",searchParams.get('roll')," ",searchParams.get('other'));
-    
-
     type CartoonistSheetData = {
         name: string              //1 ....from prev page
         roll: string              //2 ....from prev page
@@ -77,19 +74,6 @@ export default function CartoonistForm() {
         formData.position = "Cartoonist"
         formData.other_position = searchParams.get('other')!
 
-        //array to string 
-        /*let all="|";
-        if(formData.Q1_cartoon){
-            (formData.Q1_cartoon).forEach((str: string)=> all+=str+'|')
-        }
-        formData.Q1_cartoon = all;
-
-        all="|";
-        if(formData.Q3_cartoon){
-            (formData.Q3_cartoon).forEach((str: string)=> all+=str+'|')
-        }
-        formData.Q3_cartoon = all;*/
-
         formData.Q6_cartoon = await uploadFile(formData.Q6_cartoon) //generate link
         formData.Q7_cartoon = await uploadFile(formData.Q7_cartoon) //generate link
         formData.Q8_cartoon = await uploadFile(formData.Q8_cartoon) //generate link
@@ -105,30 +89,31 @@ export default function CartoonistForm() {
     const postSheet = async (formData: CartoonistSheetData): Promise<boolean> => {
         const url = '/api/v1/recruitment/cartoonist';
         try {
-          const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-          });
-    
-          if (response.status != 201) {
-            toast.error("Something went wrong");
-            throw new Error(`HTTP error! status: ${response.status}`);
-          } else {
-            toast.success("Submitted successfully")
-          }
-    
-          const data: any = await response.json();
-          console.log(data);
-          return true;
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+        
+            const data: any = await response.json();
+            
+            if (response.status != 201) {
+                toast.error(data.msg || "Something went wrong");
+                throw new Error(`HTTP error! status: ${response.status}`);
+            } else {
+                toast.success("Submitted successfully")
+            }
+            
+            console.log(data);
+            return true;
         } catch (error) {
-          setIsSubmitted(false)
-          toast.error("Try submitting again");
-          return false;
+            setIsSubmitted(false)
+            toast.error("Try submitting again");
+            return false;
         }
-      };
+    };
 
 
     function refreshPage(): void {

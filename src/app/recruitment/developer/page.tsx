@@ -104,30 +104,31 @@ export default function DevForm() {
     const postSheet = async (formData: DevSheetData): Promise<boolean> => {
         const url = '/api/v1/recruitment/dev';
         try {
-          const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-          });
-    
-          if (response.status != 201) {
-            toast.error("Something went wrong");
-            throw new Error(`HTTP error! status: ${response.status}`);
-          } else {
-            toast.success("Submitted successfully")
-          }
-    
-          const data: any = await response.json();
-          console.log(data);
-          return true;
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+        
+            const data: any = await response.json();
+            
+            if (response.status != 201) {
+                toast.error(data.msg || "Something went wrong");
+                throw new Error(`HTTP error! status: ${response.status}`);
+            } else {
+                toast.success("Submitted successfully")
+            }
+            
+            console.log(data);
+            return true;
         } catch (error) {
-          setIsSubmitted(false)
-          toast.error("Try submitting again");
-          return false;
+            setIsSubmitted(false)
+            toast.error("Try submitting again");
+            return false;
         }
-      };
+    };
 
 
     function refreshPage(): void {
