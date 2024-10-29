@@ -57,25 +57,28 @@ export async function POST(request: NextRequest) {
 }
 
 export async function DELETE(request: NextRequest) {
+    const token = await getToken({
+        req: request,
+        secret: process.env.NEXTAUTH_SECRET,
+    });
+    
+    if (token === null || token?.role !== "admin") {
+        return Response.json(
+            { success: false, msg: "Unauthorized" },
+            { status: 401 }
+        );
+    }
+    
     try {
         await dbConnect();
-        const data = await request.json();
-        const id = data._id;
-        if (!id) {
-            return NextResponse.json({ success: false, msg: 'ID is required' }, { status: 400 });
-        }
-
-        const result = await NoticeModel.findByIdAndDelete(id);
-        if (!result) {
-            return NextResponse.json({ success: false, msg: 'Notice not found' }, { status: 404 });
-        }
-
+        const tsp = await NoticeModel.deleteMany({});
         return NextResponse.json({
             success: true
         }, {
-            status: 200
+            status: 201
         });
     } catch (error: any) {
+
         return NextResponse.json({
             success: false,
             msg: error.message,

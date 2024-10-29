@@ -77,18 +77,6 @@ export default function CartoonistForm() {
         formData.position = "Cartoonist"
         formData.other_position = searchParams.get('other')!
 
-        //array to string 
-        /*let all="|";
-        if(formData.Q1_cartoon){
-            (formData.Q1_cartoon).forEach((str: string)=> all+=str+'|')
-        }
-        formData.Q1_cartoon = all;
-
-        all="|";
-        if(formData.Q3_cartoon){
-            (formData.Q3_cartoon).forEach((str: string)=> all+=str+'|')
-        }
-        formData.Q3_cartoon = all;*/
 
         formData.Q6_cartoon = await uploadFile(formData.Q6_cartoon) //generate link
         formData.Q7_cartoon = await uploadFile(formData.Q7_cartoon) //generate link

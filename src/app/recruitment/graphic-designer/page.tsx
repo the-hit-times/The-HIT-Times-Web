@@ -1,5 +1,3 @@
-// File: src/app/recruitment/graphic-designer/page.tsx
-
 "use client";
 import CommonFields from '@/components/formcomponents/CommonFields';
 import FormInput from '@/components/formcomponents/FormInput';
@@ -91,9 +89,9 @@ export default function GdForm() {
         // Post form data
         const isUploaded = await postSheet(dataToSend);
 
-        if (isUploaded) {
-            console.log("Form submitted", dataToSend);
-            //router.push(`./roles/${formData.position}`)
+        if(isUploaded) {
+            router.push(`./success/${formData.position}`)
+            console.log("form submitted", formData)
         }
         setIsSubmitted(false);
     };
@@ -180,7 +178,7 @@ export default function GdForm() {
                     </div>
                     <div className="py-5 px-6 sm:px-6 lg:px-8 flex flex-col">
                         <p className={poppins.className + ' text-sm'}>
-                            Answer all questions as truthfully as possible so that we can help you better. A graphic designer's ability to adapt to the needs of a project depends very much on their awareness of the world around them and their ability to understand what will work and if it won't, why it will not. We want to figure out what level you are at.
+                            {"Answer all questions as truthfully as possible so that we can help you better. A graphic designer's ability to adapt to the needs of a project depends very much on their awareness of the world around them and their ability to understand what will work and if it won't, why it will not. We want to figure out what level you are at."}
                         </p>
                     </div>
                 </div>
@@ -229,7 +227,7 @@ export default function GdForm() {
                                 How do you rate your graphics designing skills?
                                 <span className="text-md text-red-600 pl-1">*</span>
                             </span>
-                            <div className="flex flex-row mb-3 text-sm">
+                            <div className="flex flex-col gap-2 my-3 text-sm">
                                 {Array.from({ length: 10 }, (_, i) => (
                                     <label key={i} htmlFor={`Q7_gd_${i + 1}`} className="flex items-center mr-2">
                                         <input
@@ -239,7 +237,7 @@ export default function GdForm() {
                                             id={`Q7_gd_${i + 1}`}
                                             {...register("Q7_gd", { required: true })}
                                         />
-                                        <span className="ml-1">{i + 1}</span>
+                                        <span className="ml-2"></span>{i + 1}
                                     </label>
                                 ))}
                             </div>
@@ -254,7 +252,7 @@ export default function GdForm() {
                                 On a scale of 1-10, how comfortable are you with learning to use a new design software?
                                 <span className="text-md text-red-600 pl-1">*</span>
                             </span>
-                            <div className="flex flex-row mb-3 text-sm">
+                            <div className="flex flex-col gap-2 my-3 text-sm">
                                 {Array.from({ length: 10 }, (_, i) => (
                                     <label key={i} htmlFor={`Q8_gd_${i + 1}`} className="flex items-center mr-2">
                                         <input
@@ -264,7 +262,7 @@ export default function GdForm() {
                                             id={`Q8_gd_${i + 1}`}
                                             {...register("Q8_gd", { required: true })}
                                         />
-                                        <span className="ml-1">{i + 1}</span>
+                                        <span className="ml-2"></span>{i + 1}
                                     </label>
                                 ))}
                             </div>

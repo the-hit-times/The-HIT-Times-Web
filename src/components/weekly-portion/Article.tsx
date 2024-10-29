@@ -15,33 +15,35 @@ const nunitoSans = Nunito_Sans({
   weight: ["200", "300", "400", "600", "700", "800"],
 });
 
-
 export default function Article({ article }: { article: Posts }) {
   return (
-    <Link href={"/posts/" + article._id}>
-      <div
-      /*variants={fadeIn("up",0.2)}
-      initial= "hidden"
-      whileInView={"show"}
-      viewport={{once: false,amount:0.7}}*/ 
-      className="group/item hover:scale-105 hover:duration-300 hover:delay-200 scroll-smooth">
-        <div className="h-full mt-1 hover:bg-gradient-to-r from-slate-100 to-violet-200 hover:duration-300 hover:delay-150 hover:shadow-2xl rounded-xl  animate-flip-up animate-duration-500 animate-delay-300 ">
-          <ArticleImage
-            src={article.link}
-            alt={article.title}
-            className="w-full aspect-video rounded-lg object-cover group-hover/item:scale-95 group-hover/item:duration-300"
-            width={500}
-            height={500}
-          />
-          <h3 className={ibmPlexSerif.className + " text-lg font-bold mt-2 text-ellipsis line-clamp-2 ml-3 mr-3 animate-fade-down animate delay-500 animate-duration-700 "}>
-            {article.title}
-          </h3>
-          <p className={nunitoSans.className + " text-gray-700 font-mono mt-1 text-ellipsis line-clamp-2 ml-3 mr-3 animate-fade-up animate delay-500 animate-duration-700 "}>
-            {article.description}
-          </p>
-        </div>
-
-      </div>
+    <Link
+      href={"/posts/" + article._id}
+      className="group/item sm:hover:scale-105 hover:scale-102 hover:delay-100 scroll-smooth h-full p-2 hover:bg-gray-200 hover:duration-300 hover:shadow-xl rounded-xl  animate-flip-up animate-duration-200 animate-delay-100 "
+    >
+      <ArticleImage
+        src={article.link}
+        alt={article.title}
+        className="w-full aspect-video rounded-lg object-cover"
+        width={500}
+        height={500}
+      />
+      <h3
+        className={
+          ibmPlexSerif.className +
+          " text-lg font-bold mt-2 text-ellipsis line-clamp-2 animate-fade-down animate delay-200 animate-duration-200 "
+        }
+      >
+        {article.title}
+      </h3>
+      <p
+        className={
+          nunitoSans.className +
+          " text-gray-700 font-mono mt-1 text-ellipsis line-clamp-2 animate-fade-up animate delay-500 animate-duration-700 "
+        }
+      >
+        {article.description}
+      </p>
     </Link>
   );
 }

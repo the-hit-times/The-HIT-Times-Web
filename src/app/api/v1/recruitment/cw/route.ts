@@ -23,6 +23,19 @@ export async function POST(request: NextRequest){
         const  data = await request.json();
         console.log(data);
 
+        // Check if email already exists
+        const existingForm = await ContentWriterForms.findOne({ email: data.email });
+        if (existingForm) {
+            console.log("Email already exists:", data.email);
+            return NextResponse.json(
+                {
+                    success: false,
+                    msg: "A form with this email already exists. If You want to change any input of your form you can mail to thehittimes@gmail.com [Form Label : Your new input ][old Input : Your Old Input]",
+                },
+                { status: 400 }
+            );
+        }
+
         const form = await ContentWriterForms.create(data);
         return NextResponse.json({
             success: true

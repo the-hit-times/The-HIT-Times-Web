@@ -8,17 +8,17 @@ import { getToken } from "next-auth/jwt";
 
 
 export async function GET(request: NextRequest) {
-       const token = await getToken({
-       req: request,
-       secret: process.env.NEXTAUTH_SECRET,
-     });
+        const token = await getToken({
+        req: request,
+        secret: process.env.NEXTAUTH_SECRET,
+        });
 
-     if (token === null || token?.role !== "admin") {
-       return Response.json(
-         { success: false, msg: "Unauthorized" },
-         { status: 401 }
-       );
-     }
+        if (token === null || token?.role !== "admin") {
+        return Response.json(
+            { success: false, msg: "Unauthorized" },
+            { status: 401 }
+        );
+        }
     try {
         await dbConnect();
         const formData = await VideoEditorForms.find().lean();
