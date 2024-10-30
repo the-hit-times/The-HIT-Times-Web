@@ -113,7 +113,7 @@ const ContactCard = ({
 
 const THT_Links = () => {
   return (
-    <div className=" bg-[url('/The-HIT-Times.png')]  outline outline-8 outline-orange-400 ">
+    <div className=" bg-[url('/tht-background.jpg')]  md:outline md:outline-8 md:outline-indigo-400 rounded-xl ">
         <div className="flex flex-row w-full items-center justify-center h-auto pt-5">
             <Image
                 src="/The-HIT-Times1.png"
@@ -128,7 +128,7 @@ const THT_Links = () => {
             </div>
         </div>
         <div className="flex flex-col md:flex-row w-auto h-auto items-center justify-center pt-5">
-            <div className="md:text-white text-violet-500 px-2 md:bg-gradient-to-tr from-slate-500 to via-violet-600 rounded-lg font-black text-xl ml-4 mr-2 mt-5 ">Get The THT Khabri App NOW!  Click Here :-</div> 
+            <div className="md:text-white text-violet-500 px-2 md:bg-gradient-to-tr from-slate-500 to via-violet-600 rounded-lg font-black text-xl ml-4 mr-2 mt-5 ">Get The THT Khabri App NOW!  Click Here </div> 
             <Link href="https://play.google.com/store/apps/details?id=com.thehittimes.tht">
             <Image
               src="/google-play-badge.png"
@@ -140,7 +140,7 @@ const THT_Links = () => {
           </Link> 
         </div>
         <div className="flex flex-col md:flex-row w-auto h-auto items-center justify-center py-5">
-            <div className="md:text-white text-violet-500 px-2 md:bg-gradient-to-tr  from-slate-500 to via-violet-600  rounded-lg font-black text-xl ml-4 mr-2 mt-5 ">Visit Our Official Website!  Click Here :-</div> 
+            <div className="md:text-white text-violet-500 px-2 md:bg-gradient-to-tr  from-slate-500 to via-violet-600  rounded-lg font-black text-xl ml-4 mr-2 mt-5 ">Visit Our Official Website!  Click Here </div> 
             <Link href="/">
             <Image
               src="/header/hit_logo_black.webp"

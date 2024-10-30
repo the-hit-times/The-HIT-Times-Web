@@ -67,15 +67,20 @@ function SuccessPage({ params }: { params: { successId: string } }) {
   // console.log(invLinks);
 
     return (
-        <div className="mb-8 min-h-[74vh]">
-        <div className={"my-4 text-2xl text-purple-700 " + poppins.className}>
+        <div className=" min-h-screen bg-[url('/tht-background.jpg')]  md:rounded-2xl p-32">
+        <div className={"my-4 text-2xl text-purple-400 animate-fade-right " + poppins.className}>
             Your response has been submitted!🎉
         </div>
         <div className="my-2">
-            <h2 className={"my-4 text-xl  text-purple-800 " + poppins.className}>
-            Join the respective groups...
-            </h2>
-            <div className="grid grid-flow-row grid-cols-1 gap-4">
+            {invLink! &&<h2 className={"my-4 text-xl  text-purple-100 animate-fade-left " + poppins.className}>
+            Hello   {invLink.title.toUpperCase()}  Your Recruitment Form 2k25 application for The HIT Times has been received.
+
+            Thank you for taking the time to complete and successfully submit the Recruitment Form for our 2025 intake.
+
+            you will receive a mail Shortly....
+
+            </h2>}
+            {/*<div className="grid grid-flow-row grid-cols-1 gap-4">
             {invLink! &&
                 <Link
                 href={invLink.url}
@@ -94,10 +99,10 @@ function SuccessPage({ params }: { params: { successId: string } }) {
                 </div>
                 </Link>
         }
-            </div>
+            </div>*/}
         </div>
         <div>
-            <p className={nunitoSans.className +" text-gray-700 my-4 text-3xl font-bold mt-12"}>Take A Tour to our website</p>
+            <p className={nunitoSans.className +" text-gray-200 my-4 text-3xl font-bold mt-12"}>Take A Tour to our website</p>
             <button onClick={(e)=>router.push('/')} className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-r hover:from-sky-500 hover:to-indigo-500 py-4 px-8 rounded-md text-white">Take me</button>
         </div>
         <div className="h-20 sm:h-64"></div>

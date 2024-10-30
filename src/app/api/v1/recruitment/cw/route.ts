@@ -30,7 +30,7 @@ export async function POST(request: NextRequest){
             return NextResponse.json(
                 {
                     success: false,
-                    msg: "A form with this email already exists.",
+                    msg: "A form with this email already exists. "
                 },
                 { status: 400 }
             );
