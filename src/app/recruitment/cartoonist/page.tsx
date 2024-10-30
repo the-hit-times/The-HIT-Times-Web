@@ -156,7 +156,7 @@ export default function CartoonistForm() {
                     </div>
                     <div className="py-5 px-6 sm:px-6 lg:px-8 flex flex-col">
                         <div className={poppins.className + ' text-sm text-white'}>
-                        Answer all questions as truthfully as possible so that we can help you better.  You don't have to be a professional. All cartoonists start out doodling in their back pages. If you think you can do it, we are sure you can.
+                        {`Answer all questions as truthfully as possible so that we can help you better.  You don't have to be a professional. All cartoonists start out doodling in their back pages. If you think you can do it, we are sure you can.`}
                         </div>
                     </div>
                 </div>
