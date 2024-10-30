@@ -24,13 +24,13 @@ const ArticleSection: React.FC<ArticleSectionProps> = ({
   showAllLink,
 }) => {
   return (
-    <div className="article-section  scroll-smooth">
+    <div className="article-section  scroll-smooth flex flex-col gap-4">
       <motion.div
         variants={fadeIn("right", 0.05)}
         initial="hidden"
         whileInView={"show"}
         viewport={{ once: true, amount: 0.1 }}
-        className="flex justify-between items-center mb-4 section-header  rounded-xl scroll-smooth"
+        className="flex justify-between items-center section-header  rounded-xl scroll-smooth mx-2"
       >
         <h2
           className={

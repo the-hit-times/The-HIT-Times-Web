@@ -11,7 +11,7 @@ export default function RootLayout({
     <div>
       <ToastContainer theme="dark" />
       <Suspense fallback={<p>Loading...</p>}>
-        <div>{children}</div>
+        <div className="sm:my-8">{children}</div>
       </Suspense>
     </div>
   );
