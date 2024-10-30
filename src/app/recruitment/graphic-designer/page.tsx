@@ -10,6 +10,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { sendSubmissionEmail } from "@/lib/sendEmail";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -122,6 +123,7 @@ export default function GdForm() {
         toast.error(responseData.msg || "Something went wrong");
         throw new Error(`HTTP error! status: ${response.status}`);
       } else {
+        sendSubmissionEmail(formData.email, formData.name);
         toast.success("Submitted successfully");
       }
 

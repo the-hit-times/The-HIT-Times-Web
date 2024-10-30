@@ -2,6 +2,7 @@
 import CommonFields from "@/components/formcomponents/CommonFields";
 import FileUploader from "@/components/formcomponents/FileUploader";
 import FormInput from "@/components/formcomponents/FormInput";
+import { sendSubmissionEmail } from "@/lib/sendEmail";
 import uploadFile from "@/lib/uploadFile";
 import { IBM_Plex_Serif, Nunito_Sans, Poppins } from "next/font/google";
 import Image from "next/image";
@@ -122,6 +123,7 @@ export default function DevForm() {
         toast.error(data.msg || "Something went wrong");
         throw new Error(`HTTP error! status: ${response.status}`);
       } else {
+        sendSubmissionEmail(formData.email, formData.name);
         toast.success("Submitted successfully");
       }
 

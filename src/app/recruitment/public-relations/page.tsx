@@ -1,6 +1,7 @@
 "use client";
 import CommonFields from "@/components/formcomponents/CommonFields";
 import FormInput from "@/components/formcomponents/FormInput";
+import { sendSubmissionEmail } from "@/lib/sendEmail";
 import { IBM_Plex_Serif, Nunito_Sans, Poppins } from "next/font/google";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -87,6 +88,7 @@ export default function DevForm() {
         toast.error(data.msg || "Something went wrong");
         throw new Error(`HTTP error! status: ${response.status}`);
       } else {
+        sendSubmissionEmail(formData.email, formData.name);
         toast.success("Submitted successfully");
       }
 

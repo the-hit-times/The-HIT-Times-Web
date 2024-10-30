@@ -2,6 +2,7 @@
 
 "use client";
 import CommonFields from "@/components/formcomponents/CommonFields";
+import { sendSubmissionEmail } from "@/lib/sendEmail";
 import { IBM_Plex_Serif, Nunito_Sans, Poppins } from "next/font/google";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -117,6 +118,7 @@ export default function VeForm() {
         toast.error(responseData.msg || "Something went wrong");
         throw new Error(`HTTP error! status: ${response.status}`);
       } else {
+        sendSubmissionEmail(formData.email, formData.name);
         toast.success("Submitted successfully");
       }
 
