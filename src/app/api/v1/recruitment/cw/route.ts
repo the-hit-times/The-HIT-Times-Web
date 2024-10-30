@@ -30,7 +30,7 @@ export async function POST(request: NextRequest){
             return NextResponse.json(
                 {
                     success: false,
-                    msg: "A form with this email already exists. If You want to change any input of your form you can mail to thehittimes@gmail.com [Form Label : Your new input ][old Input : Your Old Input]",
+                    msg: "A form with this email already exists. "
                 },
                 { status: 400 }
             );

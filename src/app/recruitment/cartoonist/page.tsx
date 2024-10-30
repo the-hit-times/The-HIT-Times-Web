@@ -1,132 +1,124 @@
-"use client"
-import CommonFields from '@/components/formcomponents/CommonFields';
-import FileUploader from '@/components/formcomponents/FileUploader';
-import FormInput from '@/components/formcomponents/FormInput';
-import  uploadFile from '@/lib/uploadFile';
-import { IBM_Plex_Serif, Nunito_Sans, Poppins } from 'next/font/google';
-import Image from 'next/image';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
+"use client";
+import CommonFields from "@/components/formcomponents/CommonFields";
+import FileUploader from "@/components/formcomponents/FileUploader";
+import FormInput from "@/components/formcomponents/FormInput";
+import uploadFile from "@/lib/uploadFile";
+import { IBM_Plex_Serif, Nunito_Sans, Poppins } from "next/font/google";
+import Image from "next/image";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const poppins = Poppins({
-    subsets: ["latin"],
-    weight: ["100", "200", "300", "400", "500", "600", "700"],
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
 });
 const ibmPlexSerif = IBM_Plex_Serif({
-    subsets: ["latin"],
-    weight: ["100", "200", "300", "400", "500", "600", "700"],
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
 });
 
 const nunitoSans = Nunito_Sans({
-    subsets: ["latin"],
-    weight: ["200", "300", "400", "600", "700", "800"],
+  subsets: ["latin"],
+  weight: ["200", "300", "400", "600", "700", "800"],
 });
 
-
 export default function CartoonistForm() {
+  const searchParams = useSearchParams();
 
-    const searchParams = useSearchParams()
+  type CartoonistSheetData = {
+    name: string; //1 ....from prev page
+    roll: string; //2 ....from prev page
+    position: string; //3 ....from prev page
+    other_position: string; //4 ....from prev page
+    dept: string; //5
+    year: string; //6
+    phone: string; //7
+    email: string; //8
+    hobbies: string; //9
+    qualities: string; //10
+    ragging_opinion: string; //11
+    why_join_THT: string; //12 ....end of common fields
 
-    console.log("got", searchParams.get('name') ," ",searchParams.get('roll')," ",searchParams.get('other'));
-    
+    Q1_cartoon: string; //
+    Q2_cartoon: string; //
+    Q3_cartoon: string; //
+    Q4_cartoon: string; //
+    Q5_cartoon: string; //
+    Q6_cartoon: any; //  ppt/pdf/link
+    Q7_cartoon: any; //  ppt/pdf/link
+    Q8_cartoon: any; //  ppt/pdf/link
+    Q9_cartoon: any; //  ppt/pdf/link
+    Q10_cartoon: any; //  ppt/pdf/link
+  };
 
-    type CartoonistSheetData = {
-        name: string              //1 ....from prev page
-        roll: string              //2 ....from prev page
-        position: string          //3 ....from prev page
-        other_position: string    //4 ....from prev page
-        dept: string              //5
-        year: string              //6
-        phone: string             //7
-        email: string             //8
-        hobbies: string           //9
-        qualities: string         //10
-        ragging_opinion: string   //11
-        why_join_THT: string      //12 ....end of common fields
+  const router = useRouter();
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-        Q1_cartoon: string              // 
-        Q2_cartoon: string           // 
-        Q3_cartoon: string              // 
-        Q4_cartoon: string           // 
-        Q5_cartoon: string           //
-        Q6_cartoon: any           //  ppt/pdf/link
-        Q7_cartoon: any           //  ppt/pdf/link
-        Q8_cartoon: any           //  ppt/pdf/link
-        Q9_cartoon: any           //  ppt/pdf/link
-        Q10_cartoon: any          //  ppt/pdf/link
+  const form = useForm<CartoonistSheetData>();
+  const { register, handleSubmit } = form;
 
+  const onSubmit = async (formData: CartoonistSheetData) => {
+    setIsSubmitted(true);
+
+    formData.name = searchParams.get("name")!;
+    formData.roll = searchParams.get("roll")!;
+    formData.position = "Cartoonist";
+    formData.other_position = searchParams.get("other")!;
+
+    formData.Q6_cartoon = await uploadFile(formData.Q6_cartoon); //generate link
+    formData.Q7_cartoon = await uploadFile(formData.Q7_cartoon); //generate link
+    formData.Q8_cartoon = await uploadFile(formData.Q8_cartoon); //generate link
+    formData.Q9_cartoon = await uploadFile(formData.Q9_cartoon); //generate link
+    formData.Q10_cartoon = await uploadFile(formData.Q10_cartoon); //generate link
+    const isUploaded = await postSheet(formData);
+
+    if (isUploaded) {
+      router.push(`./success/${formData.position}`);
+      console.log("form submitted", formData);
     }
+    setIsSubmitted(false);
+  };
 
+  const postSheet = async (formData: CartoonistSheetData): Promise<boolean> => {
+    const url = "/api/v1/recruitment/cartoonist";
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    const router = useRouter()
-    const [isSubmitted, setIsSubmitted] = useState(false)
+      const data: any = await response.json();
 
-    const form = useForm<CartoonistSheetData>();
-    const { register, handleSubmit } = form;
+      if (response.status != 201) {
+        toast.error(data.msg || "Something went wrong");
+        throw new Error(`HTTP error! status: ${response.status}`);
+      } else {
+        toast.success("Submitted successfully");
+      }
 
-
-    const onSubmit = async (formData: CartoonistSheetData) => {
-        setIsSubmitted(true)
-
-        formData.name = searchParams.get('name')!
-        formData.roll = searchParams.get('roll')!
-        formData.position = "Cartoonist"
-        formData.other_position = searchParams.get('other')!
-
-
-        formData.Q6_cartoon = await uploadFile(formData.Q6_cartoon) //generate link
-        formData.Q7_cartoon = await uploadFile(formData.Q7_cartoon) //generate link
-        formData.Q8_cartoon = await uploadFile(formData.Q8_cartoon) //generate link
-        formData.Q9_cartoon = await uploadFile(formData.Q9_cartoon) //generate link
-        formData.Q10_cartoon = await uploadFile(formData.Q10_cartoon) //generate link
-        const isUploaded = await postSheet(formData)
-        
-        // router.push(`./roles/${formData.position}`)
-        console.log("form submitted", formData)
-        setIsSubmitted(false)
+      console.log(data);
+      return true;
+    } catch (error) {
+      setIsSubmitted(false);
+      toast.error("Try submitting again");
+      return false;
     }
+  };
 
-    const postSheet = async (formData: CartoonistSheetData): Promise<boolean> => {
-        const url = '/api/v1/recruitment/cartoonist';
-        try {
-          const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-          });
-    
-          if (response.status != 201) {
-            toast.error("Something went wrong");
-            throw new Error(`HTTP error! status: ${response.status}`);
-          } else {
-            toast.success("Submitted successfully")
-          }
-    
-          const data: any = await response.json();
-          console.log(data);
-          return true;
-        } catch (error) {
-          setIsSubmitted(false)
-          toast.error("Try submitting again");
-          return false;
-        }
-      };
-
-
-    function refreshPage(): void {
-        router.push("/recruitment");
-        toast.success("Kindly Fill Again")
-    }   
+  function refreshPage(): void {
+    router.push("/recruitment");
+    toast.success("Kindly Fill Again");
+  }
 
     return (
         <div className="min-h-screen bg-[url('/tht-background.jpg')]  md:rounded-2xl">
-            <div className="max-w-3xl mx-auto">
+            <div className="max-w-4xl px-3 mx-auto">
             <div className="relative mb-2 lg:mb-3 rounded-b-lg overflow-hidden">
                     <Image
                         src="https://res.cloudinary.com/dvw5qhccb/image/upload/v1730133636/rec-header.png_reznpj.jpg"
@@ -176,7 +168,7 @@ export default function CartoonistForm() {
 
                     <FormInput title='What are your favourite cartoon/anime series or comic strips?' id='Q1_cartoon' isRequired={true} register={register}/>
                     
-                    <FormInput title='What is your opinion on the Graph Theory portion of The HIT Times?' id='Q2_cartoon' isRequired={false} register={register}/>
+                    <FormInput title='What is your opinion on the Graph Theory portion of Our Tabloid?' id='Q2_cartoon' isRequired={false} register={register}/>
 
                     <FormInput title='How would you suggest we introduce more caricatures or cartoons in the paper going forward?' id='Q3_cartoon' isRequired={false} register={register}/>
                     

@@ -1,143 +1,136 @@
-"use client"
-import CommonFields from '@/components/formcomponents/CommonFields';
-import FileUploader from '@/components/formcomponents/FileUploader';
-import FormInput from '@/components/formcomponents/FormInput';
-import  uploadFile from '@/lib/uploadFile';
-import { IBM_Plex_Serif, Nunito_Sans, Poppins } from 'next/font/google';
-import Image from 'next/image';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
+"use client";
+import CommonFields from "@/components/formcomponents/CommonFields";
+import FileUploader from "@/components/formcomponents/FileUploader";
+import FormInput from "@/components/formcomponents/FormInput";
+import uploadFile from "@/lib/uploadFile";
+import { IBM_Plex_Serif, Nunito_Sans, Poppins } from "next/font/google";
+import Image from "next/image";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const poppins = Poppins({
-    subsets: ["latin"],
-    weight: ["100", "200", "300", "400", "500", "600", "700"],
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
 });
 const ibmPlexSerif = IBM_Plex_Serif({
-    subsets: ["latin"],
-    weight: ["100", "200", "300", "400", "500", "600", "700"],
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
 });
 
 const nunitoSans = Nunito_Sans({
-    subsets: ["latin"],
-    weight: ["200", "300", "400", "600", "700", "800"],
+  subsets: ["latin"],
+  weight: ["200", "300", "400", "600", "700", "800"],
 });
 
-
-
 export default function CwForm() {
-    const searchParams = useSearchParams()
+  const searchParams = useSearchParams();
 
-    console.log("got", searchParams.get('name') ," ",searchParams.get('roll')," ",searchParams.get('other'));
-    
+  console.log(
+    "got",
+    searchParams.get("name"),
+    " ",
+    searchParams.get("roll"),
+    " ",
+    searchParams.get("other")
+  );
 
-    type CwSheetData = {
-        name: string              //1 ....from prev page
-        roll: string              //2 ....from prev page
-        position: string          //3 ....from prev page
-        other_position: string    //4 ....from prev page
-        dept: string              //5
-        year: string              //6
-        phone: string             //7
-        email: string             //8
-        hobbies: string           //9
-        qualities: string         //10
-        ragging_opinion: string   //11
-        why_join_THT: string      //12 ....end of common fields
+  type CwSheetData = {
+    name: string; //1 ....from prev page
+    roll: string; //2 ....from prev page
+    position: string; //3 ....from prev page
+    other_position: string; //4 ....from prev page
+    dept: string; //5
+    year: string; //6
+    phone: string; //7
+    email: string; //8
+    hobbies: string; //9
+    qualities: string; //10
+    ragging_opinion: string; //11
+    why_join_THT: string; //12 ....end of common fields
 
-        Q1_cw: string               // programming languages
-        Q2_cw: string           // other programming languages
-        Q3_cw: any              // 
-        Q4_cw: string           // other 
-        Q5_cw: string           //
-        Q6_cw: string           //
-        Q7_cw: string           //
-        Q8_cw: string           //
-        Q9_cw: string           //
-        Q10_cw: string          //
-        Q11_cw: string          //
-        Q12_cw: any             // ppt/pdf/link
+    Q1_cw: string; // programming languages
+    Q2_cw: string; // other programming languages
+    Q3_cw: any; //
+    Q4_cw: string; // other
+    Q5_cw: string; //
+    Q6_cw: string; //
+    Q7_cw: string; //
+    Q8_cw: string; //
+    Q9_cw: string; //
+    Q10_cw: string; //
+    Q11_cw: string; //
+    Q12_cw: any; // ppt/pdf/link
+  };
+
+  const router = useRouter();
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const form = useForm<CwSheetData>();
+  const { register, handleSubmit } = form;
+
+  const onSubmit = async (formData: CwSheetData) => {
+    setIsSubmitted(true);
+
+    formData.name = searchParams.get("name")!;
+    formData.roll = searchParams.get("roll")!;
+    formData.position = "content-writer";
+    formData.other_position = searchParams.get("other")!;
+
+    formData.Q3_cw = await uploadFile(formData.Q3_cw); //generate link
+
+    formData.Q12_cw = await uploadFile(formData.Q12_cw); //generate link
+
+    const isUploaded = await postSheet(formData);
+
+    if (isUploaded) {
+      router.push(`./success/${formData.position}`);
+      console.log("form submitted", formData);
     }
+    setIsSubmitted(false);
+  };
 
-    const router = useRouter()
-    const [isSubmitted, setIsSubmitted] = useState(false)
+  const postSheet = async (formData: CwSheetData): Promise<boolean> => {
+    const url = "/api/v1/recruitment/cw";
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    const form = useForm<CwSheetData>();
-    const { register, handleSubmit } = form;
+      const data: any = await response.json();
 
-    const onSubmit = async (formData: CwSheetData) => {
-        setIsSubmitted(true)
+      if (response.status != 201) {
+        toast.error(data.msg || "Something went wrong");
+        throw new Error(`HTTP error! status: ${response.status}`);
+      } else {
+        toast.success("Submitted successfully");
+      }
 
-        formData.name = searchParams.get('name')!
-        formData.roll = searchParams.get('roll')!
-        formData.position = "content-writer"
-        formData.other_position = searchParams.get('other')!
-
-        //array to string 
-        let all="|";
-        // if(formData.Q1_tech){
-        //     (formData.Q1_tech).forEach((str: string)=> all+=str+'|')
-        // }
-        // formData.Q1_tech = all;
-
-        // all="|";
-        // if(formData.Q3_tech){
-        //     (formData.Q3_tech).forEach((str: string)=> all+=str+'|')
-        // }
-        // formData.Q3_tech = all;
-
-        formData.Q3_cw = await uploadFile(formData.Q3_cw) //generate link
-        // const isUploaded = await postSheet(formData)
-
-        formData.Q12_cw = await uploadFile(formData.Q12_cw) //generate link
-        const isUploaded = await postSheet(formData)
-        
-        // router.push(`./roles/${formData.position}`)
-        console.log("form submitted", formData)
-        setIsSubmitted(false)
+      console.log(data);
+      return true;
+    } catch (error) {
+      setIsSubmitted(false);
+      toast.error("Try submitting again");
+      return false;
     }
+  };
 
-    const postSheet = async (formData: CwSheetData): Promise<boolean> => {
-        const url = '/api/v1/recruitment/cw';
-        try {
-          const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-          });
-    
-          if (response.status != 201) {
-            toast.error("Something went wrong");
-            throw new Error(`HTTP error! status: ${response.status}`);
-          } else {
-            toast.success("Submitted successfully")
-          }
-    
-          const data: any = await response.json();
-          console.log(data);
-          return true;
-        } catch (error) {
-          setIsSubmitted(false)
-          toast.error("Try submitting again");
-          return false;
-        }
-      };
+  function refreshPage(): void {
+    router.push("/recruitment");
+    toast.success("Kindly Fill Again");
+  }
 
-
-    function refreshPage(): void {
-        router.push("/recruitment");
-        toast.success("Kindly Fill Again")
-    }
 
     return (
         
         <div className="min-h-screen bg-[url('/tht-background.jpg')]  md:rounded-2xl">
-            <div className="max-w-4xl mx-auto">
+            <div className="max-w-4xl px-3 mx-auto">
                 <div className="relative mb-2 lg:mb-3 rounded-b-lg overflow-hidden">
                     <Image
                         src="https://res.cloudinary.com/dvw5qhccb/image/upload/v1730133636/rec-header.png_reznpj.jpg"
@@ -271,6 +264,129 @@ export default function CwForm() {
                             </p>
                             </div>
                         </div>
+                        <div className="bg-white bg-opacity-15 shadow-md rounded-lg pt-3 mb-4">
+                         {/* <div className='bg-blue-400 w-0.5 lg:w-1 rounded-l-3xl'></div> */}
+                          <div className="px-6 lg:px-8 flex flex-col">
+                            <label
+                              htmlFor="name"
+                              className={poppins.className + " text-white text-md mb-2"}
+                            >
+                              Write any one essay from each of the following sections
+                            </label>
+                            <div
+                              className={poppins.className + " text-white text-sm mb-4"}
+                            >
+                              One from the informal(creative and out of the box) and the other
+                              from the formal(facts and formally structured) section. Two
+                              essays in total should be attempted.
+                            </div>
+                            <div
+                              className={poppins.className + " text-white text-sm mb-4"}
+                            >
+                              <p className="font-semibold">1. Informal:</p>
+                              <p>
+                                {
+                                  "a. The Evolution of Space Exploration: From Apollo to Mars Missions"
+                                }
+                              </p>
+                              <p>
+                                {
+                                  "b. Blockchain Technology Beyond Cryptocurrencies: Applications in Various Industries."
+                                }
+                              </p>
+                              <p>{"c. The biggest regret in your life. "}</p>
+                              <p>{"d. A story beginning with the sentences:"}</p>
+                              <p>
+                                {
+                                  '"The map found in an ancient attic didn\'t lead to treasure, but rather to a parallel universe...."'
+                                }
+                              </p>
+                            </div>
+                            <div
+                              className={poppins.className + " text-white text-sm mb-4"}
+                            >
+                              <p className="font-semibold"> 2. Formal:</p>
+                              <p>
+                                {
+                                  "a. Write a review on any recent Sport event that you have watched."
+                                }
+                              </p>
+                              <p>
+                                {
+                                  "b. The healthcare sector requires the foremost attention given the resurge in COVID-19 cases."
+                                }
+                              </p>
+                              <p>
+                                {"c. Write a review of any recent technological development."}
+                              </p>
+                              <p>
+                                {
+                                  "d. What do you regard as a more important thing: People's privacy or national security?"
+                                }
+                              </p>
+                              <p>
+                                {
+                                  "e. Write a summary of any recent event that has led to changes in the global economy."
+                                }
+                              </p>
+                            </div>
+                            <div
+                              className={poppins.className + " text-white text-sm mb-4"}
+                            >
+                              <p className="font-medium">Your essays should:</p>
+                              <p>{"• Not exceed 250 words."} </p>
+                              <p>
+                                {
+                                  "• Not contain any form of lewd, vulgar or abusive remark. It would immediately lead to disqualification."
+                                }
+                              </p>
+                              <p>
+                                {
+                                  "• Not be a product of plagiarism. They will be subjected to several filters and markers to ensure it."
+                                }
+                              </p>
+                              <p>
+                                {"• Not refer to political issues or sensitive subjects."}
+                              </p>
+                            </div>
+                            <div
+                              className={
+                                poppins.className +
+                                " text-slate-300 text-sm font-semibold mb-4"
+                              }
+                            >
+                              {
+                                "Attach the assignments below in pdf or doc format (hand written or typed)"
+                              }
+                            </div>
+                            <div className="flex justify-center items-center flex-col">
+                              <div className="mb-4 mx-auto">
+                                <label
+                                  className="block mb-2 text-sm font-medium text-white"
+                                  htmlFor="file_input"
+                                >
+                                  Upload file
+                                </label>
+                                <input
+                                  {...register("Q3_cw")}
+                                  className="block w-full text-sm text-white border bg-transparent border-gray-300 rounded-lg cursor-pointer focus:outline-none" /* dark:text-gray-400  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400*/
+                                  aria-describedby="file_input_help"
+                                  id="file_input"
+                                  type="file"
+                                />
+                                <p
+                                  className="mt-1 text-sm text-slate-300 "
+                                  id="file_input_help"
+                                >
+                                  Upload 1 supported file. Max 5 MB.
+                                </p>
+                                <div />
+                                <div />
+                              </div>
+                            </div>
+                          </div>
+                        </div>  
+                    
                         
 
                     
@@ -305,7 +421,7 @@ export default function CwForm() {
                     <FormInput title='If you were a THT member, what new content would you suggest we publish?' id='Q11_cw' isRequired={true} register={register}/>
                     
                     <div  className='bg-white bg-opacity-15 shadow-lg rounded-xl p-3 mb-5 '>
-                        <FileUploader title='Upload your Resume(optional)' id='Q3_cw' register={register}/>
+                        {/*<FileUploader title='Upload your Resume(optional)' id='Q3_cw' register={register}/>*/}
                         <p className={poppins.className + " text-slate-300 text-md mb-2 font-bold px-7 pt-5"}>If you want to share any of your original works, feel free to upload it here.</p>
                         <p  className={poppins.className + " text-slate-300 text-sm  px-7"}>Please make sure that the works you upload are your original. Also make sure that the files you upload are less than 5 MB in size.</p>
                         <FileUploader id='Q12_cw' register={register}/>

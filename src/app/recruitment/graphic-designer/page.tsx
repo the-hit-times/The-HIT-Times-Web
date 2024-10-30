@@ -139,45 +139,46 @@ export default function GdForm() {
 
         setValue("Q5_gd", updatedValues, { shouldValidate: true });
     };
-
     return (
-        <div className="min-h-screen bg-gray-200">
-            <div className="max-w-3xl mx-auto">
-                <div className="relative mb-2 lg:mb-3 rounded-b-lg overflow-hidden">
+        <div className="min-h-screen bg-[url('/tht-background.jpg')]  md:rounded-2xl">
+            <div className="max-w-4xl px-3 mx-auto">
+            <div className="relative mb-2 lg:mb-3 rounded-b-lg overflow-hidden">
                     <Image
                         src="https://res.cloudinary.com/dvw5qhccb/image/upload/v1730133636/rec-header.png_reznpj.jpg"
                         alt="Recruitment Form 2K25"
                         width={1500}
                         height={100}
+                        className='border  border-white mt-2 rounded-lg'
                     />
                 </div>
-                <div className="h-2 lg:h-3 w-full bg-purple-950"></div>
-                <div className="flex flex-row bg-white shadow-md rounded-b-sm">
+                <div className='h-2 lg:h-3 w-full bg-purple-700 rounded-xl'></div>
+                <div className='flex flex-row bg-transparent shadow-md rounded-b-sm'>
+                    {/* <div className='bg-blue-400 w-5 rounded-bl-3xl'></div> */}
                     <div className="pt-3 px-4 sm:px-6 lg:px-8">
                         <header>
-                            <div className={poppins.className + ' text-3xl lg:text-4xl font-medium text-black'}>
+                            <div className={poppins.className + ' text-3xl lg:text-4xl font-medium text-white'}>
                                 Recruitment Form 2K25
                             </div>
                         </header>
-                        <div className="h-0.5 lg:h-1 mt-2 bg-purple-800"></div>
+                        <div className='h-0.5 lg:h-1 mt-2 bg-purple-800 '></div>
                         <div>
-                            <p className="py-4 text-xs sm:text-sm">
+                            <p className="py-4 text-xs sm:text-sm text-white">
                                 Carefully read each and every description under the sections and take your time to tell us about yourself, it will help us know you better. Some sections have a lot of questions and not all of them are marked as required but we will be giving preference to the people who show the tenacity to answer all questions. Use of proper grammar and form is expected (Spelling mistakes will be pardoned but not SMS lingo). If your replies are abusive or do not meet minimum standards of acceptability, your entry is liable to be disqualified.
                             </p>
-                            <hr />
-                            <p className="pt-2 pb-3 text-sm font-semibold sm:text-sm text-red-600">* Indicates required question</p>
+                            <hr/>
+                            <p className='pt-2 pb-3 text-sm font-semibold sm:text-sm text-red-600'>* Indicates required question</p>
                         </div>
                     </div>
                 </div>
 
-                <div className="bg-white shadow-md rounded-lg mt-4">
+                <div className="bg-white bg-opacity-15 shadow-md rounded-lg mt-4">
                     <div className="bg-purple-800 rounded-t-lg py-3 px-8">
                         <p className={poppins.className + ' text-lg font-normal text-white'}>
                             Graphic Designer Section
                         </p>
                     </div>
                     <div className="py-5 px-6 sm:px-6 lg:px-8 flex flex-col">
-                        <p className={poppins.className + ' text-sm'}>
+                        <p className={poppins.className + ' text-sm text-white'}>
                             {"Answer all questions as truthfully as possible so that we can help you better. A graphic designer's ability to adapt to the needs of a project depends very much on their awareness of the world around them and their ability to understand what will work and if it won't, why it will not. We want to figure out what level you are at."}
                         </p>
                     </div>
@@ -187,16 +188,16 @@ export default function GdForm() {
                     <CommonFields register={register} />
 
                     {/* Q5: Editing Software */}
-                    <div className="flex flex-row bg-white shadow-md rounded-lg mb-4">
+                    <div className="flex flex-row bg-white bg-opacity-15 shadow-md rounded-lg mb-4">
                         <div className="py-5 px-6 lg:px-8 flex flex-col">
-                            <span className={poppins.className + " text-gray-900 text-md mb-4"}>
+                            <span className={poppins.className + " text-white text-md mb-4"}>
                                 What editing software are you familiar with?
                                 <span className="text-md text-red-600 pl-1">*</span>
                             </span>
                             {["Adobe Photoshop", "Adobe Illustrator", "Adobe InDesign", "Figma", "Canva", "Other"].map((software, index) => (
-                                <label key={index} htmlFor={`Q5_gd_${index}`} className="flex items-center mb-3 text-sm">
+                                <label key={index} htmlFor={`Q5_gd_${index}`} className="flex items-center mb-3 text-sm text-slate-300">
                                     <input
-                                        className="form-checkbox h-4 w-4 text-purple-600"
+                                        className="form-checkbox h-4 w-4 text-purple-600 bg-transparent"
                                         value={software}
                                         type="checkbox"
                                         id={`Q5_gd_${index}`}
@@ -206,11 +207,11 @@ export default function GdForm() {
                                     <span className="ml-2">{software}</span>
                                 </label>
                             ))}
-                            <label htmlFor="Q6_gd" className="text-gray-700 text-sm mb-1">
+                            <label htmlFor="Q6_gd" className="text-slate-300 text-sm mb-1">
                                 Other: (Please specify)
                             </label>
                             <input
-                                className="border-b border-gray-300 focus:outline-none focus:border-purple-600 focus:border-b-2 py-1 focus:placeholder-purple-400"
+                                className="border-b border-gray-300 bg-transparent text-white focus:outline-none focus:border-purple-600 focus:border-b-2 py-1 focus:placeholder-purple-400"
                                 placeholder="Your Answer"
                                 type="text"
                                 id="Q6_gd"
@@ -221,13 +222,13 @@ export default function GdForm() {
                     </div>
 
                     {/* Q7: Rating Graphics Designing Skills */}
-                    <div className="flex flex-row bg-white shadow-md rounded-lg mb-4">
+                    <div className="flex flex-row bg-white bg-opacity-15 shadow-md rounded-lg mb-4">
                         <div className="py-5 px-6 lg:px-8 flex flex-col">
-                            <span className={poppins.className + " text-gray-900 text-md mb-1"}>
+                            <span className={poppins.className + " text-white text-md mb-1"}>
                                 How do you rate your graphics designing skills?
                                 <span className="text-md text-red-600 pl-1">*</span>
                             </span>
-                            <div className="flex flex-col gap-2 my-3 text-sm">
+                            <div className="flex flex-col gap-2 my-3 text-sm text-slate-300">
                                 {Array.from({ length: 10 }, (_, i) => (
                                     <label key={i} htmlFor={`Q7_gd_${i + 1}`} className="flex items-center mr-2">
                                         <input
@@ -246,13 +247,13 @@ export default function GdForm() {
                     </div>
 
                     {/* Q8: Comfort with Learning New Design Software */}
-                    <div className="flex flex-row bg-white shadow-md rounded-lg mb-4">
+                    <div className="flex flex-row bg-white bg-opacity-15 shadow-md rounded-lg mb-4">
                         <div className="py-5 px-6 lg:px-8 flex flex-col">
-                            <span className={poppins.className + " text-gray-900 text-md mb-1"}>
+                            <span className={poppins.className + " text-white text-md mb-1"}>
                                 On a scale of 1-10, how comfortable are you with learning to use a new design software?
                                 <span className="text-md text-red-600 pl-1">*</span>
                             </span>
-                            <div className="flex flex-col gap-2 my-3 text-sm">
+                            <div className="flex flex-col gap-2 my-3 text-sm text-slate-300">
                                 {Array.from({ length: 10 }, (_, i) => (
                                     <label key={i} htmlFor={`Q8_gd_${i + 1}`} className="flex items-center mr-2">
                                         <input
@@ -271,14 +272,14 @@ export default function GdForm() {
                     </div>
 
                     {/* Q9: Create Designs from Scratch or Use Online Resources */}
-                    <div className="flex flex-row bg-white shadow-md rounded-lg mb-4">
+                    <div className="flex flex-row bg-white bg-opacity-15 shadow-md rounded-lg mb-4">
                         <div className="py-5 px-6 lg:px-8 flex flex-col">
-                            <label htmlFor="Q9_gd" className={poppins.className + " text-gray-900 text-md mb-4"}>
+                            <label htmlFor="Q9_gd" className={poppins.className + " text-white text-md mb-4"}>
                                 Do you create designs from scratch or do you use online resources, and if so, from which website?
                                 <span className="text-md text-red-600 pl-1">*</span>
                             </label>
                             <input
-                                className="border-b border-gray-300 focus:outline-none focus:border-purple-600 focus:border-b-2 py-1 focus:placeholder-purple-400"
+                                className="border-b border-gray-300 text-white bg-transparent focus:outline-none focus:border-purple-600 focus:border-b-2 py-1 focus:placeholder-purple-400"
                                 placeholder="Your Answer"
                                 type="text"
                                 id="Q9_gd"
@@ -289,17 +290,17 @@ export default function GdForm() {
                     </div>
 
                     {/* Q10: Best Designed Brand Logos, Websites, Apps etc */}
-                    <div className="flex flex-row bg-white shadow-md rounded-lg mb-4">
+                    <div className="flex flex-row bg-white bg-opacity-15 shadow-md rounded-lg mb-4">
                         <div className="py-5 px-6 lg:px-8 flex flex-col">
-                            <label htmlFor="Q10_gd" className={poppins.className + " text-gray-900 text-md mb-4"}>
+                            <label htmlFor="Q10_gd" className={poppins.className + " text-white text-md mb-4"}>
                                 In your opinion, what are some of the best designed brand logos, websites, apps etc and why?
                                 <span className="text-md text-red-600 pl-1">*</span>
                             </label>
-                            <p className={poppins.className + " text-gray-900 text-sm mb-4"}>
+                            <p className={poppins.className + " text-slate-300 text-sm mb-4"}>
                                 We want to gauge your insight and your ability to understand trends in the world, and this question will help us do it.
                             </p>
                             <input
-                                className="border-b border-gray-300 focus:outline-none focus:border-purple-600 focus:border-b-2 py-1 focus:placeholder-purple-400"
+                                className="border-b border-gray-300 text-white bg-transparent focus:outline-none focus:border-purple-600 focus:border-b-2 py-1 focus:placeholder-purple-400"
                                 placeholder="Your Answer"
                                 type="text"
                                 id="Q10_gd"
@@ -310,17 +311,17 @@ export default function GdForm() {
                     </div>
 
                     {/* Q11: Feedback on The HIT Times Design and Formatting */}
-                    <div className="flex flex-row bg-white shadow-md rounded-lg mb-4">
+                    <div className="flex flex-row bg-white bg-opacity-15 shadow-md rounded-lg mb-4">
                         <div className="py-5 px-6 lg:px-8 flex flex-col">
-                            <label htmlFor="Q11_gd" className={poppins.className + " text-gray-900 text-md mb-4"}>
+                            <label htmlFor="Q11_gd" className={poppins.className + " text-white text-md mb-4"}>
                                 What do you have to say about the design and formatting of The HIT Times and the media posted on the page?
-                                <span className="text-md text-red-600 pl-1">*</span>
+                                {/*<span className="text-md text-red-600 pl-1">*</span>*/}
                             </label>
-                            <p className={poppins.className + " text-gray-900 text-sm mb-4"}>
+                            <p className={poppins.className + " text-slate-300 text-sm mb-4"}>
                                 Be absolutely honest, we pride ourselves on accepting and improving with feedback. If you tell us something that you can make better, that will be a bonus point to you.
                             </p>
                             <input
-                                className="border-b border-gray-300 focus:outline-none focus:border-purple-600 focus:border-b-2 py-1 focus:placeholder-purple-400"
+                                className="border-b border-gray-300 text-white bg-transparent focus:outline-none focus:border-purple-600 focus:border-b-2 py-1 focus:placeholder-purple-400"
                                 placeholder="Your Answer (optional)"
                                 type="text"
                                 id="Q11_gd"
@@ -330,14 +331,14 @@ export default function GdForm() {
                     </div>
 
                     {/* Q12: Motivation to be a Graphic Designer */}
-                    <div className="flex flex-row bg-white shadow-md rounded-lg mb-4">
+                    <div className="flex flex-row bg-white bg-opacity-15 shadow-md rounded-lg mb-4">
                         <div className="py-5 px-6 lg:px-8 flex flex-col">
-                            <label htmlFor="Q12_gd" className={poppins.className + " text-gray-900 text-md mb-4"}>
+                            <label htmlFor="Q12_gd" className={poppins.className + " text-white text-md mb-4"}>
                                 Tell us what motivated you to be a graphic designer
                                 <span className="text-md text-red-600 pl-1">*</span>
                             </label>
                             <input
-                                className="border-b border-gray-300 focus:outline-none focus:border-purple-600 focus:border-b-2 py-1 focus:placeholder-purple-400"
+                                className="border-b border-gray-300 text-white bg-transparent focus:outline-none focus:border-purple-600 focus:border-b-2 py-1 focus:placeholder-purple-400"
                                 placeholder="Your Answer"
                                 type="text"
                                 id="Q12_gd"
@@ -348,8 +349,9 @@ export default function GdForm() {
                     </div>
 
                     {/* Q13: Upload Original Works */}
-                    <FileUploader title='If you want to share any of your original works, feel free to upload it here.' id='Q13_gd' register={register} />
-
+                    <div className='bg-white bg-opacity-15 shadow-md rounded-lg mb-5 p-3'>
+                        <FileUploader title='If you want to share any of your original works, feel free to upload it here.' id='Q13_gd' register={register} />
+                    </div>
                     {/* Submit and Loading State */}
                     {
                         isSubmitted ?
@@ -364,16 +366,28 @@ export default function GdForm() {
                                 </div>
                             </div>
                             :
-                            <div className="flex flex-row justify-between pb-6">
-                                <button
-                                    className="bg-purple-500 py-1 px-5 rounded-md text-white"
-                                    type="submit"
-                                    disabled={isSubmitted}
-                                >
-                                    Submit
+                            <div className='flex flex-row justify-between pb-6'>
+                                <button className=" relative bg-purple-500 py-1 px-5 rounded-md text-white overflow-hidden font-medium border-purple-500 hover:border-green-600 shadow-inner group" disabled={isSubmitted}>
+                                    <span className="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-green-400 group-hover:w-full"></span>
+                                    <span className="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-green-400 group-hover:w-full"></span>
+                                    <span className="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-green-400 group-hover:h-full"></span>
+                                    <span className="absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-green-400 group-hover:h-full"></span>
+                                    <span className="absolute inset-0 w-full h-full duration-300 delay-300 bg-green-600 opacity-0 group-hover:opacity-100"></span>
+                                    <span className="relative transition-colors duration-300 delay-200 group-hover:text-white font-semibold text-base ">
+                                        Submit
+                                    </span>
                                 </button>
-                               
-                                <div onClick={refreshPage} className={poppins.className +' text-purple-800 text-md hover:cursor-pointer'}>Clear form</div>
+                                <button onClick={refreshPage} className={poppins.className +" relative bg-transparent py-1 px-1 rounded-md text-purple-700 overflow-hidden font-medium border-purple-500 hover:border-green-600 shadow-inner group"}>
+                                    <span className="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-red-400 group-hover:w-full"></span>
+                                    <span className="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-red-400 group-hover:w-full"></span>
+                                    <span className="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-red-400 group-hover:h-full"></span>
+                                    <span className="absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-red-400 group-hover:h-full"></span>
+                                    <span className="absolute inset-0 w-full h-full duration-300 delay-300 bg-red-600 opacity-0 group-hover:opacity-100"></span>
+                                    <span className="relative transition-colors duration-300 delay-200 group-hover:text-white font-semibold text-base ">
+                                        Clear Form
+                                    </span>
+                                </button>
+                                {/*<div onClick={refreshPage} className={poppins.className +' text-purple-800 text-md hover:cursor-pointer'}>Clear form</div>*/}
                             </div>
                     }
                 </form>

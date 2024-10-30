@@ -1,4 +1,4 @@
-"use client"
+    "use client"
 import CommonFields from '@/components/formcomponents/CommonFields';
 import FileUploader from '@/components/formcomponents/FileUploader';
 import FormInput from '@/components/formcomponents/FormInput';
@@ -96,38 +96,41 @@ export default function DevForm() {
 
         const isUploaded = await postSheet(formData)
         
-        // router.push(`./roles/${formData.position}`)
-        console.log("form submitted", formData)
+        if(isUploaded) {
+            router.push(`./success/${formData.position}`)
+            console.log("form submitted", formData)
+        }
         setIsSubmitted(false)
     }
 
     const postSheet = async (formData: DevSheetData): Promise<boolean> => {
         const url = '/api/v1/recruitment/dev';
         try {
-          const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-          });
-    
-          if (response.status != 201) {
-            toast.error("Something went wrong");
-            throw new Error(`HTTP error! status: ${response.status}`);
-          } else {
-            toast.success("Submitted successfully")
-          }
-    
-          const data: any = await response.json();
-          console.log(data);
-          return true;
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+        
+            const data: any = await response.json();
+            
+            if (response.status != 201) {
+                toast.error(data.msg || "Something went wrong");
+                throw new Error(`HTTP error! status: ${response.status}`);
+            } else {
+                toast.success("Submitted successfully")
+            }
+            
+            console.log(data);
+            return true;
         } catch (error) {
-          setIsSubmitted(false)
-          toast.error("Try submitting again");
-          return false;
+            setIsSubmitted(false)
+            toast.error("Try submitting again");
+            return false;
         }
-      };
+    };
 
 
     function refreshPage(): void {
@@ -135,9 +138,10 @@ export default function DevForm() {
         toast.success("Kindly Fill Again")
     }
 
+
     return (
         <div className="min-h-screen bg-[url('/tht-background.jpg')]  md:rounded-2xl">
-            <div className="max-w-4xl mx-auto">
+            <div className="max-w-4xl px-3 mx-auto">
                 <div className="relative mb-2 lg:mb-3 rounded-b-lg overflow-hidden">
                     <Image
                         src="https://res.cloudinary.com/dvw5qhccb/image/upload/v1730133636/rec-header.png_reznpj.jpg"

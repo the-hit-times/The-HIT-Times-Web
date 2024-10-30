@@ -61,10 +61,10 @@ export default function RecCommonForm() {
         //router.refresh()
         toast.success("Kindly Fill Again")
     }
-    //if(session){
+    if(session){
     return (
         <div className="min-h-screen  bg-[url('/tht-background.jpg')] md:rounded-2xl">
-            <div className="max-w-4xl mx-auto">
+            <div className="max-w-4xl px-3 mx-auto">
                 <div className="relative mb-2 lg:mb-3 rounded-b-lg overflow-hidden ">
                     <Image
                         src="https://res.cloudinary.com/dvw5qhccb/image/upload/v1730133636/rec-header.png_reznpj.jpg"
@@ -117,11 +117,11 @@ export default function RecCommonForm() {
                                 <span className='text-md text-red-500 pl-1'>*</span>
                             </label>
                             <p className={poppins.className + " text-white text-sm "}>
-                                Select the position describing what you do best. In case you are not sure of what you can or want to do, select what interests you most. We encourage you to approach us through our Instagram page and ask what any specific position will entail. If you can apply for more than one position, fill the others in on the next question. If you don't have any skills and want to apply as a Trainee Scholar, select the last option.
+                                Select the position describing what you do best. In case you are not sure of what you can or want to do, select what interests you most. We encourage you to approach us through our Instagram page and ask what any specific position will entail. If you can apply for more than one position, fill the others in on the next question.
                             </p>
                             <div className='h-0.5 lg:h-1 mt-2 bg-purple-800 mb-4'></div>
                             <div className='flex flex-row mb-3 text-sm text-slate-300'>
-                                <input className='' value="content-writer" type='radio' id="position" {...register("position")} /><span className='w-2'></span>Content Writer/ Editor (Good english is a must)
+                                <input className='' value="content-writer" type='radio' id="position" {...register("position")} /><span className='w-2'></span>Content Writer/ Editor (Proficiency in English is a must)
                             </div>
                             <div className='flex flex-row mb-3 text-sm   text-slate-300'>
                                 <input className='' value="cartoonist" type='radio' id="position" {...register("position")} /><span className='w-2'></span>Cartoonist/Digital Artist (Classical art knowledge is required)
@@ -229,15 +229,45 @@ export default function RecCommonForm() {
             </div>
         </div>
     )
-   // }
-    /*else{
-        return(
-            <div className='flex flex-col h-screen w-full bg-slate-50 items-center justify-center'>
-                Please Kindly signIn 
-                <button className='bg-emerald-900 px-4 py-2 rounded-lg shadow-lg text-xl font-serif text-white' onClick={signIn()} >
-                    Sign In
-                </button>
+   }else{
+    return (
+        <div className=" min-h-screen bg-[url('/tht-background.jpg')]  md:rounded-2xl px-80 ">
+            <div className="relative top-10 rounded-b-lg overflow-hidden justify-center  max-w-4xl">
+                <Image
+                    src="https://res.cloudinary.com/dvw5qhccb/image/upload/v1730133636/rec-header.png_reznpj.jpg"
+                    alt="Recruitment Form 2K25"
+                    width={800}
+                    height={100}
+                    className='border  border-white rounded-lg'
+                />
             </div>
-        )
-    }*/
+        <div className={"mt-12 text-2xl text-purple-400 animate-fade-righ " + poppins.className}>
+            Welcome 
+        </div>
+        <div className="my-2">
+            <h2 className={"my-4 text-xl  text-purple-100 animate-fade-left " + poppins.className}>
+            please sign in to continue the recruitment form
+
+            </h2>
+        </div>
+        <div>
+            <p className={nunitoSans.className +" text-gray-200 my-4 text-3xl font-bold mt-12"}></p>
+            <button
+            className="relative px-2 md:px-4 py-1 overflow-hidden font-medium text-zinc-800 bg-gray-100 border border-gray-200 rounded-lg shadow-inner group"
+            onClick={() => signIn()}
+            >
+            <span className="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-gray-600 group-hover:w-full"></span>
+            <span className="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-gray-600 group-hover:w-full"></span>
+            <span className="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-gray-600 group-hover:h-full"></span>
+            <span className="absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-gray-600 group-hover:h-full"></span>
+            <span className="absolute inset-0 w-full h-full duration-300 delay-300 bg-gray-900 opacity-0 group-hover:opacity-100"></span>
+            <span className="relative transition-colors duration-300 delay-200 group-hover:text-white font-semibold text-base ">
+              Sign In
+            </span>
+          </button>
+        </div>
+        <div className="h-20 sm:h-64"></div>
+        </div>
+    );
+    }
 }

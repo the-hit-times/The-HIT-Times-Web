@@ -68,7 +68,7 @@ export default function DevForm() {
         const isUploaded = await postSheet(formData)
         
         if(isUploaded) {
-            // router.push(`./roles/${formData.position}`)
+            router.push(`./success/${formData.position}`)
             console.log("form submitted", formData)
         }
         
@@ -85,15 +85,16 @@ export default function DevForm() {
                     },
                     body: JSON.stringify(formData),
                 });
+
+                const data: any = await response.json();
             
             if (response.status != 201) {
-                toast.error("Something went wrong");
+                toast.error(data.msg || "Something went wrong");
                 throw new Error(`HTTP error! status: ${response.status}`);
             } else {
                 toast.success("Submitted successfully")
             }
     
-            const data: any = await response.json();
             console.log(data);
             return true;
         } catch (error) {
@@ -112,7 +113,7 @@ export default function DevForm() {
 
     return (
         <div className="min-h-screen bg-[url('/tht-background.jpg')]  md:rounded-2xl">
-            <div className="max-w-3xl mx-auto">
+            <div className="max-w-4xl px-3 mx-auto">
                 <div className="relative mb-2 lg:mb-3 rounded-b-lg overflow-hidden">
                     <Image
                         src="https://res.cloudinary.com/dvw5qhccb/image/upload/v1730133636/rec-header.png_reznpj.jpg"

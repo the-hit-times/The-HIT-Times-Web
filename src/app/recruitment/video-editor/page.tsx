@@ -89,6 +89,7 @@ export default function VeForm() {
         const isUploaded = await postSheet(formData);
 
         if (isUploaded) {
+            router.push(`./success/${formData.position}`)
             console.log("Form submitted", formData);
         }
         setIsSubmitted(false);
@@ -140,43 +141,44 @@ export default function VeForm() {
     // };
 
     return (
-        <div className="min-h-screen bg-gray-200">
-            <div className="max-w-3xl mx-auto">
+        <div className="min-h-screen bg-[url('/tht-background.jpg')]  md:rounded-2xl">
+            <div className="max-w-4xl px-3 mx-auto">
                 <div className="relative mb-2 lg:mb-3 rounded-b-lg overflow-hidden">
                     <Image
                         src="https://res.cloudinary.com/dvw5qhccb/image/upload/v1730133636/rec-header.png_reznpj.jpg"
                         alt="Recruitment Form 2K25"
                         width={1500}
                         height={100}
+                        className='border  border-white mt-2 rounded-lg'
                     />
                 </div>
-                <div className="h-2 lg:h-3 w-full bg-purple-950"></div>
-                <div className="flex flex-row bg-white shadow-md rounded-b-sm">
+                <div className='h-2 lg:h-3 w-full bg-purple-700 rounded-xl'></div>
+                <div className='flex flex-row bg-transparent shadow-md rounded-b-sm'>
+                    {/* <div className='bg-blue-400 w-5 rounded-bl-3xl'></div> */}
                     <div className="pt-3 px-4 sm:px-6 lg:px-8">
                         <header>
-                            <div className={poppins.className + ' text-3xl lg:text-4xl font-medium text-black'}>
+                            <div className={poppins.className + ' text-3xl lg:text-4xl font-medium text-white'}>
                                 Recruitment Form 2K25
                             </div>
                         </header>
-                        <div className="h-0.5 lg:h-1 mt-2 bg-purple-800"></div>
+                        <div className='h-0.5 lg:h-1 mt-2 bg-purple-800 '></div>
                         <div>
-                            <p className="py-4 text-xs sm:text-sm">
+                            <p className="py-4 text-xs sm:text-sm text-white">
                                 Carefully read each and every description under the sections and take your time to tell us about yourself, it will help us know you better. Some sections have a lot of questions and not all of them are marked as required but we will be giving preference to the people who show the tenacity to answer all questions. Use of proper grammar and form is expected (Spelling mistakes will be pardoned but not SMS lingo). If your replies are abusive or do not meet minimum standards of acceptability, your entry is liable to be disqualified.
                             </p>
-                            <hr />
-                            <p className="pt-2 pb-3 text-sm font-semibold sm:text-sm text-red-600">* Indicates required question</p>
+                            <hr/>
+                            <p className='pt-2 pb-3 text-sm font-semibold sm:text-sm text-red-600'>* Indicates required question</p>
                         </div>
                     </div>
                 </div>
-
-                <div className="bg-white shadow-md rounded-lg mt-4">
+                <div className="bg-white bg-opacity-15 shadow-md rounded-lg mt-4">
                     <div className="bg-purple-800 rounded-t-lg py-3 px-8">
                         <p className={poppins.className + ' text-lg font-normal text-white'}>
                             Video Editor Section
                         </p>
                     </div>
-                    <div className="py-5 px-6 sm:px-6 lg:px-8 flex flex-col">
-                        <p className={poppins.className + ' text-sm'}>
+                    <div className="py-5 px-6 sm:px-6 lg:px-8 flex flex-co l">
+                        <p className={poppins.className + ' text-sm text-white'}>
                             {"Answer all questions as truthfully as possible so that we can help you better. A video editor's ability to adapt to the needs of a project depends very much on their awareness of the world around them and their ability to understand what will work and if it won't, why it will not. We want to figure out what level you are at."}
                         </p>
                     </div>
@@ -186,14 +188,14 @@ export default function VeForm() {
                     <CommonFields register={register} />
 
                     {/* Q5: What software do you use? */}
-                    <div className="flex flex-row bg-white shadow-md rounded-lg mb-4">
+                    <div className="flex flex-row bg-white bg-opacity-15 shadow-md rounded-lg mb-4">
                         <div className="py-5 px-6 lg:px-8 flex flex-col">
-                            <span className={poppins.className + " text-gray-900 text-md mb-4"}>
+                            <span className={poppins.className + " text-white text-md mb-4"}>
                                 What software do you use?
                                 <span className="text-md text-red-600 pl-1">*</span>
                             </span>
                             {["Adobe Premiere Pro", "Filmora Video Editor", "Adobe After Effects", "Da Vinci Resolve", "Other"].map((software, index) => (
-                                <label key={index} htmlFor={`Q5_ve`} className="flex items-center mb-3 text-sm">
+                                <label key={index} htmlFor={`Q5_ve`} className="flex items-center mb-3 text-sm text-slate-300">
                                     <input
                                         className="form-checkbox h-4 w-4 text-purple-600"
                                         value={software}
@@ -204,11 +206,11 @@ export default function VeForm() {
                                     <span className="ml-2">{software}</span>
                                 </label>
                             ))}
-                            <label htmlFor="Q5_ve_other" className="text-gray-700 text-sm mb-1">
+                            <label htmlFor="Q5_ve_other" className="text-slate-300 text-sm mb-1">
                                 Other: (Please specify)
                             </label>
                             <input
-                                className="border-b border-gray-300 focus:outline-none focus:border-purple-600 focus:border-b-2 py-1 focus:placeholder-purple-400"
+                                className="border-b border-gray-300 bg-transparent text-white focus:outline-none focus:border-purple-600 focus:border-b-2 py-1 focus:placeholder-purple-400"
                                 placeholder="Your Answer"
                                 type="text"
                                 id="Q5_ve_other"
@@ -219,14 +221,14 @@ export default function VeForm() {
                     </div>
 
                     {/* Q6: Favourite editing style/effect */}
-                    <div className="flex flex-row bg-white shadow-md rounded-lg mb-4">
+                    <div className="flex flex-row bg-white bg-opacity-15 shadow-md rounded-lg mb-4">
                         <div className="py-5 px-6 lg:px-8 flex flex-col">
-                            <label htmlFor="Q6_ve" className={poppins.className + " text-gray-900 text-md mb-4"}>
+                            <label htmlFor="Q6_ve" className={poppins.className + " text-white text-md mb-4"}>
                                 What is your favourite editing style/effect in video editing?
                                 <span className="text-md text-red-600 pl-1">*</span>
                             </label>
                             <input
-                                className="border-b border-gray-300 focus:outline-none focus:border-purple-600 focus:border-b-2 py-1 focus:placeholder-purple-400"
+                                className="border-b border-gray-300 bg-transparent focus:outline-none text-white focus:border-purple-600 focus:border-b-2 py-1 focus:placeholder-purple-400"
                                 placeholder="Your Answer"
                                 type="text"
                                 id="Q6_ve"
@@ -237,14 +239,14 @@ export default function VeForm() {
                     </div>
 
                     {/* Q7: Favourite movie scenes */}
-                    <div className="flex flex-row bg-white shadow-md rounded-lg mb-4">
+                    <div className="flex flex-row bg-white bg-opacity-15 shadow-md rounded-lg mb-4">
                         <div className="py-5 px-6 lg:px-8 flex flex-col">
-                            <label htmlFor="Q7_ve" className={poppins.className + " text-gray-900 text-md mb-4"}>
+                            <label htmlFor="Q7_ve" className={poppins.className + " text-white text-md mb-4"}>
                                 What are your favourite movie scenes and why?
                                 <span className="text-md text-red-600 pl-1">*</span>
                             </label>
                             <input
-                                className="border-b border-gray-300 focus:outline-none focus:border-purple-600 focus:border-b-2 py-1 focus:placeholder-purple-400"
+                                className="border-b border-gray-300 focus:outline-none focus:border-purple-600 text-white bg-transparent focus:border-b-2 py-1 focus:placeholder-purple-400"
                                 placeholder="Your Answer"
                                 type="text"
                                 id="Q7_ve"
@@ -255,14 +257,14 @@ export default function VeForm() {
                     </div>
 
                     {/* Q8: Suggested videos for Instagram */}
-                    <div className="flex flex-row bg-white shadow-md rounded-lg mb-4">
+                    <div className="flex flex-row bg-white bg-opacity-15 shadow-md rounded-lg mb-4">
                         <div className="py-5 px-6 lg:px-8 flex flex-col">
-                            <label htmlFor="Q8_ve" className={poppins.className + " text-gray-900 text-md mb-4"}>
+                            <label htmlFor="Q8_ve" className={poppins.className + " text-white text-md mb-4"}>
                                 What videos do you suggest we can start creating to put up on our Instagram page?
                                 <span className="text-md text-red-600 pl-1">*</span>
                             </label>
                             <textarea
-                                className="border border-gray-300 rounded-md focus:outline-none focus:border-purple-600 py-1 px-2 focus:placeholder-purple-400"
+                                className="border-b border-gray-300 focus:outline-none text-white bg-transparent focus:border-purple-600 focus:border-b-2 py-1 px-2 focus:placeholder-purple-400"
                                 placeholder="Your Suggestions"
                                 id="Q8_ve"
                                 {...register("Q8_ve")}
@@ -272,14 +274,14 @@ export default function VeForm() {
                     </div>
 
                     {/* Q9: Favourite YouTuber or channel */}
-                    <div className="flex flex-row bg-white shadow-md rounded-lg mb-4">
+                    <div className="flex flex-row bg-white bg-opacity-15 shadow-md rounded-lg mb-4">
                         <div className="py-5 px-6 lg:px-8 flex flex-col">
-                            <label htmlFor="Q9_ve" className={poppins.className + " text-gray-900 text-md mb-4"}>
+                            <label htmlFor="Q9_ve" className={poppins.className + " text-white text-md mb-4"}>
                                 Who is your favourite YouTuber or YouTube channel and why?
                                 <span className="text-md text-red-600 pl-1">*</span>
                             </label>
                             <input
-                                className="border-b border-gray-300 focus:outline-none focus:border-purple-600 focus:border-b-2 py-1 focus:placeholder-purple-400"
+                                className="border-b border-gray-300 focus:outline-none text-white bg-transparent focus:border-purple-600 focus:border-b-2 py-1 focus:placeholder-purple-400"
                                 placeholder="Your Answer"
                                 type="text"
                                 id="Q9_ve"
@@ -290,14 +292,14 @@ export default function VeForm() {
                     </div>
 
                     {/* Q10: Experience in short film/video making */}
-                    <div className="flex flex-row bg-white shadow-md rounded-lg mb-4">
+                    <div className="flex flex-row bg-white bg-opacity-15 shadow-md rounded-lg mb-4">
                         <div className="py-5 px-6 lg:px-8 flex flex-col">
-                            <label htmlFor="Q10_ve" className={poppins.className + " text-gray-900 text-md mb-4"}>
+                            <label htmlFor="Q10_ve" className={poppins.className + " text-white text-md mb-4"}>
                                 Do you hold any experience in short film making or video making? If yes, specify the software you use for final editing and production.
                                 <span className="text-md text-red-600 pl-1">*</span>
                             </label>
                             <textarea
-                                className="border border-gray-300 rounded-md focus:outline-none focus:border-purple-600 py-1 px-2 focus:placeholder-purple-400"
+                                className="border-b border-gray-300 bg-transparent text-white focus:outline-none focus:border-purple-600 py-1 px-2 focus:border-b-2 focus:placeholder-purple-400"
                                 placeholder="Your Experience and Software"
                                 id="Q10_ve"
                                 {...register("Q10_ve", { required: true })}
@@ -307,13 +309,13 @@ export default function VeForm() {
                     </div>
 
                     {/* Q11: Upload Original Works */}
-                    <div className="flex flex-row bg-white shadow-md rounded-lg mb-4">
+                    <div className="flex flex-row bg-white bg-opacity-15 shadow-md rounded-lg mb-4">
                         <div className="py-5 px-6 lg:px-8 flex flex-col">
-                            <label htmlFor="Q11_ve" className={poppins.className + " text-gray-900 text-md mb-4"}>
+                            <label htmlFor="Q11_ve" className={poppins.className + " text-white text-md mb-4"}>
                                 If you want to share any of your original works, feel free to share the link here.
                             </label>
                             <input
-                                className="border-b border-gray-300 focus:outline-none focus:border-purple-600 focus:border-b-2 py-1 focus:placeholder-purple-400"
+                                className="border-b border-gray-300 bg-transparent text-white focus:outline-none focus:border-purple-600 focus:border-b-2 py-1  focus:placeholder-purple-400"
                                 placeholder="Your Video Link"
                                 type="url"
                                 id="Q11_ve"
@@ -336,23 +338,28 @@ export default function VeForm() {
                                 </div>
                             </div>
                             :
-                            <div className="flex flex-row justify-between pb-6">
-                                <button
-                                    className="bg-purple-500 py-1 px-5 rounded-md text-white"
-                                    type="submit"
-                                    disabled={isSubmitted}
-                                >
-                                    Submit
+                            <div className='flex flex-row justify-between pb-6'>
+                                <button className=" relative bg-purple-500 py-1 px-5 rounded-md text-white overflow-hidden font-medium border-purple-500 hover:border-green-600 shadow-inner group" disabled={isSubmitted}>
+                                    <span className="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-green-400 group-hover:w-full"></span>
+                                    <span className="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-green-400 group-hover:w-full"></span>
+                                    <span className="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-green-400 group-hover:h-full"></span>
+                                    <span className="absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-green-400 group-hover:h-full"></span>
+                                    <span className="absolute inset-0 w-full h-full duration-300 delay-300 bg-green-600 opacity-0 group-hover:opacity-100"></span>
+                                    <span className="relative transition-colors duration-300 delay-200 group-hover:text-white font-semibold text-base ">
+                                        Submit
+                                    </span>
                                 </button>
-                                <div
-                                    onClick={refreshPage}
-                                    className={poppins.className + ' text-purple-800 text-md hover:cursor-pointer'}
-                                    role="button"
-                                    tabIndex={0}
-                                    onKeyPress={(e) => { if (e.key === 'Enter') refreshPage(); }}
-                                >
-                                    Clear form
-                                </div>
+                                <button onClick={refreshPage} className={poppins.className +" relative bg-transparent py-1 px-1 rounded-md text-purple-700 overflow-hidden font-medium border-purple-500 hover:border-green-600 shadow-inner group"}>
+                                    <span className="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-red-400 group-hover:w-full"></span>
+                                    <span className="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-red-400 group-hover:w-full"></span>
+                                    <span className="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-red-400 group-hover:h-full"></span>
+                                    <span className="absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-red-400 group-hover:h-full"></span>
+                                    <span className="absolute inset-0 w-full h-full duration-300 delay-300 bg-red-600 opacity-0 group-hover:opacity-100"></span>
+                                    <span className="relative transition-colors duration-300 delay-200 group-hover:text-white font-semibold text-base ">
+                                        Clear Form
+                                    </span>
+                                </button>
+                                {/*<div onClick={refreshPage} className={poppins.className +' text-purple-800 text-md hover:cursor-pointer'}>Clear form</div>*/}
                             </div>
                     }
                 </form>
