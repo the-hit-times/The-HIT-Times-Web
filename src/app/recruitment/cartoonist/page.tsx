@@ -66,7 +66,7 @@ export default function CartoonistForm() {
 
     formData.name = searchParams.get("name")!;
     formData.roll = searchParams.get("roll")!;
-    formData.position = "Cartoonist";
+    formData.position = "cartoonist";
     formData.other_position = searchParams.get("other")!;
 
     formData.Q6_cartoon = await uploadFile(formData.Q6_cartoon); //generate link

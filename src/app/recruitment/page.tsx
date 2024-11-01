@@ -189,7 +189,7 @@ export default function RecCommonForm() {
                     id="position"
                     {...register("position")}
                   />
-                  <span className="w-2"></span>Developer
+                  <span className="w-2"></span>Developer(Web/App)
                 </div>
                 <div className="flex flex-row mb-3 text-sm   text-slate-300">
                   <input
@@ -335,7 +335,7 @@ export default function RecCommonForm() {
                   />
                   <span className="w-2"></span>App Developer
                 </div>
-                <div className="flex flex-row text-sm  text-slate-300">
+                <div className="flex flex-row text-sm  mb-3 text-slate-300">
                   <input
                     className=""
                     value="Public-Relations"
@@ -344,6 +344,16 @@ export default function RecCommonForm() {
                     {...register("other_position")}
                   />
                   <span className="w-2"></span>Public Relations and Management
+                </div>
+                <div className="flex flex-row text-sm  text-slate-300">
+                  <input
+                    className=""
+                    value="None"
+                    type="checkbox"
+                    id="other_position"
+                    {...register("other_position")}
+                  />
+                  <span className="w-2"></span>None
                 </div>
               </div>
             </div>
