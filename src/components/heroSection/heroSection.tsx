@@ -94,16 +94,18 @@ const HeroSection = () => {
         </div>
       </div>
       {!isNoticeEmpty && (
-        <div className="py-3 px-3 w-full bg-red-600 flex items-center justify-center rounded-xl">
+        <div className="py-3 px-3 w-full bg-gradient-to-b from-red-600 via-red-500 to-red-700 flex items-center justify-center rounded-xl">
           <h1 className="bg-white text-center text-red-600 font-semibold py-3 px-5 rounded-md">
             Latest Notice
           </h1>
           <p className="text-white font-sans ml-3 lg:ml-6">
             {noticeTitle}
             {noticeLink && (
-              <Link href={noticeLink} className="underline text-sky-200 ml-2">
-                Learn More
+              <button className="bg-transparent px-2 py-2 text-sky-100 hover:text-red-600 hover:bg-slate-50 rounded-lg  hover:shadow-xl sm:ml-2">
+              <Link href={noticeLink} className="font-sans font-bold text ml-2 underline">
+                Click Here
               </Link>
+              </button>
             )}
           </p>
         </div>

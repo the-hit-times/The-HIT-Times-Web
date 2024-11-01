@@ -2,6 +2,7 @@
 import CommonFields from "@/components/formcomponents/CommonFields";
 import FileUploader from "@/components/formcomponents/FileUploader";
 import FormInput from "@/components/formcomponents/FormInput";
+import { sendSubmissionEmail } from "@/lib/sendEmail";
 import uploadFile from "@/lib/uploadFile";
 import { IBM_Plex_Serif, Nunito_Sans, Poppins } from "next/font/google";
 import Image from "next/image";
@@ -99,6 +100,7 @@ export default function CartoonistForm() {
         toast.error(data.msg || "Something went wrong");
         throw new Error(`HTTP error! status: ${response.status}`);
       } else {
+        sendSubmissionEmail(formData.email, formData.name);
         toast.success("Submitted successfully");
       }
 
@@ -156,7 +158,7 @@ export default function CartoonistForm() {
                     </div>
                     <div className="py-5 px-6 sm:px-6 lg:px-8 flex flex-col">
                         <div className={poppins.className + ' text-sm text-white'}>
-                        Answer all questions as truthfully as possible so that we can help you better.  You don't have to be a professional. All cartoonists start out doodling in their back pages. If you think you can do it, we are sure you can.
+                        {`Answer all questions as truthfully as possible so that we can help you better.  You don't have to be a professional. All cartoonists start out doodling in their back pages. If you think you can do it, we are sure you can.`}
                         </div>
                     </div>
                 </div>
@@ -228,5 +230,3 @@ export default function CartoonistForm() {
         </div>
     )
 }
-
-

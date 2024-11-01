@@ -12,7 +12,7 @@ const TOS: NextPage = () => {
           <Image
             src={"/tht_logo.png"}
             width={280}
-            height={300}
+            height={84}
             alt="The HIT Times Logo"
           />
         </div>
