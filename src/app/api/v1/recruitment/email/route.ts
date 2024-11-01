@@ -1,8 +1,33 @@
-import { sendEmail } from "@/lib/sendEmail";
-import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
+import nodemailer from "nodemailer";
 
 export const dynamic = "force-dynamic"; // defaults to force-static
+
+const EMAIL_USER = process.env.EMAIL_USER;
+const EMAIL_APP_PASS = process.env.EMAIL_APP_PASS;
+
+if (!EMAIL_USER) {
+  throw new Error(
+    "Please define the EMAIL_USER environment variable inside .env.local"
+  );
+}
+
+if (!EMAIL_APP_PASS) {
+  throw new Error(
+    "Please define the EMAIL_APP_PASS environment variable inside .env.local"
+  );
+}
+
+const transporter = nodemailer.createTransport({
+  service: "Gmail",
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
+  auth: {
+    user: EMAIL_USER,
+    pass: EMAIL_APP_PASS,
+  },
+});
 
 export async function POST(request: NextRequest) {
   // get applicationEmail & name from the request
@@ -19,8 +44,9 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const info = sendEmail({
-      emailTo: applicantEmail,
+    const info = await transporter.sendMail({
+      from: EMAIL_USER,
+      to: applicantEmail,
       subject: "Response recorded for THT Recruitment Drive 2k25",
       html: `
       <p>Greetings, Dear ${applicantName}!</p><br />
@@ -52,7 +78,11 @@ Sincerely,
 The HIT Times.`,
     });
 
-    return NextResponse.json(info);
+    return NextResponse.json({
+      success: true,
+      msg: "Email sent successfully",
+      info,
+    });
   } catch (error: any) {
     const myBlob = {
       success: false,
