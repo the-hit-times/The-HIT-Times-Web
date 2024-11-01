@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
 
         // Validate required fields
         const requiredFields = [
-            "name", "roll", "position", "other_position", "dept", "year", "phone", "email", "Q5_gd", "Q7_gd", "Q8_gd", "Q9_gd", "Q10_gd", "Q12_gd"
+            "name", "roll", "position", "dept", "year", "phone", "email", "Q5_gd", "Q7_gd", "Q8_gd", "Q9_gd", "Q10_gd", "Q12_gd"
         ];
 
         for (const field of requiredFields) {

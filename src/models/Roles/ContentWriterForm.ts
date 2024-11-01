@@ -51,7 +51,7 @@ const contentWriterSchema = new mongoose.Schema<contentwriterData>(
         },
         other_position: {
             type: String,
-            required: true
+            required: false
         },
         dept: {
             type: String,
@@ -69,7 +69,10 @@ const contentWriterSchema = new mongoose.Schema<contentwriterData>(
         },
         email: {
             type: String,
-            required: true
+            required: true,
+            match: [/^\S+@\S+\.\S+$/, 'Please use a valid email address.'],
+            unique: true,
+            index: true
         },
 
         hobbies: {
@@ -92,6 +95,7 @@ const contentWriterSchema = new mongoose.Schema<contentwriterData>(
         },
         Q3_cw: {
             type: String,
+            required: true,
         },
         Q4_cw: {
             type: String,

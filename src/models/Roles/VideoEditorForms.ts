@@ -49,7 +49,7 @@ const videoEditorSchema = new mongoose.Schema<videoEditorData>(
         },
         other_position: {
             type: String,
-            required: true
+            required: false
         },
         dept: {
             type: String,

@@ -34,7 +34,6 @@ export async function POST(request: NextRequest) {
             "name",
             "roll",
             "position",
-            "other_position",
             "dept",
             "year",
             "phone",

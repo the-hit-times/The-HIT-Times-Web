@@ -48,7 +48,7 @@ const cartoonistSchema = new mongoose.Schema<cartoonistData>(
         },
         other_position: {
             type: String,
-            required: true
+            required: false
         },
         dept: {
             type: String,
@@ -66,7 +66,10 @@ const cartoonistSchema = new mongoose.Schema<cartoonistData>(
         },
         email: {
             type: String,
-            required: true
+            required: true,
+            match: [/^\S+@\S+\.\S+$/, 'Please use a valid email address.'],
+            unique: true,
+            index: true
         },
 
         hobbies: {

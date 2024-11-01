@@ -442,7 +442,9 @@ export default function CwForm() {
                 className={poppins.className + " text-white text-md mb-2"}
               >
                 Write any one essay from each of the following sections
+                <span className="text-md text-red-600 pl-1">*</span>
               </label>
+
               <div className={poppins.className + " text-white text-sm mb-4"}>
                 One from the informal(creative and out of the box) and the other
                 from the formal(facts and formally structured) section. Two
@@ -552,14 +554,14 @@ export default function CwForm() {
           <FormInput
             title="What inspired you to start writing and why?"
             id="Q4_cw"
-            isRequired={false}
+            isRequired={true}
             register={register}
           />
 
           <FormInput
             title="Why do you think one should give importance to hobbies?"
             id="Q5_cw"
-            isRequired={false}
+            isRequired={true}
             register={register}
           />
 
@@ -573,14 +575,14 @@ export default function CwForm() {
           <FormInput
             title="Do you have a book, a movie or a series story line/ characterization that brought about a change in your perception or mentality as a whole?"
             id="Q7_cw"
-            isRequired={false}
+            isRequired={true}
             register={register}
           />
 
           <FormInput
             title="What is your favorite quote and by whom? What does it mean to you?"
             id="Q8_cw"
-            isRequired={false}
+            isRequired={true}
             register={register}
           />
 

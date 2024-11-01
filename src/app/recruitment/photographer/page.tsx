@@ -441,6 +441,7 @@ export default function PhotographyForm() {
             <p className={poppins.className + " text-slate-300 text-sm  px-7"}>
               Please make sure that the works you upload are your original. Also
               make sure that the files you upload are less than 5 MB in size.
+              Atleast Two photos are required.
             </p>
             <FileUploader id="Q9_photo" register={register} />
             <FileUploader id="Q10_photo" register={register} />

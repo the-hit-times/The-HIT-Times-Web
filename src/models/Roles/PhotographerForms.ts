@@ -51,7 +51,7 @@ const photographerSchema = new mongoose.Schema<photographersData>(
         },
         other_position: {
             type: String,
-            required: true
+            required: false
         },
         dept: {
             type: String,
@@ -69,7 +69,10 @@ const photographerSchema = new mongoose.Schema<photographersData>(
         },
         email: {
             type: String,
-            required: true
+            required: true,
+            match: [/^\S+@\S+\.\S+$/, 'Please use a valid email address.'],
+            unique: true,
+            index: true
         },
 
         hobbies: {
@@ -110,9 +113,11 @@ const photographerSchema = new mongoose.Schema<photographersData>(
         },
         Q9_photo: {
             type: String,
+            required: true,
         },
         Q10_photo: {
             type: String,
+            required: true,
         },
         Q11_photo: {
             type: String,

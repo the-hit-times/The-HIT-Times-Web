@@ -50,7 +50,7 @@ const developerSchema = new mongoose.Schema<developersData>(
         },
         other_position: {
             type: String,
-            required: true
+            required: false
         },
         dept: {
             type: String,
@@ -68,7 +68,10 @@ const developerSchema = new mongoose.Schema<developersData>(
         },
         email: {
             type: String,
-            required: true
+            required: true,
+            match: [/^\S+@\S+\.\S+$/, 'Please use a valid email address.'],
+            unique: true,
+            index: true
         },
 
         hobbies: {

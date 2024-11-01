@@ -50,7 +50,7 @@ const gdSchema = new mongoose.Schema<gdData>(
         },
         other_position: {
             type: String,
-            required: true
+            required: false
         },
         dept: {
             type: String,
