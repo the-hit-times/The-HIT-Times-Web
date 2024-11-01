@@ -86,7 +86,10 @@ function SuccessPage({ params }: { params: { successId: string } }) {
             Hello {invLink.title.toUpperCase()} Your Recruitment Form 2k25
             application for The HIT Times has been received. Thank you for
             taking the time to complete and successfully submit the Recruitment
-            Form for our 2025 intake. you will receive a mail Shortly....
+            Form for our 2025 intake. 
+            <p>you will receive a mail Shortly....
+            Please check your Gmail spam folder. If you don’t find the email there, feel free to contact us at thehittimes@gmail.com.
+            </p>
           </h2>
         )}
         {/*<div className="grid grid-flow-row grid-cols-1 gap-4">

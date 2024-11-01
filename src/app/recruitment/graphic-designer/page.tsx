@@ -445,7 +445,8 @@ export default function GdForm() {
           {/* Q13: Upload Original Works */}
           <div className="bg-white bg-opacity-15 shadow-md rounded-lg mb-5 p-3">
             <FileUploader
-              title="If you want to share any of your original works, feel free to upload it here."
+              title="If you want to share any of your original works, feel free to upload it here.
+              To share multiple works, you can compile them into a single PDF file that includes up to five images. Ensure the total file size is under 5 MB "
               id="Q13_gd"
               register={register}
             />
