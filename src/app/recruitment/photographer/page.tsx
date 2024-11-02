@@ -435,7 +435,7 @@ export default function PhotographyForm() {
               }
             >
               If you want to share any of your original works, feel free to
-              upload it here.
+              upload it here.(Atleast first two submission is required.)
               <span className="text-md text-red-600 pl-1">*</span>
             </p>
             <p className={poppins.className + " text-slate-300 text-sm  px-7"}>

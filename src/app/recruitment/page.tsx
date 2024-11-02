@@ -110,6 +110,9 @@ export default function RecCommonForm() {
                   The name and photo associated with your Google account will be
                   recorded when you upload files and submit this form. Only the
                   email you enter is part of your response.
+                  <p>For any queries regarding errors in the form
+                    <p>Contact: 9641410895 [Kingshuk Hazra(3rd Year)] </p>
+                  </p>
                 </p>
                 <hr />
                 <p className="pt-2 pb-3 text-sm font-semibold sm:text-sm text-red-600">
@@ -164,7 +167,7 @@ export default function RecCommonForm() {
                     className=""
                     value="content-writer"
                     type="radio"
-                    id="position"
+                    id="position" required
                     {...register("position")}
                   />
                   <span className="w-2"></span>Content Writer/ Editor

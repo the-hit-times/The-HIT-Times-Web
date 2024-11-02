@@ -179,7 +179,7 @@ export default function CartoonistForm() {
                     <FormInput title='Do you like Cartooning or Doodling? ' id='Q5_cartoon' isRequired={false} register={register}/>
 
                     <div  className='bg-white bg-opacity-15 shadow-md rounded-lg mb-5 p-3'>
-                        <p className={poppins.className + " text-white text-md mb-2 font-bold px-7 pt-5"}>If you want to share any of your original works, feel free to upload it here.</p>
+                        <p className={poppins.className + " text-white text-md mb-2 font-bold px-7 pt-5"}>If you want to share any of your original works, feel free to upload it here.(Submitting your artwork is optional but advantageous)</p>
                         <p  className={poppins.className + " text-slate-300 text-sm  px-7"}>Please make sure that the works you upload are your original. Also make sure that the files you upload are less than 5 MB in size.</p>
                         <FileUploader  id='Q6_cartoon' register={register} />
                         <FileUploader id='Q7_cartoon' register={register} />
