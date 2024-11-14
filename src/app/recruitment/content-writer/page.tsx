@@ -404,7 +404,7 @@ export default function CwForm() {
                   value="8"
                   type="radio"
                   id="Q2_cw"
-                  {...register("Q1_cw")}
+                  {...register("Q2_cw")}
                 />
                 <span className="w-2"></span>8
               </div>
@@ -414,7 +414,7 @@ export default function CwForm() {
                   value="9"
                   type="radio"
                   id="Q2_cw"
-                  {...register("Q1_cw")}
+                  {...register("Q2_cw")}
                 />
                 <span className="w-2"></span>9
               </div>
@@ -424,7 +424,7 @@ export default function CwForm() {
                   value="10"
                   type="radio"
                   id="Q2_cw"
-                  {...register("Q1_cw")}
+                  {...register("Q2_cw")}
                 />
                 <span className="w-2"></span>10
               </div>
