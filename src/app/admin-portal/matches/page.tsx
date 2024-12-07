@@ -94,7 +94,7 @@ export default function MangeMatchPostPage() {
               <div className="flex flex-row justify-between">
                 <h2 className="font-bold text-lg">
                   {codeToTeamName[post.team1.team_code]} vs{" "}
-                  {codeToTeamName[post.team1.team_code]}
+                  {codeToTeamName[post.team2.team_code]}
                 </h2>
                 <div className="flex flex-row gap-2">
                   <div className="bg-blue-50 rounded-3xl px-4 py-1 text-blue-900">
