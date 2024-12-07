@@ -52,6 +52,10 @@ const quickActions = [
     title: "All Notices",
     url: "/admin-portal/notices",
   },
+  {
+    title: "Manage Teams",
+    url: "/admin-portal/teams",
+  },
 ];
 
 export default function AdminPortal() {

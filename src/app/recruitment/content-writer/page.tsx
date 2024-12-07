@@ -535,7 +535,7 @@ export default function CwForm() {
                     {...register("Q3_cw")}
                     className="block w-full text-sm text-white border bg-transparent border-gray-300 rounded-lg cursor-pointer focus:outline-none" /* dark:text-gray-400  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400*/
                     aria-describedby="file_input_help"
-                    id="file_input"
+                    id="file_input" required
                     type="file"
                   />
                   <p
