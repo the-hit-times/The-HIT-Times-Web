@@ -9,7 +9,7 @@ export default function TspPage() {
 
         {/* Subtext */}
         <p className="text-xl text-gray-700 mt-6 leading-relaxed">
-          We're crafting something incredible. Stay tuned for the big reveal!
+          {"We're crafting something incredible. Stay tuned for the big reveal!"}
         </p>
 
         {/* Call-to-action */}
