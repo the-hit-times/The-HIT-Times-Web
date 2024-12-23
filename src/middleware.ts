@@ -12,4 +12,4 @@ export default withAuth(
 );
 
 // matches all the path starting with /admin-portal
-export const config = { matcher: ["/admin-portal/:path*"] };
+export const config = { matcher: ["/admin-portal/:path*", "/recruitment"] };
