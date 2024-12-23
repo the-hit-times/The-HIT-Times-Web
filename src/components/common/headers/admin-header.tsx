@@ -77,7 +77,7 @@ export const AdminHeader = () => {
           <Image
             src="/header/hit_logo_black.webp"
             alt="The HIT Times"
-            className="sm:w-fit w-32"
+            className="w-32 sm:mx-4"
             width={100}
             height={50}
           />
