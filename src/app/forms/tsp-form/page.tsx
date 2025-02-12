@@ -194,7 +194,7 @@ export default function TSPForm() {
               and enthusiastic minds to follow their passion and excel in something they truly want to do.
             </p>
             <p className="mt-4">
-              As part of the college's official media and literary club, we promote a creative culture inside the campus
+              As part of the college&apos;s official media and literary club, we promote a creative culture inside the campus
               and provide room for each and everyone to grow in the field they choose. Join us in this adventure and
               nurture your passion amongst like minds.
             </p>
