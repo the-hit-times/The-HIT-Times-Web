@@ -25,6 +25,18 @@ export async function POST(request: NextRequest) {
         const data = await request.json();
         console.log(data);
 
+        const existingForm = await TspModel.findOne({ email: data.email });
+        if (existingForm) {
+            console.log("Email already exists:", data.email);
+            return NextResponse.json(
+                {
+                    success: false,
+                    msg: "A submission with this email already exists!",
+                },
+                { status: 400 }
+            );
+        }
+
         const tsp = await TspModel.create(data);
         return NextResponse.json({
             success: true
