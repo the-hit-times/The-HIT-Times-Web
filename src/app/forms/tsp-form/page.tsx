@@ -55,8 +55,7 @@ export default function TSPForm() {
 
   const router = useRouter()
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const [notice, setNotice] = useState<any>(null)
-  const [noticeEmpty, setNoticeEmpty] = useState(false)
+  const [isNoticeEmpty, setNoticeEmpty] = useState(false)
 
   const form = useForm<SheetData>();
   const { register, handleSubmit } = form;
@@ -80,10 +79,11 @@ export default function TSPForm() {
         const res2 = await fetch("/api/v1/notice");
         let notice = await res2.json();
         notice = notice.reverse();
-
-        if (notice.length > 0) {
-          setNotice(notice[0]);
-        } else {
+        
+        if (notice.length == 0) {
+          setNoticeEmpty(true);
+        }
+        else if(notice[0].noticeLink != '/forms/tsp-form') {
           setNoticeEmpty(true);
         }
       } catch (error) {
@@ -183,6 +183,23 @@ export default function TSPForm() {
         <div className="relative h-24 sm:h-64">
           <Image src="/tsp-header.png" alt="Trainee Scholars Program Banner" layout="fill" objectFit="cover" />
         </div>
+        {
+          isNoticeEmpty ?
+          <div>
+            <div className="h-2 lg:h-3 w-full bg-purple-700 rounded-xl"></div>
+            <div
+                    className={
+                      poppins.className +
+                      " text-3xl lg:text-4xl font-medium text-white py-5"
+                    }
+                  >
+                    TSP Form closed!!
+            </div>
+            <div className="h-2 lg:h-3 w-full bg-purple-700 rounded-xl"></div>
+          </div>
+        
+          :
+        
         <div className="p-8">
           <motion.h1 className={`${poppins.className} text-3xl font-bold text-purple-300 mb-6`} {...fadeInUp}>
             Trainee Scholars Program
@@ -392,6 +409,7 @@ export default function TSPForm() {
             </motion.div>
           </form>
         </div>
+        }
       </motion.div>
     </div>
 
