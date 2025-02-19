@@ -156,8 +156,6 @@ export default function TspBanner() {
   );
 }
 
-
-//  <div className="relative flex items-center justify-center min-h-screen bg-gradient-to-b from-blue-50 to-gray-100 overflow-hidden">
 // {/* Background Image */}
 // <img
 //   src="/tsp-header.png"
