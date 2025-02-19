@@ -1,13 +1,13 @@
 "use client";
 import FormInput from "@/components/formcomponents/FormInput";
+import { signIn, useSession } from "next-auth/react";
 import { IBM_Plex_Serif, Nunito_Sans, Poppins } from "next/font/google";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { signIn, useSession } from "next-auth/react";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -35,6 +35,29 @@ export default function RecCommonForm() {
 
   const router = useRouter();
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isNoticeEmpty, setNoticeEmpty] = useState(false);
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        const res2 = await fetch("/api/v1/notice");
+        let notice = await res2.json();
+        notice = notice.reverse();
+        
+        if (notice.length == 0) {
+          setNoticeEmpty(true);
+        }
+        else if(notice[0].noticeLink != '/recruitment') {
+          setNoticeEmpty(true);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchPost();
+  }, []);
+
+
 
   const form = useForm<CommonSheetData>();
   const { register, handleSubmit } = form;
@@ -69,7 +92,33 @@ export default function RecCommonForm() {
     return (
       <div className="min-h-screen  bg-[url('/tht-background.jpg')] md:rounded-2xl">
         <div className="max-w-4xl px-3 mx-auto">
-          <div className="relative mb-2 lg:mb-3 rounded-b-lg overflow-hidden ">
+        {
+          isNoticeEmpty ? 
+          <div>
+            <div className="relative mb-2 lg:mb-3 rounded-b-lg overflow-hidden ">
+            <Image
+              src="https://res.cloudinary.com/dvw5qhccb/image/upload/v1730133636/rec-header.png_reznpj.jpg"
+              alt="Recruitment Form 2K25"
+              width={1500}
+              height={100}
+              className="border  border-white mt-2 rounded-lg"
+            />
+          </div>
+          <div className="h-2 lg:h-3 w-full bg-purple-700 rounded-xl"></div>
+          <div
+                  className={
+                    poppins.className +
+                    " text-3xl lg:text-4xl font-medium text-white py-5"
+                  }
+                >
+                  Recruitment Form closed!!
+          </div>
+          <div className="h-2 lg:h-3 w-full bg-purple-700 rounded-xl"></div>
+        </div>
+        
+          :
+          <div>
+            <div className="relative mb-2 lg:mb-3 rounded-b-lg overflow-hidden ">
             <Image
               src="https://res.cloudinary.com/dvw5qhccb/image/upload/v1730133636/rec-header.png_reznpj.jpg"
               alt="Recruitment Form 2K25"
@@ -418,6 +467,11 @@ export default function RecCommonForm() {
               </div>
             )}
           </form>
+          </div>
+        }
+
+
+          
         </div>
       </div>
     );
