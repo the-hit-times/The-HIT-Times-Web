@@ -2,18 +2,18 @@ export default function TspBanner() {
   return (
     <>
       <div>
-        <header className="w-1/3 mx-auto  mt-4 mb-3">
-          <img src="./tht_logo.png" alt="" />
+        <header className="w-3/4 mx-auto mt-4 mb-[20px]">
+          {/* <img src="./tht_logo.png" alt="" /> */}
           <div className="flex flex-col items-center justify-center text-center space-y-3 ">
-            <i className="text-5xl font-semibold text-[#0C2D58]">presents</i>
-            <i className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 animate-pulse leading-[1.2]">TRAINEE SCHOLARS PROGRAM</i>
+            {/* <i className="text-[25px] font-semibold text-[#0C2D58]">presents</i> */}
+            <img src="./tsp-header-2k25.png" alt="" className="mx-auto" />
 
-           
           </div>
         </header>
+            {/* <i className="flex flex-col items-center justify-center text-center text-4xl font-extrabold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 animate-pulse leading-[1.2]">TRAINEE SCHOLARS PROGRAM</i> */}
 
-        <hr className="h-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg w-1/2 mx-auto mt-8" />
-        <div className="min-h-screen mt-8  p-6">
+        <hr className="h-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg w-3/4 mx-auto mt-5" />
+        <div className="min-h-screen mt-2 p-6 mb-10">
           <div className="max-w-5xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Domains Section */}
@@ -63,10 +63,10 @@ export default function TspBanner() {
           </div>
         </div>
 
-        <hr className="h-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg" />
+        <hr className="h-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg w-3/4 mx-auto" />
 
-        <div className="flex flex-col items-center mt-10  h-screen">
-          <img className="w-1/3 mb-5" src="./tht_logo.png" alt="" />
+        <div className="flex flex-col items-center mt-10 mb-10">
+          <img className="w-1/3 mb-[10px]" src="./tht_logo.png" alt="" />
           <div className=" flex items-center justify-center p-5">
             <div className="max-w-3xl shadow-lg p-6 rounded-lg">
               <p className="text-lg">
@@ -100,9 +100,9 @@ export default function TspBanner() {
           </div>
         </div>
 
-        <hr className="h-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg" />
+        <hr className="h-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg w-3/4 mx-auto" />
 
-        <div className="min-h-screen flex items-center justify-center  p-6 mt-10">
+        <div className="min-h-screen flex items-center justify-center p-6 mt-5 mb-10">
           <div className="max-w-2xl bg-white text-gray-900 shadow-2xl p-8 rounded-2xl">
             <h2 className="text-4xl font-extrabold text-center text-indigo-700 mb-6 border-b-4 border-yellow-500 inline-block">
               🎉 Exciting Prizes
@@ -148,9 +148,6 @@ export default function TspBanner() {
             </p>
           </div>
         </div>
-
-        
-
       </div>
     </>
   );

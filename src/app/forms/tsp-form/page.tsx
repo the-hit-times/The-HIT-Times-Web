@@ -230,7 +230,7 @@ export default function TSPForm() {
                 <input
                   type={field.type}
                   id={field.name}
-                  className="bg-gray-600 text-zinc-100 mt-2 font-sans ring-1 ring-zinc-400 focus:ring-2 focus:ring-violet-700 outline-none duration-300 placeholder:text-zinc-100 placeholder:opacity-50 rounded-full px-2 w-full md:w-72 py-1 shadow-md focus:shadow-lg focus:shadow-purple-500"
+                  className="pl-[12px] bg-gray-600 text-zinc-100 mt-2 font-sans ring-1 ring-zinc-400 focus:ring-2 focus:ring-violet-700 outline-none duration-300 placeholder:text-zinc-100 placeholder:opacity-50 rounded-full px-2 w-full md:w-72 py-1 shadow-md focus:shadow-2xs focus:shadow-purple-500 text-[14px]"
                   placeholder={field.placeholder}
                   required
                   {...register(field.name as "name" | "roll" | "email" | "phone")}
@@ -240,7 +240,7 @@ export default function TSPForm() {
 
             <motion.div {...fadeInUp}>
               <label className={`${poppins.className} block text-sm font-medium text-purple-300 mb-2`}>
-                What interests you most?
+                What interests you most? (Tick the boxes)
               </label>
               <div className="grid grid-cols-2 gap-2">
                 {["writing", "drawing", "designing", "videoEditing", "technology", "photography"].map((interest) => (
@@ -344,7 +344,7 @@ export default function TSPForm() {
               <textarea
                 id="suggestion"
                 rows={4}
-                className="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 sm:text-sm text-white placeholder-gray-400"
+                className="pl-2 pt-2 mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 sm:text-sm text-white placeholder-gray-400"
                 placeholder="Your suggestions and ideas"
                 required
                 {...register("suggestion")}
