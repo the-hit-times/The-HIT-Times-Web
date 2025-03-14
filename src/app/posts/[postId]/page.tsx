@@ -98,12 +98,11 @@ const PostInfoPage = ({ params }: { params: { postId: string } }) => {
   return (
     <div>
       <main>
-        <div className="before:absolute before:bg-indigo-950 before:w-full before:h-1/3 before:-z-10 before:left-0  animate-fade-down animate-delay-200">
-          {/* <div className="absolute top-0 left-0 right-0 -z-10 w-full h-2/3  lg:h-1/2 bg-indigo-950"></div> */}
+        <div className="before:absolute before:bg-indigo-950 dark:before:bg-gray-900 before:w-full before:h-1/3 before:-z-10 before:left-0 animate-fade-down animate-delay-200">
           <h1
             className={
               ibmPlexSerif.className +
-              " text-xl text-center text-white sm:text-4xl font-semibold py-8 w-fit mx-auto animate-flip-down animate-duration-200 animate-delay-200 "
+              " text-xl text-center text-white sm:text-4xl font-semibold py-8 w-fit mx-auto animate-flip-down animate-duration-200 animate-delay-200 dark:text-gray-200"
             }
           >
             {postinfo.title}
@@ -113,23 +112,21 @@ const PostInfoPage = ({ params }: { params: { postId: string } }) => {
             alt="image"
             width={500}
             height={423}
-            className="object-contain mx-auto w-full  aspect-video animate-fade-up animate-duration-500 animate-delay-500 "
+            className="object-contain mx-auto w-full aspect-video animate-fade-up animate-duration-500 animate-delay-500 "
           />
         </div>
-
+  
         <div className="flex flex-row gap-8 mt-8 w-full">
           <div className="hidden sm:flex">
             <MainPostIcons post={postinfo} />
           </div>
           <div className="flex flex-col gap-4 flex-1">
-            <div className=" flex flex-row justify-between items-center">
-              <div
-                className={poppins.className + " flex flex-row gap-8 text-sm "}
-              >
-                <p className="text-gray-800 font-medium animate-fade-right animate-delay-200 ">
+            <div className="flex flex-row justify-between items-center">
+              <div className={poppins.className + " flex flex-row gap-8 text-sm "}>
+                <p className="text-gray-800 dark:text-gray-200 font-medium animate-fade-right animate-delay-200 ">
                   {getRelativeTime(postinfo.createdAt)}
                 </p>
-                <p className="text-gray-500 animate-fade-left animate-delay-200 ">
+                <p className="text-gray-500 dark:text-gray-400 animate-fade-left animate-delay-200 ">
                   {calculateReadTime(postinfo.htmlBody ?? postinfo.body)}
                 </p>
               </div>
@@ -140,16 +137,16 @@ const PostInfoPage = ({ params }: { params: { postId: string } }) => {
             <div
               className={
                 nunitoSans.className +
-                " text-gray-700 text-lg prose-a:text-blue-800 text-justify animate-fade-up animate-delay-200 "
+                " text-gray-700 dark:text-gray-300 text-lg prose-a:text-blue-800 text-justify animate-fade-up animate-delay-200 "
               }
             >
               {parse(postinfo.htmlBody ?? postinfo.body)}
             </div>
           </div>
         </div>
-
+  
         <div className="my-8">
-          <h3 className={poppins.className + " font-bold font-serif mx-2"}>
+          <h3 className={poppins.className + " font-bold font-serif mx-2 text-gray-800 dark:text-white"}>
             Related Topics
           </h3>
           <motion.div

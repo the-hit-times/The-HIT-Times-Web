@@ -6,12 +6,14 @@ import {
   ArrowDownCircleIcon,
   ChevronUpIcon,
   ArrowRightIcon,
+  MoonIcon,
+  SunIcon,
 } from "@heroicons/react/24/solid";
 import { useSession } from "next-auth/react";
 import { Nunito_Sans } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { signIn, signOut } from "next-auth/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 //import { Session } from "next-auth";
@@ -159,7 +161,7 @@ export const SignOut = (session: Session) => {
 
 export default function SignUpButton() {
   // extracting data from usesession as session
-  const { data: session } = useSession(); 
+  const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
   console.log("session: ", session);
 
@@ -234,15 +236,15 @@ export default function SignUpButton() {
   return (
     /* 
     <div className='flex flex-row items-end justify-end w-auto h-9  '>
-	    <button className=' w-16 md:w-20 h-7 md:h-8 m-1 bg-blue-500 rounded-lg cursor-pointer select-none
+      <button className=' w-16 md:w-20 h-7 md:h-8 m-1 bg-blue-500 rounded-lg cursor-pointer select-none
       active:translate-y-2  active:[box-shadow:0_0px_0_0_#1b6ff8,0_0px_0_0_#1b70f841]
       active:border-b-[0px]
       transition-all duration-150 [box-shadow:0_4px_0_0_#1b6ff8,0_8px_0_0_#1b70f841]
       border-b-[1px] border-blue-400'
       onClick={()=>signIn()}
     >
-		  <span className='flex flex-col justify-center items-center h-full text-white font-medium text-base'>Sign In</span>
-	  </button>
+      <span className='flex flex-col justify-center items-center h-full text-white font-medium text-base'>Sign In</span>
+    </button>
   </div>*/
     <div className="flex justify-center">
       <button
@@ -271,15 +273,27 @@ const nunitoSans = Nunito_Sans({ subsets: ["latin"] });
 export const UserHeader = () => {
   //const { data: session } = useSession();
   const [showDropdown, setShowDropdown] = useState(false);
-
+  const [darkMode, setDarkMode] = useState(false);
+  useEffect(() => {
+    // Check user preference from local storage
+    const isDark = localStorage.getItem("theme") === "dark";
+    setDarkMode(isDark);
+    document.documentElement.classList.toggle("dark", isDark);
+  }, []);
+  const toggleDarkMode = () => {
+    const newMode = !darkMode;
+    setDarkMode(newMode);
+    document.documentElement.classList.toggle("dark", newMode);
+    localStorage.setItem("theme", newMode ? "dark" : "light");
+  };
   return (
     <header>
-      <nav className="flex flex-row items-center justify-between py-2 min-h-16">
+      <nav className="flex flex-row items-center justify-between py-2 min-h-16 ">
         <Link href={"/"}>
           <Image
             src="/header/hit_logo_black.webp"
             alt="The HIT Times"
-            className="w-32 sm:mx-4"
+            className="w-32 sm:mx-4 dark:invert"
             width={100}
             height={50}
           />
@@ -290,7 +304,7 @@ export const UserHeader = () => {
               <Link
                 className={
                   nunitoSans.className +
-                  " text-zinc-800 text-base font-semibold hover:text-violet-700 "
+                  " text-zinc-800 text-base font-semibold hover:text-violet-700 dark:text-white dark:hover:text-violet-400"
                 }
                 href={link.href}
               >
@@ -303,6 +317,16 @@ export const UserHeader = () => {
         <div className=" flex justify-end" /*md:hidden */>
           <SignUpButton />
           <button
+            onClick={toggleDarkMode}
+            className="ml-3 p-2 rounded-full bg-gray-200 dark:bg-gray-800"
+          >
+            {darkMode ? (
+              <SunIcon className="w-6 h-6 text-yellow-500" />
+            ) : (
+              <MoonIcon className="w-6 h-6 text-gray-900 dark:text-white" />
+            )}
+          </button>
+          <button
             onClick={() => setShowDropdown(!showDropdown)}
             className="text-zinc-800 text-2xl ml-2"
           >
@@ -312,14 +336,15 @@ export const UserHeader = () => {
       </nav>
       {showDropdown && (
         <div
-          className=" fixed top-0 right-0 animate-fade-left bg-gradient-to-b from-slate-400 via-slate-200 to-slate-400 w-1/5 h-screen z-50 min-w-72 scroll-smooth " /*md:hidden */
+        className="fixed top-0 right-0 animate-fade-left bg-gradient-to-b from-slate-400 via-slate-200 to-slate-400 dark:from-gray-800 dark:via-gray-700 dark:to-gray-800 w-1/5 h-screen z-50 min-w-72 scroll-smooth shadow-lg"
+ 
         >
           <div className="flex relative w-auto mt-4 flex-row ">
             <Link href={"/"}>
               <Image
                 src="/header/hit_logo_black.webp"
                 alt="The HIT Times"
-                className="sm:w-fit w-40 p-2 ml-4 border border-black "
+                className="sm:w-fit w-40 p-2 ml-4 border border-black dark:border-gray-300"
                 width={100}
                 height={50}
               />
@@ -332,40 +357,44 @@ export const UserHeader = () => {
               }
               className="ml-20 "
             >
-              <ArrowRightIcon className="size-10 rounded-full bg-gray-100 p-2 mr-2 " />
+              <ArrowRightIcon className="size-10 rounded-full bg-gray-100 dark:bg-gray-900 p-2 mr-2 hover:bg-gray-200 dark:hover:bg-gray-700" />
             </button>
           </div>
           <ul className="grid grid-flow-row gap-4 py-4 px-2">
             <li>
-              <Link
-                className={
-                  nunitoSans.className +
-                  " text-zinc-800 text-xl hover:text-white font-semibold hover:py-1 hover:px-2 hover:border hover:border-black rounded-lg ml-4 hover:bg-gradient-to-r from-slate-600 to to-violet-600"
-                }
-                href={"/"}
-                onClick={() => setShowDropdown(false)}
-              >
-                Home
-              </Link>
+            <Link
+          className={
+            nunitoSans.className +
+            " text-zinc-800 dark:text-gray-200 text-xl hover:text-white font-semibold hover:py-1 hover:px-2 hover:border hover:border-black dark:hover:border-gray-400 rounded-lg ml-4 hover:bg-gradient-to-r from-slate-600 to-violet-600"
+          }
+          href={"/"}
+          onClick={() => setShowDropdown(false)}
+        >
+          Home
+        </Link>
             </li>
             {links_2.map((link) => (
               <li key={link.href}>
                 <Link
-                  className={
-                    nunitoSans.className +
-                    " text-zinc-800 text-xl hover:text-white font-semibold  rounded-lg ml-4 hover:py-1 hover:px-2 hover:border hover:border-black hover:bg-gradient-to-r from-slate-600 to to-violet-600"
-                  }
-                  onClick={() => setShowDropdown(false)}
-                  href={link.href}
-                >
-                  {link.title}
-                </Link>
+            className={
+              nunitoSans.className +
+              " text-zinc-800 dark:text-gray-200 text-xl hover:text-white font-semibold rounded-lg ml-4 hover:py-1 hover:px-2 hover:border hover:border-black dark:hover:border-gray-400 hover:bg-gradient-to-r from-slate-600 to-violet-600"
+            }
+            onClick={() => setShowDropdown(false)}
+            href={link.href}
+          >
+            {link.title}
+          </Link>
               </li>
             ))}
-            <hr />
+            <hr className="border-gray-500 dark:border-gray-700" />
           </ul>
+
+
+
         </div>
       )}
+
     </header>
   );
 };
