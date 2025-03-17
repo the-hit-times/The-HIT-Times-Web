@@ -9,6 +9,7 @@ const config: Config = {
     "./src/*.tsx",
     "./src/*.{html,js}",
   ],
+  darkMode: "class",
   theme: {
     extend: {
       backgroundImage: {

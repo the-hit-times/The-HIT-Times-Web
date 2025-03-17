@@ -6,12 +6,14 @@ import {
   ArrowDownCircleIcon,
   ChevronUpIcon,
   ArrowRightIcon,
+  MoonIcon,
+  SunIcon,
 } from "@heroicons/react/24/solid";
 import { useSession } from "next-auth/react";
 import { Nunito_Sans } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { signIn, signOut } from "next-auth/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 //import { Session } from "next-auth";
@@ -271,6 +273,19 @@ const nunitoSans = Nunito_Sans({ subsets: ["latin"] });
 export const UserHeader = () => {
   //const { data: session } = useSession();
   const [showDropdown, setShowDropdown] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
+  useEffect(() => {
+    const isDark = localStorage.getItem("theme") === "dark";
+    setDarkMode(isDark);
+    document.documentElement.classList.toggle("dark", isDark);
+  },[]);
+
+  const toggleDarkMode = () => {
+    const newMode = !darkMode;
+    setDarkMode(newMode);
+    document.documentElement.classList.toggle("dark", newMode);
+    localStorage.setItem("theme", newMode ? "dark" : "light");
+  }
 
   return (
     <header>
@@ -279,7 +294,7 @@ export const UserHeader = () => {
           <Image
             src="/header/hit_logo_black.webp"
             alt="The HIT Times"
-            className="w-32 sm:mx-4"
+            className="w-32 sm:mx-4 dark:invert"
             width={100}
             height={50}
           />
@@ -290,7 +305,7 @@ export const UserHeader = () => {
               <Link
                 className={
                   nunitoSans.className +
-                  " text-zinc-800 text-base font-semibold hover:text-violet-700 "
+                  " text-zinc-800 text-base font-semibold hover:text-violet-700 dark:text-white dark:hover:text-violet-400"
                 }
                 href={link.href}
               >
@@ -303,6 +318,16 @@ export const UserHeader = () => {
         <div className=" flex justify-end" /*md:hidden */>
           <SignUpButton />
           <button
+            onClick={toggleDarkMode}
+            className="ml-3 p-2 rounded-full bg-gray-200 dark:bg-gray-800"
+          >
+            {darkMode ? (
+              <SunIcon className="w-6 h-6 text-yellow-500" />
+            ) : (
+              <MoonIcon className="w-6 h-6 text-gray-900 dark:text-white" />
+            )}
+          </button>
+          <button
             onClick={() => setShowDropdown(!showDropdown)}
             className="text-zinc-800 text-2xl ml-2"
           >
@@ -312,7 +337,7 @@ export const UserHeader = () => {
       </nav>
       {showDropdown && (
         <div
-          className=" fixed top-0 right-0 animate-fade-left bg-gradient-to-b from-slate-400 via-slate-200 to-slate-400 w-1/5 h-screen z-50 min-w-72 scroll-smooth " /*md:hidden */
+          className=" fixed top-0 right-0 animate-fade-left bg-gradient-to-b from-slate-400 via-slate-200 to-slate-400 w-1/5 h-screen z-50 min-w-72 scroll-smooth dark:from-gray-800 dark:via-gray-700 dark:to-gray-800" /*md:hidden */
         >
           <div className="flex relative w-auto mt-4 flex-row ">
             <Link href={"/"}>
@@ -332,7 +357,7 @@ export const UserHeader = () => {
               }
               className="ml-20 "
             >
-              <ArrowRightIcon className="size-10 rounded-full bg-gray-100 p-2 mr-2 " />
+              <ArrowRightIcon className="size-10 rounded-full bg-gray-100 dark:bg-gray-900 p-2 mr-2 hover:bg-gray-200 dark:hover:bg-gray-700" />
             </button>
           </div>
           <ul className="grid grid-flow-row gap-4 py-4 px-2">
@@ -340,7 +365,7 @@ export const UserHeader = () => {
               <Link
                 className={
                   nunitoSans.className +
-                  " text-zinc-800 text-xl hover:text-white font-semibold hover:py-1 hover:px-2 hover:border hover:border-black rounded-lg ml-4 hover:bg-gradient-to-r from-slate-600 to to-violet-600"
+                  " text-zinc-800 dark:text-gray-200 text-xl hover:text-white font-semibold hover:py-1 hover:px-2 hover:border hover:border-black dark:hover:border-gray-400 rounded-lg ml-4 hover:bg-gradient-to-r from-slate-600 to to-violet-600"
                 }
                 href={"/"}
                 onClick={() => setShowDropdown(false)}
@@ -353,7 +378,7 @@ export const UserHeader = () => {
                 <Link
                   className={
                     nunitoSans.className +
-                    " text-zinc-800 text-xl hover:text-white font-semibold  rounded-lg ml-4 hover:py-1 hover:px-2 hover:border hover:border-black hover:bg-gradient-to-r from-slate-600 to to-violet-600"
+                    " text-zinc-800 dark:text-gray-200 text-xl hover:text-white font-semibold  rounded-lg ml-4 hover:py-1 hover:px-2 hover:border hover:border-black dark:hover:border-gray-400 hover:bg-gradient-to-r from-slate-600 to to-violet-600"
                   }
                   onClick={() => setShowDropdown(false)}
                   href={link.href}
@@ -362,7 +387,7 @@ export const UserHeader = () => {
                 </Link>
               </li>
             ))}
-            <hr />
+            <hr className="border-gray-500 dark:border-gray-700" />
           </ul>
         </div>
       )}

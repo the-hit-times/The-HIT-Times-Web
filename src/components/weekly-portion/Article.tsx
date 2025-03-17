@@ -19,7 +19,7 @@ export default function Article({ article }: { article: Posts }) {
   return (
     <Link
       href={"/posts/" + article._id}
-      className="group/item sm:hover:scale-105 hover:scale-102 hover:delay-100 scroll-smooth h-full p-2 hover:bg-gray-200 hover:duration-300 hover:shadow-xl rounded-xl  animate-flip-up animate-duration-200 animate-delay-100 "
+      className="group/item sm:hover:scale-105 hover:scale-102 hover:delay-100 scroll-smooth h-full p-2 hover:bg-gray-200 dark:hover:bg-gray-600 hover:duration-300 hover:shadow-xl rounded-xl animate-flip-up animate-duration-200 animate-delay-100"
     >
       <ArticleImage
         src={article.link}
@@ -31,7 +31,7 @@ export default function Article({ article }: { article: Posts }) {
       <h3
         className={
           ibmPlexSerif.className +
-          " text-lg font-bold mt-2 text-ellipsis line-clamp-2 animate-fade-down animate delay-200 animate-duration-200 "
+          " text-lg font-bold mt-2 text-ellipsis line-clamp-2 animate-fade-down animate delay-200 animate-duration-200 text-gray-900 dark:text-white"
         }
       >
         {article.title}
@@ -39,7 +39,7 @@ export default function Article({ article }: { article: Posts }) {
       <p
         className={
           nunitoSans.className +
-          " text-gray-700 font-mono mt-1 text-ellipsis line-clamp-2 animate-fade-up animate delay-500 animate-duration-700 "
+          " text-gray-700 dark:text-gray-300 font-mono mt-1 text-ellipsis line-clamp-2 animate-fade-up animate delay-500 animate-duration-700"
         }
       >
         {article.description}

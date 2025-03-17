@@ -56,7 +56,7 @@ export default function PostsPage({
       <h1
         className={
           ibmPlexSerif.className +
-          " text-zinc-800 sm:text-5xl text-3xl font-semibold py-8"
+          " text-zinc-80 dark:text-white sm:text-5xl text-3xl font-semibold py-8"
         }
       >
         My Bookmarks
