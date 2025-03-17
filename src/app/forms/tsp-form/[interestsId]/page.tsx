@@ -4,6 +4,14 @@ import { motion } from "framer-motion";
 import { IBM_Plex_Serif, Nunito_Sans, Poppins } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
+import React from "react";
+import cwCalendar from "@/components/calendarComponents/cwCalendar";
+import DevCalendar from "@/components/calendarComponents/devCalendar";
+import gdCalendar from "@/components/calendarComponents/gdCalendar";
+import photographyCalendar from "@/components/calendarComponents/photographyCalendar";
+import videoEditingCalendar from "@/components/calendarComponents/videoEditingCalendar";
+import digitalArtCalendar from "@/components/calendarComponents/digitalArtCalendar";
+import { Calendar } from "lucide-react";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -20,48 +28,46 @@ const nunitoSans = Nunito_Sans({
 });
 
 function TSPsuccessPage({ params }: { params: { interestsId: string } }) {
-  const interestNo: String[] = [
-    "writing",
-    "drawing",
-    "designing",
-    "videoEditing",
-    "technology",
-    "photography",
-  ];
+  // const interestNo: String[] = [
+  //   "writing",
+  //   "drawing",
+  //   "designing",
+  //   "videoEditing",
+  //   "technology",
+  //   "photography",
+  // ];
   const allInvLinks = [
     {
-      title: "Writing",
-      url: "https://chat.whatsapp.com/GEE95DRfs8DDmFBzoIN2fm",
+      title: "Content Writing",
+      url: "https://chat.whatsapp.com/HTaPtnggSRhA7IdkA57eWw",
+      calendar: cwCalendar,
     },
     {
-      title: "Drawing",
-      url: "https://chat.whatsapp.com/JHGttWD2Pic2PTo5MzVmBW",
+      title: "Digital Art",
+      url: "https://chat.whatsapp.com/EDiA8khK1VIJjvRgdkH4FR",
+      calendar:digitalArtCalendar,
     },
     {
-      title: "Designing",
-      url: "https://chat.whatsapp.com/Bu6xtYTHjI9AyUVchTDZc1",
+      title: "Graphics Designing",
+      url: "https://chat.whatsapp.com/CDksaUvAEgK0dp4Dtrl3Yy",
+      calendar: gdCalendar,
     },
     {
       title: "Video Editing",
-      url: "https://chat.whatsapp.com/KP1IKArzmK022HcLYg60eq",
+      url: "https://chat.whatsapp.com/BaY7smgaFq2IM32zno9a1w",
+      calendar: videoEditingCalendar,
     },
     {
-      title: "Technology",
-      url: "https://chat.whatsapp.com/EMBGnkqbkRv3Y1GigW0cRI",
+      title: "Web Development",
+      url: "https://chat.whatsapp.com/EbMONu9UyElH6qvseXAdH0",
+      calendar: DevCalendar,
     },
     {
       title: "Photography",
-      url: "https://chat.whatsapp.com/L3kWjEz5MtHFp8Df0RjhDM",
+      url: "https://chat.whatsapp.com/Bz8GAjkdqlIA6wI2GBN6Uh",
+      calendar: photographyCalendar,
     },
   ];
-
-  const scheduleData = [
-    { day: "01-March-2025", activity: "* 1st Half- Photography, Cartoonist ", activity2: "* 2nd Half- GD, Development, Content Writing ", activity3:"* Video Editing Online Class  " },
-    { day: "02-March-2025", activity: "* 1st Half- Photography, Cartoonist ", activity2: "* 2nd Half- GD, Video Editing, Content Writing", activity3:"* Development Online Class  " },
-    { day: "03-March-2025 To 07-March-2025", activity: "All Teams will Conduct Online Classes , Time Table will be provided in respective whatsapp group" },
-    { day: "08-March-2025", activity: "* 1st Half- Development, Cartoonist ", activity2: "* 2nd Half- GD, Video Editing, Content Writing", activity3:"* PhotoWalk Session "},
-    { day: "09-March-2025", activity: "* 1st Half- Development, Cartoonist ", activity2: "* 2nd Half- GD, Video Editing, Content Writing", activity3:"* PhotoWalk Session " },
-  ]
 
   const invLinks = [];
 
@@ -73,10 +79,19 @@ function TSPsuccessPage({ params }: { params: { interestsId: string } }) {
 
   return (
     <>
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-purple-900 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-r from-teal-900 to-orange-600 py-12 px-4 sm:px-6 lg:px-8">
     <div className="mb-8">
-      <div className={"my-4 text-2xl text-purple-200 " + poppins.className}>
+      <div className="flex justify-center items-center">
+        <img src="/tsp-logo.png" alt="" className="h-72 w-auto rounded-2xl"/>
+      </div>
+      <div className={"my-4 text-2xl font-bold text-purple-200 " + poppins.className}>
         Your response has been submitted!🎉
+        <br/>
+        Thank you for taking the time to submit your TSP Form. 
+        To keep up with the latest developments, make sure to join the relevant 
+        domain-specific WhatsApp groups and keep an eye on them for updates. 
+        Also, please ensure your contact number is active for any required communication.
+
       </div>
       <div className="my-2">
         <h2 className={"my-4 text-xl  text-purple-300 " + poppins.className}>
@@ -88,7 +103,7 @@ function TSPsuccessPage({ params }: { params: { interestsId: string } }) {
               key={inv.title}
               href={inv.url}
               className={nunitoSans.className +
-                " bg-gray-700 text-white font-mono rounded-lg py-8 text-3xl text-center shadow-md"}
+                " bg-slate-300/25  text-white font-mono rounded-xl py-8 text-3xl text-center shadow-md"}
             >
               <div className="flex flex-row pl-5 lg:pl-8 gap-2">
                 <Image
@@ -102,10 +117,30 @@ function TSPsuccessPage({ params }: { params: { interestsId: string } }) {
           ))}
         </div>
       </div>
+      <div>
+        <h2 className={"my-4 text-xl text-purple-300 " + poppins.className}>
+          ...and mark your calendars!
+        </h2>
+        <div className="grid grid-flow-row sm:grid-cols-2 grid-cols-1 gap-4">
+          {invLinks.map((inv) => (
+            <div
+              key={inv.title}
+              className={nunitoSans.className +
+                " text-white bg-slate-300/25 font-mono rounded-lg py-6 text-3xl text-center shadow-md"}
+            >
+              <div className="flex flex-row pl-5 lg:pl-8 gap-2">
+                <Calendar size={40} />
+                <div className="pt-1">{inv.title}</div>
+              </div>
+              <div className="p-2"><inv.calendar /></div>
+            </div>
+          ))}
+        </div>
+      </div>
       {invLinks.length < 4 ? <div className="h-20 sm:h-auto"></div> : <></>}
     </div>
     
-        <motion.div
+        {/* <motion.div
           className="max-w-4xl mx-auto bg-gray-800 rounded-xl shadow-2xl overflow-hidden"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -157,7 +192,15 @@ function TSPsuccessPage({ params }: { params: { interestsId: string } }) {
               </Link>
             </motion.div>
           </div>
-        </motion.div>
+        </motion.div> */}
+        <div className="items-center justify-center text-center">
+        <Link
+              href="/"
+              className="bg-purple-600  hover:bg-purple-700 text-white font-semibold py-2 px-6 rounded-xl shadow-sm transition duration-150 ease-in-out transform hover:scale-105 inline-block"
+            >
+            Back to Home
+        </Link>
+        </div>
       </div></>
   );
 }

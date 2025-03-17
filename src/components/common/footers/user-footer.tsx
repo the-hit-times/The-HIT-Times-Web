@@ -101,6 +101,7 @@ export const UserFooter = () => {
             width={150}
             height={30}
             alt="Play Store App Icon"
+            className="-translate-x-2.5 -translate-y-1"
           />
         </Link>
       </div>

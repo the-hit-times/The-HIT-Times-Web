@@ -28,7 +28,7 @@ interface noticeProps {
 
 const tspNotice = {
   noticeTitle: "Join TSP 24-25",
-  noticeLink: "/forms/tsp-form",
+  noticeLink: "/tsp",
 };
 
 const recruitmentNotice = {

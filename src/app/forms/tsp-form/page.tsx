@@ -1,19 +1,79 @@
 "use client"
 import { motion } from 'framer-motion';
-
-const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-};
+import { signIn, useSession } from 'next-auth/react';
 import { IBM_Plex_Serif, Nunito_Sans, Poppins } from 'next/font/google';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { signIn, useSession } from 'next-auth/react';
+
+const fadeInUp = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+};
+
+
+
+
+  //const checkEmailAndRedirect = async (email: string) => {
+  //   try {
+  //     const response = await fetch(`/api/v1/tsps?email=${email}`);
+  //     console.log('response')
+  
+  //     if (!response.ok) {
+  //       console.error(`Error: ${response.status} - ${response.statusText}`);
+  //       return; // Stop execution if the response is not OK
+  //     }
+  
+  //     const data = await response.json();
+  //     console.log("API Response:", data);
+  
+  //     if (!Array.isArray(data) || data.length === 0) {
+  //       console.warn("No user found with this email.");
+  //       return;
+  //     }
+  
+  //     const formData = data[0];
+  
+  //     type SheetData = {
+  //       name: string;
+  //       roll: string;
+  //       email: string;
+  //       phone: string;
+  //       dept: string;
+  //       year: string;
+  //       writing: string;
+  //       drawing: string;
+  //       designing: string;
+  //       videoEditing: string;
+  //       technology: string;
+  //       photography: string;
+  //       suggestion: string;
+  //     };
+  
+  //     const getInterestsNo = (formData: SheetData) => {
+  //       let interestParams = "";
+  //       if (formData?.writing === "yes") interestParams += "0";
+  //       if (formData?.drawing === "yes") interestParams += "1";
+  //       if (formData?.designing === "yes") interestParams += "2";
+  //       if (formData?.videoEditing === "yes") interestParams += "3";
+  //       if (formData?.technology === "yes") interestParams += "4";
+  //       if (formData?.photography === "yes") interestParams += "5";
+  //       return interestParams;
+  //     };
+  
+  //     const interestParams = getInterestsNo(formData);
+  
+  //     console.log("Redirecting to:", `/forms/tsp-form/${interestParams}`);
+  //     router.replace(`/forms/tsp-form/${interestParams}`);
+  //   } catch (error) {
+  //     console.error("Error checking email:", error);
+  //   }
+  // };
+
+
 
 
 const poppins = Poppins({
@@ -49,14 +109,14 @@ export default function TSPForm() {
     suggestion: string
   }
 
-  const interestNo: String[] = ["writing", "drawing", "designing", "videoEditing", "technology", "photography"]
+  const interestNo: String[] = ["writing", "drawing", "designing", "videoEditing", "technology", "photography"];
+  const domains: String[] = ["Content Writing", "Digital Art", "Graphic Designing", "Video Editing", "Web Development", "Photography"];
 
   const { data: session } = useSession();
 
   const router = useRouter()
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const [notice, setNotice] = useState<any>(null)
-  const [noticeEmpty, setNoticeEmpty] = useState(false)
+  const [isNoticeEmpty, setNoticeEmpty] = useState(false)
 
   const form = useForm<SheetData>();
   const { register, handleSubmit } = form;
@@ -74,16 +134,53 @@ export default function TSPForm() {
   }
 
 
+
+  const checkEmailAndRedirect = async (email: string) => {
+    try {
+        const response = await fetch("/api/v1/tsps/checkuser ", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email }),
+        });
+
+        const data = await response.json();
+        console.log("API Response:", data);
+
+        if (!response.ok) {
+            console.warn("Error:", data.msg);
+            // alert(data.msg); 
+            return;
+        }
+
+        if (data.success && data.redirectUrl) {
+            console.log("Redirecting to:", data.redirectUrl);
+            window.location.href = data.redirectUrl;
+        }
+    } catch (error) {
+        console.error("Error checking email:", error);
+    }
+};
+
+
+  useEffect(() => {
+    // const { data: session } = useSession();
+    if (session) {
+      checkEmailAndRedirect(session.user.email);
+    }
+  }, [session]);
+
+  
   useEffect(() => {
     const fetchPost = async () => {
       try {
         const res2 = await fetch("/api/v1/notice");
         let notice = await res2.json();
         notice = notice.reverse();
-
-        if (notice.length > 0) {
-          setNotice(notice[0]);
-        } else {
+        
+        if (notice.length == 0) {
+          setNoticeEmpty(true);
+        }
+        else if(notice[0].noticeLink != '/tsp') {
           setNoticeEmpty(true);
         }
       } catch (error) {
@@ -118,16 +215,16 @@ export default function TSPForm() {
         body: JSON.stringify(formData),
       });
 
+      const data: any = await response.json();
+
       if (response.status != 201) {
-        toast.error("Something went wrong");
+        toast.error(data.msg || "Something went wrong");
         throw new Error(`HTTP error! status: ${response.status}`);
       } else {
         toast.success("Submitted successfully")
       }
-
-      const data: any = await response.json();
-      console.log(data);
       return true;
+
     } catch (error) {
       setIsSubmitted(false)
       toast.error("Try submitting again");
@@ -172,8 +269,9 @@ export default function TSPForm() {
 
 
   if(session){
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-purple-900 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-r from-cyan-950 to-amber-600 py-12 px-4 sm:px-6 lg:px-8">
       <motion.div
         className="max-w-4xl mx-auto bg-gray-800 rounded-xl shadow-2xl overflow-hidden"
         initial={{ opacity: 0, scale: 0.9 }}
@@ -181,28 +279,55 @@ export default function TSPForm() {
         transition={{ duration: 0.5 }}
       >
         <div className="relative h-24 sm:h-64">
-          <Image src="/tsp-header.png" alt="Trainee Scholars Program Banner" layout="fill" objectFit="cover" />
+          <Image src="/tsp-banner-2025.png" alt="Trainee Scholars Program Banner" layout="fill" objectFit="cover" />
         </div>
+        {
+          isNoticeEmpty ?
+          <div>
+            <div className="h-2 lg:h-3 w-full bg-purple-700 rounded-xl"></div>
+            <div
+                    className={
+                      poppins.className +
+                      " text-3xl lg:text-4xl font-medium text-white py-5"
+                    }
+                  >
+                    TSP Form closed!!
+            </div>
+            <div className="h-2 lg:h-3 w-full bg-purple-700 rounded-xl"></div>
+          </div>
+        
+          :
+        
         <div className="p-8">
-          <motion.h1 className={`${poppins.className} text-3xl font-bold text-purple-300 mb-6`} {...fadeInUp}>
+          <motion.h1 className={`${poppins.className} text-3xl font-bold text-amber-200 mb-6`} {...fadeInUp}>
             Trainee Scholars Program
           </motion.h1>
           <motion.div className="prose max-w-none mb-8 text-gray-300" {...fadeInUp}>
             <p>
-              <span className="font-semibold text-purple-400">The Trainee Scholars Program</span>, brought to you by
-              <span className="font-semibold text-purple-400"> The HIT Times</span>, presents the opportunity for young
+              <span className="font-semibold text-amber-200">The Trainee Scholars Program</span>, brought to you by
+              <span className="font-semibold text-amber-200"> The HIT Times</span>, presents the opportunity for young
               and enthusiastic minds to follow their passion and excel in something they truly want to do.
             </p>
             <p className="mt-4">
-              As part of the college&apos;s official media and literary club, we promote a creative culture inside the campus
-              and provide room for each and everyone to grow in the field they choose. Join us in this adventure and
-              nurture your passion amongst like minds.
+            The HIT Times invites you to the Trainee Scholars Program,
+             a journey of growth, expression, and discovery. We are here to help you find yourself,
+              to nurture your passion, and to turn ideas into impact. 
+              Whether you write, design, or capture moments, 
+            this is your chance to step into a world of possibilities. So, are you ready to 
+            push boundaries and explore yourself? Fill out the form and take the first step!
             </p>
             <p className="mt-4">We wish you a successful journey ahead.</p>
+            <div>
+              For any Form related Query Contact : <div className='font-semibold text-white'>Ashutosh Pathak (9142151436) [3rd Year] </div>
+              <div className='font-semibold text-white'>B.Harshita (7209593292) [3rd Year] </div>
+            </div>
+            <div >
+              For any Kind Of Technical Support Contact : <div className='font-semibold text-white'>Kingshuk Hazra (9641410895) [3rd Year] </div>
+            </div>
           </motion.div>
           <motion.div className="mb-8 text-gray-300" {...fadeInUp}>
-            <p className="font-semibold text-purple-400">The HIT Times</p>
-            <p>
+            <p className="font-semibold text-white">The HIT Times</p>
+            {/* <p>
               Brochure -{" "}
               <Link
                 href="https://www.instagram.com/thehittimes/"
@@ -210,40 +335,55 @@ export default function TSPForm() {
               >
                 TSP 24-25
               </Link>
-            </p>
+            </p> */}
           </motion.div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          <label
+            htmlFor="email"
+            className={`${poppins.className} block text-sm font-medium text-amber-200`}
+          >
+            Email
+          </label>
+          <input
+            type="email"
+            id="email"
+            className="pl-[12px] bg-gray-600 text-zinc-100 mt-2 font-sans ring-1 ring-zinc-400 focus:ring-2 focus:ring-amber-700 outline-none duration-300 placeholder:text-zinc-100 placeholder:opacity-50 rounded-full px-2 w-full md:w-72 py-1 shadow-md focus:shadow-2xs focus:shadow-amber-500 text-[14px]"
+            value={session.user.email}
+            required
+            {...register("email")}
+          />
+
             {[
               { name: "name", label: "Name", type: "text", placeholder: "Your full name" },
               { name: "roll", label: "Roll Number (In the format-24/ME/001)", type: "text", placeholder: "24/ME/001" },
-              { name: "email", label: "Email", type: "email", placeholder: "your.email@example.com" },
+              // { name: "email", label: "Email", type: "email", placeholder: "your.email@example.com" },
               { name: "phone", label: "Contact Number", type: "tel", placeholder: "Your phone number" },
             ].map((field, index) => (
               <motion.div key={field.name} {...fadeInUp} transition={{ delay: index * 0.1 }}>
                 <label
                   htmlFor={field.name}
-                  className={`${poppins.className} block text-sm font-medium text-purple-300`}
+                  className={`${poppins.className} block text-sm font-medium text-amber-200`}
                 >
                   {field.label}
                 </label>
                 <input
                   type={field.type}
                   id={field.name}
-                  className="bg-gray-600 text-zinc-100 mt-2 font-sans ring-1 ring-zinc-400 focus:ring-2 focus:ring-violet-700 outline-none duration-300 placeholder:text-zinc-100 placeholder:opacity-50 rounded-full px-2 w-full md:w-72 py-1 shadow-md focus:shadow-lg focus:shadow-purple-500"
+                  className="pl-[12px] bg-gray-600 text-zinc-100 mt-2 font-sans ring-1 ring-zinc-400 focus:ring-2 focus:ring-amber-700 outline-none duration-300 placeholder:text-zinc-100 placeholder:opacity-50 rounded-full px-2 w-full md:w-72 py-1 shadow-md focus:shadow-2xs focus:shadow-amber-500 text-[14px]"
                   placeholder={field.placeholder}
                   required
-                  {...register(field.name as "name" | "roll" | "email" | "phone")}
+                  {...register(field.name as "name" | "roll" | "phone")}
                 />
               </motion.div>
             ))}
 
             <motion.div {...fadeInUp}>
-              <label className={`${poppins.className} block text-sm font-medium text-purple-300 mb-2`}>
-                What interests you most?
+              <label className={`${poppins.className} block text-sm font-medium text-amber-200 mb-2`}>
+                What interests you most? (Tick the boxes)
               </label>
-              <div className="grid grid-cols-2 gap-2">
-                {["writing", "drawing", "designing", "videoEditing", "technology", "photography"].map((interest) => (
+              <div className="grid sm:grid-cols-2 gap-2">
+                {["writing", "drawing", "designing", "videoEditing", "technology", "photography"].map((interest, index) => (
                   <label key={interest} className="relative flex items-center cursor-pointer group">
 
                     {/* <label class="relative flex items-center cursor-pointer group">
@@ -262,10 +402,11 @@ export default function TSPForm() {
                       {...register(interest as "writing" | "drawing" | "designing" | "videoEditing" | "technology" | "photography")}
                     />
                     <div
-                        className="w-8 h-8 rounded-lg bg-white border-2 border-purple-500 transition-all duration-300 ease-in-out peer-checked:bg-gradient-to-br from-purple-500 to-pink-500 peer-checked:border-0 peer-checked:rotate-12 after:content-[''] after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:w-5 after:h-5 after:opacity-0 after:bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cG9seWxpbmUgcG9pbnRzPSIyMCA2IDkgMTcgNCAxMiI+PC9wb2x5bGluZT48L3N2Zz4=')] after:bg-contain after:bg-no-repeat peer-checked:after:opacity-100 after:transition-opacity after:duration-300 hover:shadow-[0_0_15px_rgba(168,85,247,0.5)]"
+                        className="w-8 h-8 rounded-xl bg-white  border-2 border-amber-500 transition-all duration-300 ease-in-out peer-checked:bg-gradient-to-br from-amber-500 to-red-600 peer-checked:border-0 peer-checked:rotate-12 after:content-[''] after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:w-5 after:h-5 after:opacity-0 after:bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cG9seWxpbmUgcG9pbnRzPSIyMCA2IDkgMTcgNCAxMiI+PC9wb2x5bGluZT48L3N2Zz4=')] after:bg-contain after:bg-no-repeat peer-checked:after:opacity-100 after:transition-opacity after:duration-300 hover:shadow-[0_0_15px_rgba(168,85,247,0.5)]"
                       ></div>
                     <label htmlFor={interest} className="ml-2 block text-sm text-gray-300">
-                      {interest.charAt(0).toUpperCase() + interest.slice(1)}
+                      {/* {interest.charAt(0).toUpperCase() + interest.slice(1)} */}
+                      {domains[index]}
                     </label>
                   </label>
                 ))}
@@ -273,7 +414,7 @@ export default function TSPForm() {
             </motion.div>
 
             <motion.div {...fadeInUp}>
-              <label className={`${poppins.className} block text-sm font-medium text-purple-300 mb-2`}>
+              <label className={`${poppins.className} block text-sm font-medium text-amber-200 mb-2`}>
                 Department
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -292,12 +433,13 @@ export default function TSPForm() {
                   "FT",
                   "IT",
                   "ME",
+                  "Masters",
                 ].map((dept) => (
                   <div key={dept} className="flex items-center">
                     <input
                       id={`dept-${dept}`}
                       type="radio"
-                      className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-700"
+                      className="h-4 w-4 text-amber-600 focus:ring-amber-500 border-gray-700"
                       value={dept}
                       {...register("dept")}
                     />
@@ -310,15 +452,15 @@ export default function TSPForm() {
             </motion.div>
 
             <motion.div {...fadeInUp}>
-              <label className={`${poppins.className} block text-sm font-medium text-purple-300 mb-2`}>Year</label>
-              <p className="text-sm text-gray-400 mb-2">TSP is only for 1st and 2nd year students.</p>
+              <label className={`${poppins.className} block text-sm font-medium text-amber-200 mb-2`}>Year</label>
+              {/* <p className="text-sm text-gray-400 mb-2">TSP is only for 1st and 2nd year students.</p> */}
               <div className="space-y-2">
                 {["1st Year", "2nd Year"].map((year) => (
                   <div key={year} className="flex items-center">
                     <input
                       id={`year-${year}`}
                       type="radio"
-                      className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-700"
+                      className="h-4 w-4 text-amber-600 focus:ring-amber-500 border-gray-700"
                       value={year}
                       {...register("year")}
                     />
@@ -333,7 +475,7 @@ export default function TSPForm() {
             <motion.div {...fadeInUp}>
               <label
                 htmlFor="suggestion"
-                className={`${poppins.className} block text-sm font-medium text-purple-300 mb-2`}
+                className={`${poppins.className} block text-sm font-medium text-amber-200 mb-2`}
               >
                 We would love to hear from you
               </label>
@@ -344,9 +486,8 @@ export default function TSPForm() {
               <textarea
                 id="suggestion"
                 rows={4}
-                className="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 sm:text-sm text-white placeholder-gray-400"
+                className="pl-2 pt-2 mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 sm:text-sm text-white placeholder-gray-400"
                 placeholder="Your suggestions and ideas"
-                required
                 {...register("suggestion")}
               ></textarea>
             </motion.div>
@@ -358,7 +499,7 @@ export default function TSPForm() {
               transition={{ delay: 0.5 }}
             >
               {isSubmitted ? (
-                <div className="bg-purple-600 py-2 px-4 rounded-md flex items-center">
+                <div className="bg-teal-500 py-2 px-4 rounded-md flex items-center">
                   <svg
                     className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
                     xmlns="http://www.w3.org/2000/svg"
@@ -384,7 +525,7 @@ export default function TSPForm() {
               ) : (
                 <button
                   type="submit"
-                  className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-6 rounded-md shadow-sm transition duration-150 ease-in-out transform hover:scale-105"
+                  className="bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2 px-6 rounded-md shadow-sm transition duration-150 ease-in-out transform hover:scale-105"
                 >
                   Submit
                 </button>
@@ -392,6 +533,7 @@ export default function TSPForm() {
             </motion.div>
           </form>
         </div>
+        }
       </motion.div>
     </div>
 
