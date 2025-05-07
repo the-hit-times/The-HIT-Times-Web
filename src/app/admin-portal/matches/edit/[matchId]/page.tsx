@@ -22,17 +22,24 @@ export default function EditMatchPost({
   const [loading, setLoading] = useState<boolean>(true);
 
   const loadMatchData = async () => {
-    const response = await fetch(`/api/v1/live/match/${matchId}`);
-    const data = await response.json();
-    if (response.ok) {
-      setMatchData(data.data);
+    try {
+      const response = await fetch(`/api/v1/live/match/${matchId}`);
+      const data = await response.json();
+      if (response.ok) {
+        setMatchData(data.data);
+      } else {
+        throw new Error("Failed to fetch match data");
+      }
+    } catch (error) {
+      console.error("Error loading match data:", error);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   useEffect(() => {
     loadMatchData();
-  }, []);
+  }, [matchId]);
 
   if (!loading && !matchData) {
     notFound();

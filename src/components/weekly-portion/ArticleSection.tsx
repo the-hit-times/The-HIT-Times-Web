@@ -35,7 +35,7 @@ const ArticleSection: React.FC<ArticleSectionProps> = ({
         <h2
           className={
             poppins.className +
-            " text-xl text-black font-bold animate-fade-right animate-once animate-duration-500 animate-delay-500"
+            " text-xl text-black font-bold animate-fade-right animate-once animate-duration-500 animate-delay-500 dark:text-white"
           }
         >
           {heading}

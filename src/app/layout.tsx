@@ -22,8 +22,8 @@ export default function RootLayout({
   return (
     <SessionWrapper>
       <html lang="en">
-        <body className={inter.className + " bg-body"}>
-          <div className="bg-slate-200">
+      <body className={inter.className + " bg-slate-200 dark:bg-gray-800 text-gray-900 dark:text-white"}>
+          <div className="bg-slate-200 dark:bg-gray-700">
             <div className="max-w-screen-2.5xl 2.5xl:mx-auto mx-4">
               <Header />
             </div>
@@ -33,7 +33,7 @@ export default function RootLayout({
               {children}
           </div>
 
-          <div className="bg-black">
+          <div className="bg-black dark:bg-gray-950">
             <div className="max-w-screen-2.5xl 2.5xl:mx-auto mx-4 py-10">
               <Footer />
             </div>

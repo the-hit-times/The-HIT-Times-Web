@@ -91,7 +91,7 @@ export default function PostsPage({
       <h1
         className={
           ibmPlexSerif.className +
-          " text-zinc-800 sm:text-5xl text-3xl font-semibold py-8 animate-fade-right animate-once animate-duration-500 animate-delay-500"
+          " text-zinc-800 dark:text-gray-200 sm:text-5xl text-3xl font-semibold py-8 animate-fade-right animate-once animate-duration-500 animate-delay-500"
         }
       >
         {pageTitle}

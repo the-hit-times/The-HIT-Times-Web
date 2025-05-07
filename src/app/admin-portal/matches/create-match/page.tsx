@@ -1,3 +1,5 @@
+"use client";
+
 import CreateLivePostForm from "@/components/admin-portal/matches/CreateLivePost";
 import { IBM_Plex_Serif } from "next/font/google";
 
