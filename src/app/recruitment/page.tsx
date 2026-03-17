@@ -160,7 +160,8 @@ export default function RecCommonForm() {
                   recorded when you upload files and submit this form. Only the
                   email you enter is part of your response.
                   <p>For any queries regarding errors in the form
-                    <p>Contact: 9641410895 [Kingshuk Hazra(3rd Year)] </p>
+                    <p>Contact: 9641410895 [Kingshuk Hazra(4th Year)] </p>
+                    <p>Contact: 9073669191 [Ishan Tiwari(3rd Year)] </p>
                   </p>
                 </p>
                 <hr />
@@ -187,7 +188,7 @@ export default function RecCommonForm() {
               register={register}
             />
             <FormInput
-              title="Roll Number (In the format-24/CSE/084)"
+              title="Roll Number (In the format-25/CSE/072)"
               id="roll"
               isRequired={true}
               register={register}
