@@ -439,7 +439,7 @@ export default function TSPForm() {
 
             <RadioGroup
               title="Year"
-              options={["2nd Year"]}
+              options={["2nd Year", "Faculty"]}
               register={register}
               name="year"
               required
