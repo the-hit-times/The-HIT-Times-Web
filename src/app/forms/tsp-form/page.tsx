@@ -16,7 +16,8 @@ const domains = [
   { key: "writing", label: "Content Writing" },
   { key: "drawing", label: "Digital Art" },
   { key: "designing", label: "Graphic Designing" },
-  { key: "videoEditing", label: "Video Editing" },
+  { key: "videoEditingbasic", label: "Video Editing For Social media" },
+  { key: "videoEditingadvanced", label: "Video Editing Advanced" },
   { key: "technology", label: "Web Development" },
   { key: "photography", label: "Photography" },
 ] as const;
@@ -49,7 +50,8 @@ type SheetData = {
   writing: string;
   drawing: string;
   designing: string;
-  videoEditing: string;
+  videoEditingbasic: string;
+  videoEditingadvanced: string;
   technology: string;
   photography: string;
   suggestion: string;
@@ -190,9 +192,10 @@ export default function TSPForm() {
     if (formData.writing === "yes") interestParams += "0";
     if (formData.drawing === "yes") interestParams += "1";
     if (formData.designing === "yes") interestParams += "2";
-    if (formData.videoEditing === "yes") interestParams += "3";
-    if (formData.technology === "yes") interestParams += "4";
-    if (formData.photography === "yes") interestParams += "5";
+    if (formData.videoEditingbasic === "yes") interestParams += "3";
+    if (formData.videoEditingadvanced === "yes") interestParams += "4";
+    if (formData.technology === "yes") interestParams += "5";
+    if (formData.photography === "yes") interestParams += "6";
     return interestParams;
   };
 
