@@ -38,6 +38,8 @@ const departments = [
   "IT",
   "ME",
   "Masters",
+  "SASH",
+  "Others"
 ];
 
 type SheetData = {
@@ -185,7 +187,15 @@ export default function TSPForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isNoticeEmpty, setNoticeEmpty] = useState(false);
   const form = useForm<SheetData>();
-  const { register, handleSubmit } = form;
+  const { register, handleSubmit, watch, setValue } = form;
+
+  const selectedYear = watch("year");
+
+  useEffect(() => {
+    if (selectedYear === "Faculty") {
+      setValue("roll", "N/A");
+    }
+  }, [selectedYear, setValue]);
 
   const getInterestsNo = (formData: SheetData) => {
     let interestParams = "";
