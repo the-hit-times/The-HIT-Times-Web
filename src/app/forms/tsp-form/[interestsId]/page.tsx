@@ -34,6 +34,11 @@ const allInvLinks = [
     calendar: videoEditingCalendar,
   },
   {
+    title: "Video Editing",
+    url: "https://chat.whatsapp.com/FYr3t5JKc1AK8GmXGaqKlV",
+    calendar: videoEditingCalendar,
+  },
+  {
     title: "Web Development",
     url: "https://chat.whatsapp.com/FPJabNIcPtR3DtMASCoArr",
     calendar: DevCalendar,

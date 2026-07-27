@@ -32,9 +32,10 @@ export async function POST(request: NextRequest) {
             if (existingForm?.writing === "yes") interestParams += "0";
             if (existingForm?.drawing === "yes") interestParams += "1";
             if (existingForm?.designing === "yes") interestParams += "2";
-            if (existingForm?.videoEditing === "yes") interestParams += "3";
-            if (existingForm?.technology === "yes") interestParams += "4";
-            if (existingForm?.photography === "yes") interestParams += "5";
+            if (existingForm?.videoEditingbasic === "yes") interestParams += "3";
+            if (existingForm?.videoEditingadvanced === "yes") interestParams += "4";
+            if (existingForm?.technology === "yes") interestParams += "5";
+            if (existingForm?.photography === "yes") interestParams += "6";
             return interestParams;
         };
 
