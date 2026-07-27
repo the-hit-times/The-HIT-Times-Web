@@ -45,7 +45,7 @@ const TspSchema = new mongoose.Schema<Tsp>(
         year: {
             type: String,
             required: true,
-            enum: ["1st Year", "2nd Year"]
+            enum: ["1st Year", "2nd Year","3rd Year","4th Year","Faculty"]
         },
         writing: {
             type: String,
