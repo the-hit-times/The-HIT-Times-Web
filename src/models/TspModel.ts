@@ -12,6 +12,8 @@ type Tsp = {
     drawing: string
     designing: string
     videoEditing: string
+     videoEditingbasic: string;
+     videoEditingadvanced: string;
     technology: string
     photography: string
     suggestion: string
@@ -58,6 +60,12 @@ const TspSchema = new mongoose.Schema<Tsp>(
         },
         videoEditing: {
             type: String,
+        },
+        videoEditingbasic: {
+           type: String,
+        },
+        videoEditingadvanced: {
+           type: String,
         },
         technology: {
             type: String,
