@@ -32,6 +32,8 @@ export async function GET(request: NextRequest) {
       { label: "Digital Art", value: "drawing" },
       { label: "Graphic Designing", value: "designing" },
       { label: "Video Editing", value: "videoEditing" },
+      { label: "Video Editing (Social Media)", value: "videoEditingbasic" },
+      { label: "Video Editing (Advanced)", value: "videoEditingadvanced" },
       { label: "Web Development", value: "technology" },
       { label: "Photography", value: "photography" },
       { label: "Suggestions", value: "suggestion" },
