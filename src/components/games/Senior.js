@@ -15,7 +15,7 @@ export default class Senior {
                 "senior-down-1"
             );
 
-        senior.setScale(0.7);
+        senior.setScale(0.53);
 
         senior.setCollideWorldBounds(
             true
@@ -219,8 +219,8 @@ export default class Senior {
         
                 this.seniors.push(
                     this.createSenior(
-                        570,
-                        320,
+                        525,
+                        717,
                         {
                             id: 1,
                             name: "TIMES Member",
@@ -237,8 +237,8 @@ export default class Senior {
         
                 this.seniors.push(
                     this.createSenior(
-                        970,
-                        320,
+                        280,
+                        730,
                         {
                             id: 2,
                             name: "TIMES Member",
@@ -252,8 +252,8 @@ export default class Senior {
         
                 this.seniors.push(
                     this.createSenior(
-                        350,
-                        580,
+                        270,
+                        360,
                         {
                             id: 3,
                             name: "TIMES Member",
@@ -267,8 +267,8 @@ export default class Senior {
         
                 this.seniors.push(
                     this.createSenior(
-                        1300,
-                        500,
+                        1410,
+                        797,
                         {
                             id: 4,
                             name: "TIMES Member",
@@ -282,8 +282,8 @@ export default class Senior {
         
                 this.seniors.push(
                     this.createSenior(
-                        600,
-                        830,
+                        1335,
+                        170,
                         {
                             id: 5,
                             name: "TIMES Member",
@@ -297,8 +297,8 @@ export default class Senior {
         
                 this.seniors.push(
                     this.createSenior(
-                        1300,
-                        750,
+                        1155,
+                        710,
                         {
                             id: 6,
                             name: "TIMES Member",
@@ -311,8 +311,8 @@ export default class Senior {
 
                 this.seniors.push(
                     this.createSenior(
-                        130,
-                        250,
+                        997, //130
+                        320, //250
                         {
                             id: 7,
                             name: "TIMES Member",
