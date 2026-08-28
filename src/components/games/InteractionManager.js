@@ -17,7 +17,7 @@ export default class InteractionManager {
         this.dialogueStep = 0;
 
         this.juniorDialogue =
-            "Excuse me bhaiya, can you help me figure out this campus?";
+            "Excuse me, can you tell me a little about this location?";
     }
 
 

@@ -117,14 +117,14 @@ export default class Player {
             112
         );
 
-        this.createCharacterFrame(
-            source,
-            "fresher-left-4",
-            555,
-            260,
-            60,
-            112
-        );
+        // this.createCharacterFrame(
+        //     source,
+        //     "fresher-left-4",
+        //     555,
+        //     260,
+        //     60,
+        //     112
+        // );
 
         // FRESHER RIGHT
 
@@ -316,7 +316,7 @@ export default class Player {
                 { key: "fresher-left-1" },
                 { key: "fresher-left-2" },
                 { key: "fresher-left-3" },
-                { key: "fresher-left-4" }
+                // { key: "fresher-left-4" }
             ],
 
             frameRate: 8,
