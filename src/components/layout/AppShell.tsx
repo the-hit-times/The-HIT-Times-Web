@@ -12,6 +12,17 @@ import { TopCategoryNav } from "./TopCategoryNav";
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isAdmin = pathname.startsWith("/admin-portal");
+  const isGame = pathname.startsWith("/game");
+
+  if (isGame) {
+    return (
+      <div className="flex min-h-screen flex-col bg-background">
+        <main className="flex-1 w-full h-full">
+          {children}
+        </main>
+      </div>
+    );
+  }
 
   if (isAdmin) {
     return (
