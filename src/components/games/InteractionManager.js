@@ -119,18 +119,7 @@ export default class InteractionManager {
             0x00ff88
         );
 
-        yesBackground.setInteractive(
-            new Phaser.Geom.Rectangle(
-                -45,
-                -20,
-                90,
-                40
-            ),
-            Phaser.Geom.Rectangle.Contains,
-            {
-                useHandCursor: true
-            }
-        );
+        yesBackground.setInteractive({ useHandCursor: true});
 
 
         const yesText =
@@ -168,18 +157,7 @@ export default class InteractionManager {
             0xff5555
         );
 
-        noBackground.setInteractive(
-            new Phaser.Geom.Rectangle(
-                -45,
-                -20,
-                90,
-                40
-            ),
-            Phaser.Geom.Rectangle.Contains,
-            {
-                useHandCursor: true
-            }
-        );
+        noBackground.setInteractive({useHandCursor: true});
 
 
         const noText =
