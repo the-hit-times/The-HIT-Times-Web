@@ -30,6 +30,7 @@ export default class Joystick {
 
         this.base.setVisible(false);
         this.thumb.setVisible(false);
+        scene.cameras.main.ignore([this.base, this.thumb]);
 
         scene.input.on("pointerdown", this.onPointerDown, this);
         scene.input.on("pointermove", this.onPointerMove, this);
