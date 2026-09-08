@@ -27,7 +27,7 @@ export async function GET() {
     const authenticationParameters = imagekit.getAuthenticationParameters(
       randomUUID(),
     );
-    return NextResponse.json(authenticationParameters, {
+    return NextResponse.json({...authenticationParameters, publicKey}, {
       status: 200,
       headers: { "Cache-Control": "no-store" },
     });
