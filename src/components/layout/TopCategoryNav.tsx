@@ -27,7 +27,6 @@ const mainLinks = [
 ];
 
 const moreLinks = [
-  { label: "TSP", href: "/tsp" },
   { label: "Recruitment", href: "/recruitment" },
   { label: "About", href: "/about-us" },
   { label: "Subscribe", href: "/tht-links" },
@@ -114,8 +113,8 @@ function AccountControl({ compact }: { compact?: boolean }) {
 
 export function TopCategoryNav() {
   return (
-    <header className="mobile-header sticky top-0 z-40 border-b border-border bg-background/98 backdrop-blur-xl supports-[backdrop-filter]:bg-background/90">
-      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-4 px-5 sm:px-6 lg:h-16 lg:px-8">
+    <header className="mobile-header sticky top-0 z-40 border-b-[1.5px] border-border-strong bg-background/98 backdrop-blur-xl supports-[backdrop-filter]:bg-background/90">
+      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:h-16 lg:px-8">
         <Link
           href="/"
           className="flex shrink-0 items-center transition-opacity active:opacity-70"

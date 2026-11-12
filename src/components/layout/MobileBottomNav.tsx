@@ -27,7 +27,6 @@ const moreLinks = [
   { label: "Bookmarks", href: "/my-bookmarks", icon: Bookmark },
   { label: "Alumni", href: "/alumni", icon: User },
   { label: "Tabloids", href: "/tabloids", icon: BookOpen },
-  { label: "TSP", href: "/tsp", icon: BookOpen },
   { label: "Recruitment", href: "/recruitment", icon: User },
   { label: "About", href: "/about-us", icon: User },
   { label: "Subscribe", href: "/tht-links", icon: BookOpen },

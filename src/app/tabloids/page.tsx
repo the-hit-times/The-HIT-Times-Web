@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 
 const issues = [
+  { title: "Tabloid Issue 12", src: "https://drive.google.com/file/d/1mIX6cQCOYcIBWHZVglwg1UMDMmT6LUaB/preview" },
   { title: "Tabloid Issue 11", src: "https://drive.google.com/file/d/1veba6c-gUBntMdCxoOeiTsQ42G1lEHWD/preview" },
   { title: "Tabloid Issue 10", src: "https://drive.google.com/file/d/1aGkUuleaTzujKY6XwoL8HLLfVJCCZNaN/preview" },
   { title: "Tabloid Issue 9", src: "https://drive.google.com/file/d/19R0ctZ-LhKZ1IeKrukeoh3UW41v-C6wK/preview" },

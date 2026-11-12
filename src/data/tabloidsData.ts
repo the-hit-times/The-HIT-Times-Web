@@ -1,0 +1,136 @@
+export interface TabloidIssue {
+  id: string;
+  driveId: string;
+  issueNumber: number;
+  title: string;
+  subtitle: string;
+  date?: string;
+  totalPages?: number;
+  pdfUrl: string;
+  thumbnailUrl: string;
+  drivePreviewUrl: string;
+}
+
+export const TABLOID_ISSUES: TabloidIssue[] = [
+  {
+    id: "issue-12",
+    issueNumber: 12,
+    driveId: "1mIX6cQCOYcIBWHZVglwg1UMDMmT6LUaB",
+    title: "Tabloid Issue 12",
+    subtitle: "Latest Print Edition",
+    date: "2024",
+    pdfUrl: "/api/tabloids/pdf?id=1mIX6cQCOYcIBWHZVglwg1UMDMmT6LUaB",
+    thumbnailUrl: "https://drive.google.com/thumbnail?id=1mIX6cQCOYcIBWHZVglwg1UMDMmT6LUaB&sz=w600",
+    drivePreviewUrl: "https://drive.google.com/file/d/1mIX6cQCOYcIBWHZVglwg1UMDMmT6LUaB/preview",
+  },
+  {
+    id: "issue-11",
+    issueNumber: 11,
+    driveId: "1veba6c-gUBntMdCxoOeiTsQ42G1lEHWD",
+    title: "Tabloid Issue 11",
+    subtitle: "Latest Print Edition",
+    date: "2024",
+    pdfUrl: "/api/tabloids/pdf?id=1veba6c-gUBntMdCxoOeiTsQ42G1lEHWD",
+    thumbnailUrl: "https://drive.google.com/thumbnail?id=1veba6c-gUBntMdCxoOeiTsQ42G1lEHWD&sz=w600",
+    drivePreviewUrl: "https://drive.google.com/file/d/1veba6c-gUBntMdCxoOeiTsQ42G1lEHWD/preview",
+  },
+  {
+    id: "issue-10",
+    issueNumber: 10,
+    driveId: "1aGkUuleaTzujKY6XwoL8HLLfVJCCZNaN",
+    title: "Tabloid Issue 10",
+    subtitle: "Annual Edition",
+    date: "2023",
+    pdfUrl: "/api/tabloids/pdf?id=1aGkUuleaTzujKY6XwoL8HLLfVJCCZNaN",
+    thumbnailUrl: "https://drive.google.com/thumbnail?id=1aGkUuleaTzujKY6XwoL8HLLfVJCCZNaN&sz=w600",
+    drivePreviewUrl: "https://drive.google.com/file/d/1aGkUuleaTzujKY6XwoL8HLLfVJCCZNaN/preview",
+  },
+  {
+    id: "issue-9",
+    issueNumber: 9,
+    driveId: "19R0ctZ-LhKZ1IeKrukeoh3UW41v-C6wK",
+    title: "Tabloid Issue 9",
+    subtitle: "Campus Chronicles",
+    date: "2023",
+    pdfUrl: "/api/tabloids/pdf?id=19R0ctZ-LhKZ1IeKrukeoh3UW41v-C6wK",
+    thumbnailUrl: "https://drive.google.com/thumbnail?id=19R0ctZ-LhKZ1IeKrukeoh3UW41v-C6wK&sz=w600",
+    drivePreviewUrl: "https://drive.google.com/file/d/19R0ctZ-LhKZ1IeKrukeoh3UW41v-C6wK/preview",
+  },
+  {
+    id: "issue-7",
+    issueNumber: 7,
+    driveId: "10qmuUj5wjXc9hNwl2Ufti8ciPN61DRIt",
+    title: "Tabloid Issue 7",
+    subtitle: "Heritage & Horizons",
+    date: "2022",
+    pdfUrl: "/api/tabloids/pdf?id=10qmuUj5wjXc9hNwl2Ufti8ciPN61DRIt",
+    thumbnailUrl: "https://drive.google.com/thumbnail?id=10qmuUj5wjXc9hNwl2Ufti8ciPN61DRIt&sz=w600",
+    drivePreviewUrl: "https://drive.google.com/file/d/10qmuUj5wjXc9hNwl2Ufti8ciPN61DRIt/preview",
+  },
+  {
+    id: "issue-6",
+    issueNumber: 6,
+    driveId: "1-bYArvJOkEIDpdXsiBNy0ytExBORAUIM",
+    title: "Tabloid Issue 6",
+    subtitle: "Campus Spectrum",
+    date: "2022",
+    pdfUrl: "/api/tabloids/pdf?id=1-bYArvJOkEIDpdXsiBNy0ytExBORAUIM",
+    thumbnailUrl: "https://drive.google.com/thumbnail?id=1-bYArvJOkEIDpdXsiBNy0ytExBORAUIM&sz=w600",
+    drivePreviewUrl: "https://drive.google.com/file/d/1-bYArvJOkEIDpdXsiBNy0ytExBORAUIM/preview",
+  },
+  {
+    id: "issue-5",
+    issueNumber: 5,
+    driveId: "1mmXAH5GmZJ60P51dOtugnjmQMdJr5DyC",
+    title: "Tabloid Issue 5",
+    subtitle: "Expressions & Echoes",
+    date: "2021",
+    pdfUrl: "/api/tabloids/pdf?id=1mmXAH5GmZJ60P51dOtugnjmQMdJr5DyC",
+    thumbnailUrl: "https://drive.google.com/thumbnail?id=1mmXAH5GmZJ60P51dOtugnjmQMdJr5DyC&sz=w600",
+    drivePreviewUrl: "https://drive.google.com/file/d/1mmXAH5GmZJ60P51dOtugnjmQMdJr5DyC/preview",
+  },
+  {
+    id: "issue-4",
+    issueNumber: 4,
+    driveId: "1Vb8aXIpXgdVlFrBL_q6u9_JvVlHvLQeq",
+    title: "Tabloid Issue 4",
+    subtitle: "The Student Voice",
+    date: "2020",
+    pdfUrl: "/api/tabloids/pdf?id=1Vb8aXIpXgdVlFrBL_q6u9_JvVlHvLQeq",
+    thumbnailUrl: "https://drive.google.com/thumbnail?id=1Vb8aXIpXgdVlFrBL_q6u9_JvVlHvLQeq&sz=w600",
+    drivePreviewUrl: "https://drive.google.com/file/d/1Vb8aXIpXgdVlFrBL_q6u9_JvVlHvLQeq/preview",
+  },
+  {
+    id: "issue-3",
+    issueNumber: 3,
+    driveId: "1mYZm3aN7f4wc3a4kI4g0Ku8sTEsFewog",
+    title: "Tabloid Issue 3",
+    subtitle: "Insights & Perspectives",
+    date: "2019",
+    pdfUrl: "/api/tabloids/pdf?id=1mYZm3aN7f4wc3a4kI4g0Ku8sTEsFewog",
+    thumbnailUrl: "https://drive.google.com/thumbnail?id=1mYZm3aN7f4wc3a4kI4g0Ku8sTEsFewog&sz=w600",
+    drivePreviewUrl: "https://drive.google.com/file/d/1mYZm3aN7f4wc3a4kI4g0Ku8sTEsFewog/preview",
+  },
+  {
+    id: "issue-2",
+    issueNumber: 2,
+    driveId: "1aUrkYqHeodrx9MrnjpaKqQSf1o9f_JxV",
+    title: "Tabloid Issue 2",
+    subtitle: "Foundational Chronicles",
+    date: "2018",
+    pdfUrl: "/api/tabloids/pdf?id=1aUrkYqHeodrx9MrnjpaKqQSf1o9f_JxV",
+    thumbnailUrl: "https://drive.google.com/thumbnail?id=1aUrkYqHeodrx9MrnjpaKqQSf1o9f_JxV&sz=w600",
+    drivePreviewUrl: "https://drive.google.com/file/d/1aUrkYqHeodrx9MrnjpaKqQSf1o9f_JxV/preview",
+  },
+  {
+    id: "issue-1",
+    issueNumber: 1,
+    driveId: "1bh226035gJwsREEfF0BddWCdfajhsd-F",
+    title: "Tabloid Issue 1",
+    subtitle: "Inaugural Edition",
+    date: "2017",
+    pdfUrl: "/api/tabloids/pdf?id=1bh226035gJwsREEfF0BddWCdfajhsd-F",
+    thumbnailUrl: "https://drive.google.com/thumbnail?id=1bh226035gJwsREEfF0BddWCdfajhsd-F&sz=w600",
+    drivePreviewUrl: "https://drive.google.com/file/d/1bh226035gJwsREEfF0BddWCdfajhsd-F/preview",
+  },
+];

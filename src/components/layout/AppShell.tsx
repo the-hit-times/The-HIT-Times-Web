@@ -45,7 +45,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <main className="mx-auto w-full min-w-0 max-w-7xl flex-1 overflow-x-clip px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
         {children}
       </main>
-      <footer className="mx-auto hidden w-full min-w-0 max-w-7xl overflow-x-clip border-t border-border px-6 pt-10 md:block md:px-8 lg:pb-10">
+      <footer className="mx-auto hidden w-full min-w-0 max-w-7xl overflow-x-clip border-t-[1.5px] border-border-strong px-4 pt-10 sm:px-6 md:block lg:px-8 lg:pb-10">
         <Footer />
       </footer>
       <MobileBottomNavSpacer />
