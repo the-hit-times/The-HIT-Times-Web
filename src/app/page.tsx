@@ -9,7 +9,7 @@ export default function HomePage() {
       <HeroSection />
 
       {/* temporary banner hai  */}
-      <Link href="/game" className="block relative w-full h-[150px] sm:h-[220px] md:h-[300px] lg:h-[350px] rounded-xl overflow-hidden shadow-lg hover:opacity-95 transition-opacity cursor-pointer">
+      {/* <Link href="/game" className="block relative w-full h-[150px] sm:h-[220px] md:h-[300px] lg:h-[350px] rounded-xl overflow-hidden shadow-lg hover:opacity-95 transition-opacity cursor-pointer">
         <Image
           src="/banner-fresher.png" 
           alt="Homepage Banner"
@@ -17,7 +17,7 @@ export default function HomePage() {
           className="object-cover"
           priority
         />
-      </Link>
+      </Link> */}
       {/* Banner khatam */}
 
       <WeeklyPortion />
